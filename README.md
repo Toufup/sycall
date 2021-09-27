@@ -43,3 +43,6 @@
 
 ## マーケット
 国籍性別問わず、K-POP アイドル文化に興味関心があり、10~30代の K-POP ファン。
+
+## 画面遷移図
+https://www.figma.com/file/u48Yv2S58coIMkc8RmDOUd/Sycall
