@@ -46,3 +46,6 @@
 
 ## 画面遷移図
 https://www.figma.com/file/u48Yv2S58coIMkc8RmDOUd/Sycall
+
+## ER図
+https://drive.google.com/file/d/18giPNy4DLuw2nUKtEXDFVhpilLqEuTyE/view?usp=sharing
