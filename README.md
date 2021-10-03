@@ -48,4 +48,4 @@
 https://www.figma.com/file/u48Yv2S58coIMkc8RmDOUd/Sycall
 
 ## ER図
-https://drive.google.com/file/d/18giPNy4DLuw2nUKtEXDFVhpilLqEuTyE/view?usp=sharing
+https://drive.google.com/file/d/1YVhHjtnspS2BmLNwkkQI8QY-dhf45dIR/view?usp=sharing
