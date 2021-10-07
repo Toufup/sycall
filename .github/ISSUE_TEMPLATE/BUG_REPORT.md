@@ -3,7 +3,6 @@ name: 不具合・バグ
 about: 不具合、バグ改善のためのissue
 title: "[BUG]"
 labels: bug
-assignees: ''
 
 ---
 
