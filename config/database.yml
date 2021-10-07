@@ -18,8 +18,8 @@ default: &default
 development:
   <<: *default
   database: Sycall_development
-  username: <%= DATABASE_USERNAME %>
-  password: <%= DATABASE_PASSWORD %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -27,8 +27,8 @@ development:
 test:
   <<: *default
   database: Sycall_test
-  username: <%= DATABASE_USERNAME %>
-  password: <%= DATABASE_PASSWORD %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
