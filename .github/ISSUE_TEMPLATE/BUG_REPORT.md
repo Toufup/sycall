@@ -3,7 +3,6 @@ name: 機能改善・機能追加リクエスト
 about: 追加したい機能がある場合の issue
 title: "[IMPROVE]"
 labels: improvement
-assignees: ''
 
 ---
 
