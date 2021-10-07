@@ -1,0 +1,24 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+
+AllCops:
+  Exclude:
+    - 'tmp/**/*'
+    - '.git/**/*'
+    - "vendor/**/*"
+    - "db/**/*"
+    - "bin/**/*"
+    - "lib/**/*"
+    - "config/**/*"
+    - "node_modules/**/*"
+    - "Gemfile"
+  DisplayCopNames: true
+
+Rails:
+  Enabled: true
+
+## 日本語コメントを許可します。
+Style/AsciiComments:
+  Enabled: false
