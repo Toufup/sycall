@@ -1,12 +1,12 @@
 doctype html
 html
-  head
-    title
-      | Sycall
-    = csrf_meta_tags
-    = csp_meta_tag
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-    = javascript_pack_tag "hello_vue" 
-  body
-    = yield
+    head
+        title
+            | Sycall
+        = csrf_meta_tags
+        = csp_meta_tag
+        = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+        = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+        = javascript_pack_tag "main" 
+    body
+        = yield
