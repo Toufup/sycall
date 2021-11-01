@@ -5,8 +5,10 @@ html
             | Sycall
         = csrf_meta_tags
         = csp_meta_tag
-        = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+        / = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
         = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+        = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+        = stylesheet_link_tag "https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css"
         = favicon_pack_tag "favicon.png"
     body
         = yield
