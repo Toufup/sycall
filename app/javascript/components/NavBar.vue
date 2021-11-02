@@ -12,8 +12,8 @@
                         </div>
                     </a>
                     <v-spacer></v-spacer>
-                    <v-btn depressed large rounded outlined color="mainColor" class="mx-4">Login</v-btn>
-                    <v-btn depressed large rounded color="mainColor" class="mx-4">Sign up</v-btn>
+                    <v-btn depressed large rounded outlined color="mainColor" class="ml-4">Login</v-btn>
+                    <v-btn depressed large rounded color="mainColor" class="ml-4">Sign up</v-btn>
                 </v-row>
             </v-container>
         </v-app-bar>
