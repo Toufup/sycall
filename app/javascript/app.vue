@@ -23,9 +23,6 @@
 </script>
 
 <style>
-    p{
-        color: #f5f5f7;
-    }
     .v-application{
         font-family: 'Russo One', 'M PLUS 1p', sans-serif;
     }

@@ -1,24 +1,27 @@
 <template>
-    <div>
-        <v-app-bar flat app height="100" color="transparent">
-            <v-container mx-16>
-                <v-row align="center">
+    <v-app-bar flat app height="100" color="transparent" >
+        <v-container mx-md-16 mx-sm-10 fluid>
+            <v-row align="center">
+                <v-col>
                     <a href="#">
-                        <div class="logo-box" @mouseover="mouseOverAction" @mouseout="mouseOutAction">
+                        <div id="logo-box" @mouseover="mouseOverAction" @mouseout="mouseOutAction">
                             <img :src="outlineLogo" 
                                 height="70" width="70" 
                                 ref="logo"/>
                             <h1 class="white--text">Sycall</h1>
                         </div>
                     </a>
-                    <v-spacer></v-spacer>
-                    <v-btn depressed large rounded outlined color="mainColor" class="ml-4">Login</v-btn>
-                    <v-btn depressed large rounded color="mainColor" class="ml-4">Sign up</v-btn>
-                </v-row>
-            </v-container>
-        </v-app-bar>
-    </div>
-    
+                </v-col>
+                <v-spacer></v-spacer>
+                <v-col >
+                    <div id="navbar-right">
+                        <v-btn depressed large rounded outlined color="mainColor" class="ml-2">Login</v-btn>
+                        <v-btn depressed large rounded color="mainColor" class="ml-2">Sign up</v-btn>
+                    </div>
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-app-bar>
 </template>
 
 <script>
@@ -42,12 +45,17 @@
 </script>
 
 <style scoped>
-    .logo-box {
+    #logo-box {
         display: flex;
         flex-direction: row;
         align-items: center;
     }
     h1{
         font-size: xxx-large;
+    }
+    #navbar-right{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
     }
 </style>
