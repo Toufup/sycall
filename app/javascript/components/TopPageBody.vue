@@ -10,7 +10,7 @@
             </v-col>
             <v-col>
                 <div id="top-body-lright">
-                    <v-img src="https://dummyimage.com/300x200/000/fff"  ></v-img>
+                    <v-img src="https://dummyimage.com/300x200/000/fff" id="demo-img"></v-img>
                 </div>
             </v-col>
         </v-row>
@@ -33,10 +33,13 @@
 </script>
 
 <style scoped>
-    /* h1{
-        font-size: xx-large;
-    } */
+    h1{
+        font-size: xxx-large;
+    }
     p{
         color: #f5f5f7;
+    }
+    #demo-img{
+        border-radius:20px;
     }
 </style>
