@@ -1,12 +1,17 @@
 doctype html
 html
-  head
-    title
-      | Sycall
-    = csrf_meta_tags
-    = csp_meta_tag
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-    = javascript_pack_tag "hello_vue" 
-  body
-    = yield
+    head
+        title
+            | Sycall
+        meta charset="UTF-8"/
+        meta http-equiv="X-UA-Compatible" content="IE=edge"/
+        meta name="viewport" content="width=device-width, initial-scale=1.0"/
+        = csrf_meta_tags
+        = csp_meta_tag
+        / = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+        = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+        = stylesheet_link_tag "https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400;700&family=Russo+One&display=swap"
+        = stylesheet_link_tag "https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css"
+        = favicon_pack_tag "favicon.png"
+    body
+        = yield
