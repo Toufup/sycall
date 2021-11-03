@@ -18,15 +18,12 @@
 </template>
 
 <script>
-    import party from "party-js";
+    import {hearts} from '../src/effects/hearts'
     export default {
         name: "TopPageBody",
         methods: {
             sparkles(event){
-                party.sparkles(event.target,{
-                    count: party.variation.range(10, 20),
-                    speed: party.variation.range(50, 450),
-                })
+                hearts(event.target)
             }
         },
     }
