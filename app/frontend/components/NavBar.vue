@@ -2,7 +2,7 @@
     <v-app-bar flat app height="100" color="transparent" >
         <v-container mx-md-16 mx-sm-10 fluid>
             <v-row align="center">
-                <v-col>
+                <v-col cols="auto">
                     <a href="#">
                         <div id="logo-box" @mouseover="mouseOverAction" @mouseout="mouseOutAction">
                             <img :src="outlineLogo" 
@@ -13,7 +13,7 @@
                     </a>
                 </v-col>
                 <v-spacer></v-spacer>
-                <v-col >
+                <v-col cols="auto">
                     <div id="navbar-right">
                         <v-btn depressed large rounded outlined color="mainColor" class="ml-2">Login</v-btn>
                         <v-btn depressed large rounded color="mainColor" class="ml-2">Sign up</v-btn>
