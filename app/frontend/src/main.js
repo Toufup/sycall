@@ -14,10 +14,12 @@ const vuetify = new Vuetify({
         themes: {
             light: {
                 mainColor: "#58ffaa",
-                primary: "#ffaee4",
+                primary: "#ff94ce",
+                secondary: "#95fff0",
                 white: "#f5f5f7",
                 black: "#323232",
                 navy: "#2d5776",
+                violet: "#553776",
             },
         },
     },

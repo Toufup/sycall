@@ -31,7 +31,7 @@
         text-decoration: none;
     }
     #top-wrapper {
-        background: linear-gradient(241deg, #825d94, #2b5876);
+        background: linear-gradient(241deg,  #825d94, #2b5876, #173041);
         background-size: 400% 400%;
         animation: bgGradation 4s ease infinite;
     }
