@@ -1,10 +1,14 @@
-import Vue from 'vue'
+import Vue from 'vue';
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
-import App from '../App.vue'
+import App from '../App.vue';
+import VueRouter from 'vue-router';
+import router from '../router/index.js';
 Vue.config.productionTip = false;
 
 Vue.use(Vuetify);
+Vue.use(VueRouter);
+
 const vuetify = new Vuetify({
     theme: {
         themes: {
@@ -22,6 +26,7 @@ const vuetify = new Vuetify({
 document.addEventListener('DOMContentLoaded', () => {
     new Vue({
         vuetify,
+        router,
         el: "#app",
         render: h => h(App),
     })

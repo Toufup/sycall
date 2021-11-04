@@ -3,14 +3,14 @@
         <v-container mx-md-16 mx-sm-10 fluid>
             <v-row align="center">
                 <v-col cols="auto">
-                    <a href="#">
-                        <div id="logo-box" @mouseover="mouseOverAction" @mouseout="mouseOutAction">
+                    <router-link to="/">
+                        <div id="logo-box" @mouseover="mouseOverAction" @mouseout="mouseOutAction" @click="sparkles($event)">
                             <img :src="outlineLogo" 
                                 height="70" width="70" 
                                 ref="logo"/>
                             <h1 class="white--text">Sycall</h1>
                         </div>
-                    </a>
+                    </router-link>
                 </v-col>
                 <v-spacer></v-spacer>
                 <v-col cols="auto">
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+    import {hearts} from '../src/effects/hearts'
     export default {
         name: "NavBar",
         data() {
@@ -39,6 +40,9 @@
             },
             mouseOutAction(){
                 this.$refs.logo.src = this.outlineLogo
+            },
+            sparkles(event){
+                hearts(event.target)
             },
         },
     }
