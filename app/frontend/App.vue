@@ -25,7 +25,7 @@
 
 <style>
     .v-application{
-        font-family: 'Russo One', 'M PLUS 1p', sans-serif;
+        font-family: 'Russo One', 'M PLUS Rounded 1c', sans-serif;
     }
     a{
         text-decoration: none;
