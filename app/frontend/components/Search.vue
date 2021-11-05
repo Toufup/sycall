@@ -9,9 +9,16 @@
                 id="search-input" v-model="keyword"
             ></v-text-field>
         </div>
+        <!-- TODO E 結果を選択した時に、末尾にチェックマークを付ける -->
+        <!-- TODO B リストアイテムをクリック後、Valueを入力欄に反映させる -->
+        <!-- TODO D 結果リストをオーバーフロー形式にする、最大heightは3行 -->
+        <!-- TODO A 結果がない場合の表示 -->
         <div id="result-list">
-            <v-menu activator="#search-input" offset-y max-height="200px">
-                <v-list rounded v-show="hasResult">
+            <transition enter-active-class="animate__animated animate__fadeIn"
+            leave-active-class="animate__animated animate__fadeOut">
+            <!-- TODO C 理想：結果リストを浮かせる -->
+            <!-- TODO C 出来なければ：結果リストの位置を入力欄にくっつけるように調整する。 -->
+                <v-list rounded v-show="hasResult" class="rounded-xl mt-n7 ">
                     <v-list-item-group color="primary" v-model="selected">
                         <v-list-item v-for="result in results" :key="result.id">
                             <v-list-item-content>
@@ -26,7 +33,7 @@
                         </v-list-item>
                     </v-list-item-group>
                 </v-list>
-            </v-menu>
+            </transition>
         </div>
     </div>
 </template>
@@ -36,8 +43,6 @@
         name: "Search",
         data() {
             return {
-                // TODO インプットエリアをもう一回クリックすると表示しなくなる現象を解消する
-                isActive: true,
                 hasResult: false,
                 selected: null,
                 keyword: "",
@@ -53,13 +58,17 @@
         },
         watch: {
             keyword(value){
-                console.log(value);
+                // 入力値があれば判別ロジックに入る
                 if (value && value !== this.selected ) {
                     this.results = this.calls.filter((c) => {
-                        return c.title.toLowerCase().indexOf(value) !== -1
+                        // タイトルで検索するロジック
+                        // TODO AA アーティスト名で検索するロジックを考える。
+                        return c.title.toLowerCase().indexOf(value.toLowerCase()) !== -1
                     });
+                    // 結果があれば「結果あり」のフラグを、なければ「結果なし」のフラグをつける。
                     this.results.length > 0 ? this.hasResult = true : this.hasResult = false
                 } else {
+                    // TODO A 入力値がなければ判別ロジックに入らず、入力欄が初期状態であるフラグを設定
                     this.hasResult = false
                 }
             },
