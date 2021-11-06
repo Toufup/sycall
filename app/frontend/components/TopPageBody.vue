@@ -5,7 +5,7 @@
                 <div id="top-body-left">
                     <h1 class="mainColor--text">最高なコールを！</h1>
                     <p>Sycall は K-POP アイドル曲のコール練習を楽しくする。 <br/> 最高なコールを決めて推しを応援しよう！</p>
-                    <v-btn depressed x-large rounded color="mainColor" class="mt-4" @click="sparkles($event)">Try Now!</v-btn>
+                    <v-btn depressed x-large rounded color="mainColor" class="mt-4" @click="toPreparation($event)">Try Now!</v-btn>
                 </div>
             </v-col>
             <v-col>
@@ -22,7 +22,7 @@
     export default {
         name: "TopPageBody",
         methods: {
-            sparkles(event){
+            toPreparation(event){
                 hearts(event.target);
                 setTimeout(() => {
                     this.$router.push({
