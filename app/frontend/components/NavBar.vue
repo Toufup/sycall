@@ -1,16 +1,16 @@
 <template>
-    <v-app-bar flat app height="100" color="transparent" >
+    <v-app-bar flat absolute app height="100" color="transparent">
         <v-container mx-md-16 mx-sm-10 fluid>
             <v-row align="center">
                 <v-col cols="auto">
-                    <router-link to="/">
-                        <div id="logo-box" @mouseover="mouseOverAction" @mouseout="mouseOutAction" @click="sparkles($event)">
+                    <a>
+                        <div id="logo-box" @mouseover="mouseOverAction" @mouseout="mouseOutAction" @click="toHome($event)" ref="logoBox">
                             <img :src="outlineLogo" 
                                 height="70" width="70" 
                                 ref="logo"/>
                             <h1 class="white--text">Sycall</h1>
                         </div>
-                    </router-link>
+                    </a>
                 </v-col>
                 <v-spacer></v-spacer>
                 <v-col cols="auto">
@@ -26,6 +26,7 @@
 
 <script>
     import {hearts} from '../src/effects/hearts'
+    import {animateCss} from '../src/effects/animateCss'
     export default {
         name: "NavBar",
         data() {
@@ -41,8 +42,17 @@
             mouseOutAction(){
                 this.$refs.logo.src = this.outlineLogo
             },
-            sparkles(event){
+            toHome(event){
+                animateCss(this.$refs.logoBox,"jello")
                 hearts(event.target)
+                if (this.$route.path === "/") {
+                    return
+                }
+                setTimeout(() => {
+                    this.$router.push({
+                        path: "/",
+                    })
+                }, 90);
             },
         },
     }
