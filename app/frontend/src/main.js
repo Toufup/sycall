@@ -1,20 +1,23 @@
-import Vue from 'vue'
+import Vue from 'vue';
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
-import colors from 'vuetify/lib/util/colors'
-import App from '../App.vue'
+import App from '../App.vue';
+import VueRouter from 'vue-router';
+import router from '../router/index.js';
 Vue.config.productionTip = false;
 
 Vue.use(Vuetify);
+Vue.use(VueRouter);
+
 const vuetify = new Vuetify({
     theme: {
         themes: {
             light: {
                 mainColor: "#58ffaa",
-                primary: "#ffaee4",
+                primary: "#fffa6e",
+                maccha: "#049d3b",
                 white: "#f5f5f7",
                 black: "#323232",
-                navy: "#2d5776",
             },
         },
     },
@@ -23,6 +26,7 @@ const vuetify = new Vuetify({
 document.addEventListener('DOMContentLoaded', () => {
     new Vue({
         vuetify,
+        router,
         el: "#app",
         render: h => h(App),
     })

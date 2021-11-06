@@ -1,6 +1,6 @@
 <template>
     <v-container fluid id="footer">
-        <v-sheet class="text-center mainColor rounded-t-xl mx-16">
+        <v-sheet class="mainColor rounded-t-xl mx-16">
             <v-container px-16 pt-10>
                 <v-row>
                     <v-col cols="4">
@@ -13,9 +13,9 @@
                     </v-col>
                     <v-col cols="8">
                         <div id="footer-right">
-                            <v-chip color="mainColor" small link class="mb-1">利用規約</v-chip>
-                            <v-chip color="mainColor" small link class="mb-1">よくある質問</v-chip>
-                            <v-chip color="mainColor" small link class="mb-1">フィードバック・ご意見</v-chip>
+                            <v-chip color="mainColor" small link class="black--text mb-1">利用規約</v-chip>
+                            <v-chip color="mainColor" small link class="black--text mb-1">よくある質問</v-chip>
+                            <v-chip color="mainColor" small link class="black--text mb-1">フィードバック・ご意見</v-chip>
                         </div>
                     </v-col>
                 </v-row>
