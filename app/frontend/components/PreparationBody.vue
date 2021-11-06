@@ -3,7 +3,7 @@
         <v-sheet class="mainColor rounded-xl mx-16">
             <v-container px-16 py-8>
                 <div id="musicVideo">
-                    <h2 class="black--text">どのミュージックビデオで練習しますか？</h2>
+                    <h1 class="black--text">どのミュージックビデオで練習しますか？</h1>
                     <v-alert v-if="showNoUrlAlert" dense rounded color="primary" 
                         icon="mdi-information-outline" class="mb-2">
                         URLを入力してください。
@@ -18,11 +18,18 @@
                         prepend-inner-icon="mdi-youtube" class="mt-2" v-model.trim="videoUrl"
                     ></v-text-field>
                 </div>
-                <Search></Search>
+                <div>
+                    <h1 class="black--text">どのコールで練習しますか？</h1>
+                    <v-alert v-show="showCallAlert" dense rounded color="primary" 
+                        icon="mdi-information-outline" class="mb-2">
+                        コールを選択してください
+                    </v-alert>
+                </div>
+                <Search @checkCallError="setHasCallErrorFlag"></Search>
                 <v-row id="start-button" justify="center" align="center">
                     <v-btn color="primary" class="my-4 black--text"
                         depressed x-large rounded width="170px"
-                        @click="start"
+                        @click="toLive($event)"
                     >START</v-btn>
                 </v-row>
             </v-container>
@@ -31,6 +38,7 @@
 </template>
 
 <script>
+    import {hearts} from '../src/effects/hearts'
     import Search from './Search.vue'
     export default {
         name: "PreparationBody",
@@ -39,6 +47,8 @@
                 videoUrl: "",
                 showNoUrlAlert: false,
                 showUrlFormatAlert: false,
+                hasCallError: false,
+                showCallAlert: false,
             }
         },
         computed: {
@@ -58,13 +68,25 @@
             Search,
         },
         methods: {
-            start(){
+            toLive(event){
                 // URL が入力されていないと、アラートを表示する
                 this.showNoUrlAlert = this.hasNoUrlError ? true : false;
                 // URL の形式が正しくないと、アラートを表示する
                 this.showUrlFormatAlert = this.hasUrlFormatError ? true : false;
+                // コールが選択されていないと、アラートを表示する
+                this.showCallAlert = this.hasCallError ? true : false;
                 // 次のページに遷移する（プログラム的vue-router）
-            }
+                hearts(event.target);
+                // setTimeout(() => {
+                //     this.$router.push({
+                //         path: "/live",
+                //     })
+                    
+                // }, 90);
+            },
+            setHasCallErrorFlag(hasSelected){
+                this.hasCallError = hasSelected ? false : true;
+            },
         },
     }
 </script>

@@ -1,7 +1,6 @@
 <template>
-    <div id="subtitle">
+    <div id="search-box">
         <div>
-            <h2 class="black--text">どのコールで練習しますか？</h2>
             <v-text-field placeholder="曲名、アーティスト名で検索する" 
                 clearable clear-icon="mdi-close-circle"
                 prepend-inner-icon="mdi-subtitles" class="mt-2"
@@ -21,9 +20,8 @@
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
-        <!-- TODO A 必ず選択するバリデーションをつける -->
-            <v-list v-show="hasResult" rounded max-height="280px" class="rounded-xl overflow-y-auto mt-n7 mb-7">
-                <v-list-item-group color="primary">
+            <v-list v-if="hasResult" rounded max-height="280px" class="rounded-xl overflow-y-auto mt-n5 mb-7">
+                <v-list-item-group color="primary" mandatory v-model="activeTarget">
                     <v-list-item 
                         v-for="result in results" :key="result.id" 
                         @click="selectResult(result)" v-slot="{ active }">
@@ -54,7 +52,8 @@
             return {
                 isValid: false,
                 hasResult: false,
-                selectedResult: {},
+                selectedResult: null,
+                activeTarget: 0,
                 keyword: "",
                 results: [],
                 calls: [
@@ -66,28 +65,39 @@
                 ]
             }
         },
+        computed: {
+            hasSelected(){
+                return this.selectedResult ? true : false
+            }
+        },
         watch: {
             keyword(value){
+                this.activeTarget = 0;
+                this.selectedResult = null;
                 if (value && value.trim()) {
                     this.isValid = true;
                     this.results = this.calls.filter((c) => {
                         return c.title.toLowerCase().indexOf(value.trim().toLowerCase()) !== -1 || 
                                 c.artist.toLowerCase().indexOf(value.trim().toLowerCase()) !== -1
                     });
-                    this.results.length > 0 ? this.hasResult = true : this.hasResult = false
+                    this.results.length > 0 ? this.hasResult = true : this.hasResult = false;
+                    this.selectedResult = this.results[0];
                 } else {
                     this.hasResult = false;
                     this.isValid = false;
                 }
             },
+            hasSelected: {
+                immediate: true,
+                handler(value){
+                    this.$emit("checkCallError",value)
+                }
+            }
         },
         methods: {
             selectResult(result){
                 this.selectedResult = result;
             }
-        },
-        updated() {
-            console.log("Updated");
         },
     }
 </script>
