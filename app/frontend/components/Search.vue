@@ -4,7 +4,7 @@
             <v-text-field placeholder="曲名、アーティスト名で検索する" 
                 clearable clear-icon="mdi-close-circle"
                 prepend-inner-icon="mdi-subtitles" class="mt-2"
-                background-color="white" color="primary" rounded outlined
+                background-color="white" color="maccha" rounded outlined
                 id="search-input" v-model="keyword"
             ></v-text-field>
         </div>
@@ -14,14 +14,14 @@
                     <v-list-item-content>
                         <v-list-item-title class="font-weight-bold">一致するコールは見つかりませんでした</v-list-item-title>
                         <v-list-item-subtitle>
-                            <span class="primary--text font-weight-bold">「フィードバック・ご意見」</span>
+                            <span class="maccha--text font-weight-bold">「フィードバック・ご意見」</span>
                             から開発者にリクエストしましょう！♪
                         </v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
             <v-list v-if="hasResult" rounded max-height="280px" class="rounded-xl overflow-y-auto mt-n5 mb-7">
-                <v-list-item-group color="primary" mandatory v-model="activeTarget">
+                <v-list-item-group color="maccha" mandatory v-model="activeTarget">
                     <v-list-item 
                         v-for="result in results" :key="result.id" 
                         @click="selectResult(result)" v-slot="{ active }">

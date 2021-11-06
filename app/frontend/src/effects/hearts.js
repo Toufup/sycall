@@ -49,8 +49,8 @@ export function hearts(source, options){
             initialSpeed: party.variation.range(50, 250),
             initialLifetime: party.variation.range(1, 4),
             initialColor: party.variation.gradientSample(
-                party.Gradient.simple(party.Color.fromHex("#ffec27"),
-                party.Color.fromHex("#58ffaa"))
+                party.Gradient.simple(party.Color.fromHex("#fffa6e"),
+                party.Color.fromHex("#ff57b5"))
             ),
         },
         rendererOptions: {

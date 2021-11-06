@@ -14,7 +14,7 @@
                     </v-alert>
                     <v-text-field placeholder="YouTube動画のリンクを貼り付ける" 
                         autofocus clearable clear-icon="mdi-close-circle"
-                        background-color="white" color="primary" rounded outlined
+                        background-color="white" color="maccha" rounded outlined
                         prepend-inner-icon="mdi-youtube" class="mt-2" v-model.trim="videoUrl"
                     ></v-text-field>
                 </div>
