@@ -1,6 +1,6 @@
 <template>
     <v-app-bar flat absolute app height="80" color="transparent">
-        <v-container mx-md-16 mx-sm-10 fluid>
+        <v-container mx-md-16 mx-sm-12 fluid>
             <v-row align="center">
                 <v-col cols="auto">
                     <a>
