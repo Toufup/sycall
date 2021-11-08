@@ -1,6 +1,7 @@
 <template>
     <v-container fluid id="practice-body" px-16 py-0>
         <v-row justify="center" id="info" class="my-0">
+            <!--TODO 音符のアイコンがずっと回るエフェクトを作る -->
             <v-icon left color="pink">mdi-music-circle</v-icon>
             <h4 class="pink--text text-center">練習中：{{artist}} - {{song}}</h4>
         </v-row>
@@ -10,8 +11,8 @@
         <v-row align="center" id="subtitle" justify="center">
             <v-col cols="auto">
                 <v-tooltip top>
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-btn fab color="white" @click="see" v-bind="attrs" v-on="on">
+                    <template v-slot:activator="{on}">
+                        <v-btn depressed fab color="white" @click="see" v-on="on">
                             <v-icon x-large color="maccha">mdi-{{seeButton}}</v-icon>
                         </v-btn>
                     </template>
@@ -20,25 +21,39 @@
             </v-col>
             <v-col cols="9" class="px-0">
                 <v-sheet v-show="this.isVisible" color="white rounded-pill px-5 py-2">
-                    <h2 class="text-center">どんなのがいい？笑顔にしたいのに<span class="pink">（NiziU!）</span></h2>
+                    <h2 class="text-center black--text">どんなのがいい？笑顔にしたいのに<span class="pink">（NiziU!）</span></h2>
                 </v-sheet>
             </v-col>
             <v-col cols="auto">
-                <v-speed-dial open-on-hover transition="slide-y-reverse-transition"
-                    direction="top">
+                <v-speed-dial direction="top" open-on-hover transition="slide-y-reverse-transition" v-model="isSpeedDialActive">
                     <template v-slot:activator>
-                        <v-btn fab color="white">
-                            <v-icon x-large >mdi-chevron-up</v-icon>
+                        <v-btn depressed fab color="white">
+                            <v-icon x-large color="black">mdi-{{optionButton}}</v-icon>
                         </v-btn>
                     </template>
-                    <v-btn fab color="white">
-                        <v-icon x-large color="maccha">mdi-rewind</v-icon>
+                    <v-btn depressed fab color="white" class="demoBtn">
+                        <v-tooltip top>
+                            <template v-slot:activator="{on}">
+                                <v-icon x-large color="maccha" v-on="on">mdi-rewind</v-icon>
+                            </template>
+                            <span>字幕0.5秒巻き戻し</span>
+                        </v-tooltip>
                     </v-btn>
-                    <v-btn fab color="white">
-                        <v-icon x-large color="maccha">mdi-fast-forward</v-icon>
+                    <v-btn depressed fab color="white">
+                        <v-tooltip top>
+                            <template v-slot:activator="{on}">
+                                <v-icon x-large color="maccha" v-on="on">mdi-fast-forward</v-icon>
+                            </template>
+                            <span>字幕0.5秒早送り</span>
+                        </v-tooltip>
                     </v-btn>
-                    <v-btn fab color="white" @click="like">
-                        <v-icon x-large color="pink">mdi-{{likeButton}}</v-icon>
+                    <v-btn depressed fab color="white" @click.stop="like($event)" >
+                        <v-tooltip top>
+                            <template v-slot:activator="{on}">
+                                <v-icon x-large color="pink" v-on="on">mdi-{{likeButton}}</v-icon>
+                            </template>
+                            <span>お気に入り</span>
+                        </v-tooltip>
                     </v-btn>
                 </v-speed-dial>
             </v-col>
@@ -56,6 +71,7 @@
                 artist: "NiziU",
                 isLiked: false,
                 isVisible: true,
+                isSpeedDialActive: false,
             }
         },
         computed: {
@@ -64,6 +80,9 @@
             },
             seeButton(){
                 return this.isVisible ? "eye" : "eye-off";
+            },
+            optionButton(){
+                return this.isSpeedDialActive ? "chevron-up" : "dots-vertical"
             },
         },
         methods: {
