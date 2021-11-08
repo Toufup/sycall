@@ -5,7 +5,9 @@
             <h4 class="pink--text text-center">練習中：{{artist}} - {{song}}</h4>
         </v-row>
         <v-row id="video" justify="center">
-            <v-img src="https://dummyimage.com/1920x1080/323232/ff94ce" :aspect-ratio="16/9" max-width="820"></v-img>
+            <v-sheet class="ma-0" id="video-player" width="820" color="transparent">
+                <youtube fitParent :video-id="videoId"></youtube>
+            </v-sheet>
         </v-row>
         <v-row align="center" id="subtitle" justify="center">
             <v-col cols="auto">
@@ -72,6 +74,7 @@
                 isLiked: false,
                 isVisible: true,
                 isSpeedDialActive: false,
+                videoId: "CN11U5t83Ro",
             }
         },
         computed: {
