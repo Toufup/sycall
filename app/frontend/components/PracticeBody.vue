@@ -1,8 +1,7 @@
 <template>
     <v-container fluid id="practice-body" px-16 py-0>
         <v-row justify="center" id="info" class="my-0">
-            <!--TODO 音符のアイコンがずっと回るエフェクトを作る -->
-            <v-icon left color="pink">mdi-music-circle</v-icon>
+            <v-icon left color="pink" id="music-circle-icon">mdi-music-circle</v-icon>
             <h4 class="pink--text text-center">練習中：{{artist}} - {{song}}</h4>
         </v-row>
         <v-row id="video" justify="center">
@@ -101,5 +100,15 @@
 </script>
 
 <style scoped>
-
+    #music-circle-icon{
+        animation: rotate 2s linear infinite;
+    }
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
 </style>
