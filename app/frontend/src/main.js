@@ -4,10 +4,13 @@ import "vuetify/dist/vuetify.min.css";
 import App from '../App.vue';
 import VueRouter from 'vue-router';
 import router from '../router/index.js';
+import VueYoutube from 'vue-youtube'
+
 Vue.config.productionTip = false;
 
 Vue.use(Vuetify);
 Vue.use(VueRouter);
+Vue.use(VueYoutube)
 
 const vuetify = new Vuetify({
     theme: {
