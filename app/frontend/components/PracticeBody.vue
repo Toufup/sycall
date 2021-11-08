@@ -34,17 +34,17 @@
                     <v-btn depressed fab color="white" class="demoBtn">
                         <v-tooltip top>
                             <template v-slot:activator="{on}">
-                                <v-icon x-large color="maccha" v-on="on">mdi-rewind</v-icon>
+                                <v-icon x-large color="maccha" v-on="on">icon-rewind-1</v-icon>
                             </template>
-                            <span>字幕0.5秒巻き戻し</span>
+                            <span>字幕1秒巻き戻し</span>
                         </v-tooltip>
                     </v-btn>
                     <v-btn depressed fab color="white">
                         <v-tooltip top>
                             <template v-slot:activator="{on}">
-                                <v-icon x-large color="maccha" v-on="on">mdi-fast-forward</v-icon>
+                                <v-icon x-large color="maccha" v-on="on">icon-fast-forward-1</v-icon>
                             </template>
-                            <span>字幕0.5秒早送り</span>
+                            <span>字幕1秒早送り</span>
                         </v-tooltip>
                     </v-btn>
                     <v-btn depressed fab color="white" @click.stop="like($event)" >
@@ -62,6 +62,7 @@
 </template>
 
 <script>
+    import '../images/icomoon/style.css'
     import {hearts} from '../src/effects/hearts'
     export default {
         name: "PracticeBody",
