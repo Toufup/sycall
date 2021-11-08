@@ -29,7 +29,7 @@
                 <v-row id="start-button" justify="center" align="center">
                     <v-btn color="primary" class="my-4 black--text"
                         depressed x-large rounded width="170px"
-                        @click="toLive($event)"
+                        @click="toPractice($event)"
                     >START</v-btn>
                 </v-row>
             </v-container>
@@ -68,7 +68,8 @@
             Search,
         },
         methods: {
-            toLive(event){
+            toPractice(event){
+                hearts(event.target);
                 // URL が入力されていないと、アラートを表示する
                 this.showNoUrlAlert = this.hasNoUrlError ? true : false;
                 // URL の形式が正しくないと、アラートを表示する
@@ -76,13 +77,13 @@
                 // コールが選択されていないと、アラートを表示する
                 this.showCallAlert = this.hasCallError ? true : false;
                 // 次のページに遷移する（プログラム的vue-router）
-                hearts(event.target);
-                // setTimeout(() => {
-                //     this.$router.push({
-                //         path: "/live",
-                //     })
+                // TODO C バリデーションを満たす場合にのみ遷移できる条件分岐を書く
+                setTimeout(() => {
+                    this.$router.push({
+                        path: "/practice",
+                    })
                     
-                // }, 90);
+                }, 90);
             },
             setHasCallErrorFlag(hasSelected){
                 this.hasCallError = hasSelected ? false : true;

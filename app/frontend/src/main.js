@@ -18,6 +18,7 @@ const vuetify = new Vuetify({
                 maccha: "#049d3b",
                 white: "#f5f5f7",
                 black: "#323232",
+                pink: "#ff94ce",
             },
         },
     },
