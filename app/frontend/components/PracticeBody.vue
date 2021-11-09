@@ -24,7 +24,10 @@
             </v-col>
             <v-col cols="9" class="px-0">
                 <v-sheet v-show="this.isVisible" color="white rounded-pill px-5 py-2" min-height="56px" id="lyrics-wrapper">
-                    <h2 class="text-center black--text">{{currentLyric}}</h2>
+                    <h2 class="text-center black--text" 
+                        v-for="line in lyricsLines" :key="line.time" v-show="showLyric(line)"
+                    >{{line.lyric}}
+                    </h2>
                 </v-sheet>
             </v-col>
             <v-col cols="auto">
@@ -315,7 +318,6 @@
                         "lyric": " You tell me"
                     }
                 ],
-                currentLyric: "",
                 playerVars: {
                     autoplay: 1,
                     // YouTube のロゴを表示させない
@@ -338,17 +340,6 @@
                 return this.$refs.youtube.player
             },
         },
-        watch: {
-            currentTime(nowValue){
-                for (let i = 0; i < this.lyricsLines.length; i++) {
-                    const line = this.lyricsLines[i];
-                    // TODO 「-1」はオフセット値、字幕の再生位置を調整するためのもの。次のブランチでボタンに紐付ける予定。
-                    if (nowValue - 1 >= line.time) {
-                        this.currentLyric = line.lyric
-                    }
-                }
-            }
-        },
         methods: {
             like(event){
                 if (!this.isLiked) {
@@ -364,11 +355,20 @@
                     this.player.getCurrentTime().then((time)=>{
                         this.currentTime = time;
                     })
-                }, 50);
+                }, 250);
             },
             paused(){
                 clearInterval(this.processId)
             },
+            showLyric(line){
+                const nextLineIndex = this.lyricsLines.indexOf(line) + 1
+                const nextLine = this.lyricsLines[nextLineIndex]
+                const offset = -1
+                // TODO 「-1」はオフセット値、字幕の再生位置を調整するためのもの。次のブランチでボタンに紐付ける予定。
+                if (this.currentTime + offset >= line.time && this.currentTime + offset <= nextLine.time) {
+                    return true
+                }
+            }
         },
         
     }
