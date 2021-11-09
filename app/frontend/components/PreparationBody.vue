@@ -80,6 +80,7 @@
                 // TODO C バリデーションを満たす場合にのみ遷移できる条件分岐を書く
                 setTimeout(() => {
                     this.$router.push({
+                        // TODO C 練習ページのロード完了前にローディング画面を表示させる
                         path: "/practice",
                     })
                     
