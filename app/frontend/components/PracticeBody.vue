@@ -33,7 +33,7 @@
                         <span v-for="(word, index) in splitedLyric(line.lyric)" :key="index">
                             <!-- 歌詞がコール歌詞だと検出したら、特殊なクラスを付与する -->
                             <span v-if="matchCallLyrics(word)"
-                                class="pink" :style="{backgroundColor:callBgc}"
+                                :style="{backgroundColor:callBgc}"
                             >
                                 {{word}}
                             </span>
@@ -44,7 +44,7 @@
                 </v-sheet>
             </v-col>
             <v-col cols="auto">
-                <v-speed-dial direction="top" open-on-hover transition="slide-y-reverse-transition" v-model="isSpeedDialActive">
+                <v-speed-dial direction="top" open-on-click transition="slide-y-reverse-transition" v-model="isSpeedDialActive">
                     <template v-slot:activator>
                         <v-btn depressed fab color="white">
                             <v-icon x-large color="black">mdi-{{optionButton}}</v-icon>
@@ -66,12 +66,25 @@
                             <span>字幕1秒早送り</span>
                         </v-tooltip>
                     </v-btn>
-                    <v-btn depressed fab color="white" @click.stop="like($event)" >
+                    <v-btn depressed fab color="white" @click.stop="like($event)">
                         <v-tooltip top>
                             <template v-slot:activator="{on}">
                                 <v-icon x-large color="pink" v-on="on">mdi-{{likeButton}}</v-icon>
                             </template>
                             <span>お気に入り</span>
+                        </v-tooltip>
+                    </v-btn>
+                    <v-btn depressed fab color="white" @click.stop>
+                        <v-tooltip top>
+                            <template v-slot:activator="{on}">
+                                <v-sheet v-on="on" color="transparent">
+                                    <v-swatches id="color-picker" 
+                                        v-model="callBgc" :swatches="swatches"
+                                        popover-x="left" close-on-select shapes="circles"
+                                    ></v-swatches>
+                                </v-sheet>
+                            </template>
+                            <span>コールの背景色</span>
                         </v-tooltip>
                     </v-btn>
                 </v-speed-dial>
@@ -83,8 +96,12 @@
 <script>
     import '../images/icomoon/style.css'
     import {hearts} from '../src/effects/hearts'
+    import VSwatches from 'vue-swatches'
     export default {
         name: "PracticeBody",
+        components: {
+            VSwatches
+        },
         data() {
             return {
                 song: "Make you happy",
@@ -337,7 +354,10 @@
                     modestbranding: 1,
                 },
                 currentTime: 0,
-                callBgc: "",
+                callBgc: "#ff94ce",
+                swatches:[
+                    "#ff94ce", "#ff9eff", "#c1c1ff", "#99ffff", "#b2ffd8", "#d8ffb2", "#ffffb2", "#ffe0c1"
+                ]
             }
         },
         computed: {
@@ -424,6 +444,9 @@
             matchCallLyrics(word){
                 const callReg = /【.*?】/g;
                 return callReg.test(word)
+            },
+            changeCallBgc(){
+
             }
         },
         
@@ -441,5 +464,10 @@
         100% {
             transform: rotate(360deg);
         }
+    }
+    #color-picker{
+        left: -1.5px;
+        top: 2px;
+        background-color: transparent;
     }
 </style>

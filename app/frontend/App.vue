@@ -12,6 +12,7 @@
 
 <script>
     import "animate.css"
+    import 'vue-swatches/dist/vue-swatches.css'
     import NavBar from './components/NavBar.vue';
     import Footer from './components/Footer.vue'
     export default {
