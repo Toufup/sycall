@@ -50,20 +50,20 @@
                             <v-icon x-large color="black">mdi-{{optionButton}}</v-icon>
                         </v-btn>
                     </template>
-                    <v-btn depressed fab color="white" class="demoBtn">
+                    <v-btn depressed fab color="white" @click.stop="rewind">
                         <v-tooltip top>
                             <template v-slot:activator="{on}">
-                                <v-icon x-large color="maccha" v-on="on">icon-rewind-1</v-icon>
+                                <v-icon x-large color="maccha" v-on="on">mdi-redo</v-icon>
                             </template>
-                            <span>字幕1秒巻き戻し</span>
+                            <span>字幕0.5秒遅らせる</span>
                         </v-tooltip>
                     </v-btn>
-                    <v-btn depressed fab color="white">
+                    <v-btn depressed fab color="white" @click.stop="forward">
                         <v-tooltip top>
                             <template v-slot:activator="{on}">
-                                <v-icon x-large color="maccha" v-on="on">icon-fast-forward-1</v-icon>
+                                <v-icon x-large color="maccha" v-on="on">mdi-undo</v-icon>
                             </template>
-                            <span>字幕1秒早送り</span>
+                            <span>字幕0.5秒早める</span>
                         </v-tooltip>
                     </v-btn>
                     <v-btn depressed fab color="white" @click.stop="like($event)">
@@ -357,7 +357,8 @@
                 callBgc: "#ff94ce",
                 swatches:[
                     "#ff94ce", "#ff9eff", "#c1c1ff", "#99ffff", "#b2ffd8", "#d8ffb2", "#ffffb2", "#ffe0c1"
-                ]
+                ],
+                timeOffset: 0,
             }
         },
         computed: {
@@ -397,9 +398,8 @@
             showLyric(line){
                 const nextLineIndex = this.lyricsLines.indexOf(line) + 1
                 const nextLine = this.lyricsLines[nextLineIndex]
-                const offset = -1
-                // TODO 「-1」はオフセット値、字幕の再生位置を調整するためのもの。次のブランチでボタンに紐付ける予定。
-                if (this.currentTime + offset >= line.time && this.currentTime + offset <= nextLine.time) {
+                if (this.currentTime + this.timeOffset >= line.time && 
+                    this.currentTime + this.timeOffset <= nextLine.time) {
                     return true
                 }
             },
@@ -445,9 +445,12 @@
                 const callReg = /【.*?】/g;
                 return callReg.test(word)
             },
-            changeCallBgc(){
-
-            }
+            rewind(){
+                this.timeOffset -= 0.5
+            },
+            forward(){
+                this.timeOffset += 0.5
+            },
         },
         
     }
