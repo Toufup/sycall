@@ -1,16 +1,10 @@
 <template>
     <v-container fluid id="practice-body" px-16 py-0>
-        <v-row justify="center" id="info" class="my-0">
-            <v-icon left color="pink" id="music-circle-icon">mdi-music-circle</v-icon>
-            <h4 class="pink--text text-center">練習中：{{artist}} - {{song}}</h4>
-        </v-row>
-        <v-row id="video" justify="center">
-            <v-sheet class="ma-0" id="video-player" width="820" color="transparent">
-                <youtube fitParent ref="youtube" :video-id="videoId" @playing="playing" @paused="paused"
-                    :player-vars="playerVars"
-                ></youtube>
-            </v-sheet>
-        </v-row>
+        <Video 
+            :artist="artist"
+            :song="song"
+            :videoId="videoId"
+        ></Video>
         <v-row align="center" id="subtitle" justify="center">
             <v-col cols="auto">
                 <v-tooltip top>
@@ -97,9 +91,12 @@
     import '../images/icomoon/style.css'
     import {hearts} from '../src/effects/hearts'
     import VSwatches from 'vue-swatches'
+    import Pubsub from 'pubsub-js'
+    import Video from './Video.vue'
     export default {
         name: "PracticeBody",
         components: {
+            Video,
             VSwatches
         },
         data() {
@@ -110,6 +107,7 @@
                 isVisible: true,
                 isSpeedDialActive: false,
                 videoId: "CN11U5t83Ro",
+                currentTime: 0,
                 lyricsLines: [
                     {
                         "time": 1.694,
@@ -348,12 +346,8 @@
                         "lyric": " You tell me"
                     }
                 ],
-                playerVars: {
-                    autoplay: 1,
-                    // YouTube のロゴを表示させない
-                    modestbranding: 1,
-                },
-                currentTime: 0,
+                
+                
                 callBgc: "#ff94ce",
                 swatches:[
                     "#ff94ce", "#ff9eff", "#c1c1ff", "#99ffff", "#b2ffd8", "#d8ffb2", "#ffffb2", "#ffe0c1"
@@ -371,9 +365,7 @@
             optionButton(){
                 return this.isSpeedDialActive ? "chevron-up" : "dots-vertical"
             },
-            player(){
-                return this.$refs.youtube.player
-            },
+            
         },
         methods: {
             like(event){
@@ -385,16 +377,7 @@
             see(){
                 this.isVisible = !this.isVisible;
             },
-            playing(){
-                this.processId = setInterval(() => {
-                    this.player.getCurrentTime().then((time)=>{
-                        this.currentTime = time;
-                    })
-                }, 250);
-            },
-            paused(){
-                clearInterval(this.processId)
-            },
+            
             showLyric(line){
                 const nextLineIndex = this.lyricsLines.indexOf(line) + 1
                 // もし次のライン（歌詞）がない場合（つまりnextLineIndexと配列の要素数と同じ）：
@@ -457,25 +440,19 @@
                 this.timeOffset += 0.5
             },
         },
-        beforeDestroy() {
-            clearInterval(this.processId)
+        mounted() {
+            // 第一引数はsubscribeの名前で、実際は使わないので「_」でポジションをとってくれている。
+            Pubsub.subscribe("catchVideoCurrentTime", (_, time)=>{
+                this.currentTime = time;
+            })
         },
-        
+        beforeDestroy() {
+            PubSub.clearAllSubscriptions();
+        },
     }
 </script>
 
 <style scoped>
-    #music-circle-icon{
-        animation: rotate 2s linear infinite;
-    }
-    @keyframes rotate {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
-    }
     #color-picker{
         left: -1.5px;
         top: 2px;
