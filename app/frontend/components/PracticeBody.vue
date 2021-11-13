@@ -397,6 +397,11 @@
             },
             showLyric(line){
                 const nextLineIndex = this.lyricsLines.indexOf(line) + 1
+                // もし次のライン（歌詞）がない場合（つまりnextLineIndexと配列の要素数と同じ）：
+                if (nextLineIndex === this.lyricsLines.length &&
+                    this.currentTime + this.timeOffset >= line.time) {
+                    return true
+                }
                 const nextLine = this.lyricsLines[nextLineIndex]
                 if (this.currentTime + this.timeOffset >= line.time && 
                     this.currentTime + this.timeOffset <= nextLine.time) {
