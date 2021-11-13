@@ -457,6 +457,9 @@
                 this.timeOffset += 0.5
             },
         },
+        beforeDestroy() {
+            clearInterval(this.processId)
+        },
         
     }
 </script>
