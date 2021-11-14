@@ -1,6 +1,5 @@
 <template>
     <v-container fluid id="practice-body" px-16 py-0>
-        <!-- TODO AA コンポーネント間のデータのやりとりが増え、Pubsubだと手続きは統一感がないため、Vuexを導入しよう！ -->
         <Video 
             :artist="artist"
             :song="song"
