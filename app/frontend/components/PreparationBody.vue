@@ -70,20 +70,14 @@
         methods: {
             toPractice(event){
                 hearts(event.target);
-                // URL が入力されていないと、アラートを表示する
                 this.showNoUrlAlert = this.hasNoUrlError ? true : false;
-                // URL の形式が正しくないと、アラートを表示する
                 this.showUrlFormatAlert = this.hasUrlFormatError ? true : false;
-                // コールが選択されていないと、アラートを表示する
                 this.showCallAlert = this.hasCallError ? true : false;
-                // 次のページに遷移する（プログラム的vue-router）
-                // TODO C バリデーションを満たす場合にのみ遷移できる条件分岐を書く
+                // TODO C Railsサーバーを構築し、Ajax通信を実装後に、バリデーションを満たす場合にのみ遷移できる条件分岐を書く
                 setTimeout(() => {
                     this.$router.push({
-                        // TODO C 練習ページのロード完了前にローディング画面を表示させる
                         path: "/practice",
                     })
-                    
                 }, 90);
             },
             setHasCallErrorFlag(hasSelected){
@@ -92,6 +86,3 @@
         },
     }
 </script>
-
-<style scoped>
-</style>

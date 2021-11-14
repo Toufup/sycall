@@ -5,6 +5,7 @@ import App from '../App.vue';
 import VueRouter from 'vue-router';
 import router from '../router/index.js';
 import VueYoutube from 'vue-youtube'
+import store from '../store'
 
 Vue.config.productionTip = false;
 
@@ -31,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new Vue({
         vuetify,
         router,
+        store,
         el: "#app",
         render: h => h(App),
     })
