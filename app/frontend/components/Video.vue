@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import Pubsub from 'pubsub-js'
+    import {mapActions} from 'vuex'
     export default {
         name: "Video",
         data() {
@@ -48,11 +48,10 @@
             },
         },
         methods: {
+            ...mapActions(["getVideoCurrentTime"]),
             playing(){
                 this.processId = setInterval(() => {
-                    this.player.getCurrentTime().then((time)=>{
-                        Pubsub.publish("catchVideoCurrentTime", time)
-                    })
+                    this.getVideoCurrentTime(this.player)
                 }, 250);
             },
             paused(){

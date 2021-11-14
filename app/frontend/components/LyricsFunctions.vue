@@ -34,7 +34,7 @@
                 <template v-slot:activator="{on}">
                     <v-sheet v-on="on" color="transparent">
                         <v-swatches id="color-picker" 
-                            v-model="callBgc" :swatches="swatches"
+                            v-model="callBackgroundColor" :swatches="swatches"
                             popover-x="left" close-on-select shapes="circles"
                             @input="sendColor"
                         ></v-swatches>
@@ -58,13 +58,13 @@
         },
         data() {
             return {
-                timeOffset: 0,
                 isLiked: false,
                 isSpeedDialActive: false,
-                callBgc: "#ff94ce",
                 swatches:[
                     "#ff94ce", "#ff9eff", "#c1c1ff", "#99ffff", "#b2ffd8", "#d8ffb2", "#ffffb2", "#ffe0c1"
                 ],
+                callBackgroundColor: "#ff94ce",
+                timeOffset: 0,
             }
         },
         computed: {
@@ -91,11 +91,11 @@
                 Pubsub.publish("catchTimeOffset", this.timeOffset)
             },
             sendColor(){
-                Pubsub.publish("catchCallBgc", this.callBgc)
+                Pubsub.publish("catchCallBackgroundColor", this.callBackgroundColor)
             }
         },
         mounted() {
-            Pubsub.publish("catchCallBgc", this.callBgc)
+            Pubsub.publish("catchCallBackgroundColor", this.callBackgroundColor)
         },
     }
 </script>

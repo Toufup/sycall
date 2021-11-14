@@ -8059,6 +8059,11 @@ vuetify@^2.5.10:
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.5.10.tgz#165cb3de9dbffbc94bc775aa2f698eb9fa89eabe"
   integrity sha512-UODZQrib36l7i1WGg0MUvurczLspYTe0nKAmfbwyMs6dC2lG1Q1VV9caqPbCAB9zgG6QIJaOmRQKSKduw9eZTw==
 
+vuex@^3.6.2:
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.6.2.tgz#236bc086a870c3ae79946f107f16de59d5895e71"
+  integrity sha512-ETW44IqCgBpVomy520DT5jf8n0zoCac+sxWnn+hMe/CzaSejb/eVw2YToiXYX+Ex/AuHHia28vWTq4goAexFbw==
+
 watchpack-chokidar2@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/watchpack-chokidar2/-/watchpack-chokidar2-2.0.1.tgz#38500072ee6ece66f3769936950ea1771be1c957"

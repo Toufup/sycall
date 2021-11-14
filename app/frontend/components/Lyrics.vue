@@ -7,7 +7,7 @@
             <span v-for="(word, index) in splitedLyric(line.lyric)" :key="index">
                 <!-- 歌詞がコール歌詞だと検出したら、特別なstyleとバインドする -->
                 <span v-if="matchCallLyrics(word)"
-                    :style="{backgroundColor:callBgc}"
+                    :style="{backgroundColor:callBackgroundColor}"
                 >
                     {{word}}
                 </span>
@@ -19,14 +19,14 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex'
     import Pubsub from 'pubsub-js'
     export default {
         name: "Lyrics",
         data() {
             return {
-                currentTime: 0,
                 timeOffset: 0,
-                callBgc: null,
+                callBackgroundColor: null,
             }
         },
         props: {
@@ -35,17 +35,20 @@
                 required: true,
             },
         },
+        computed: {
+            ...mapGetters(["videoCurrentTime"]),
+        },
         methods: {
             showLyric(line){
                 const nextLineIndex = this.lyricsLines.indexOf(line) + 1
                 // 次のライン（歌詞）がない場合（つまりnextLineIndexと配列の要素数と同じ）：
                 if (nextLineIndex === this.lyricsLines.length &&
-                    this.currentTime + this.timeOffset >= line.time) {
+                    this.videoCurrentTime + this.timeOffset >= line.time) {
                     return true
                 }
                 const nextLine = this.lyricsLines[nextLineIndex]
-                if (this.currentTime + this.timeOffset >= line.time && 
-                    this.currentTime + this.timeOffset <= nextLine.time) {
+                if (this.videoCurrentTime + this.timeOffset >= line.time && 
+                    this.videoCurrentTime + this.timeOffset <= nextLine.time) {
                     return true
                 }
             },
@@ -89,11 +92,8 @@
         },
         mounted() {
             // 第一引数はsubscribeの名前で、実際は使わないので「_」でポジションをとってくれている。
-            Pubsub.subscribe("catchVideoCurrentTime", (_, time)=>{
-                this.currentTime = time;
-            })
-            Pubsub.subscribe("catchCallBgc", (_, color)=>{
-                this.callBgc = color;
+            Pubsub.subscribe("catchCallBackgroundColor", (_, color)=>{
+                this.callBackgroundColor = color;
             })
         },
         beforeUpdate() {
