@@ -58,7 +58,7 @@
             ...mapActions(["getVideoCurrentTime"]),
             createMouseEvent(x, y){
                 return new MouseEvent("confetti", {
-                    // 画面の幅の20％〜80％の間にエフェクトが出現する
+                    // 画面の幅の10％〜90％の間にエフェクトが出現する
                     clientX: Math.random() * (x * 0.9 - x * 0.1) + (x * 0.1),
                     // 画面の高さの10％〜90％の間（headerとfooterの間）にエフェクトが出現する
                     clientY: Math.random() * (y * 0.9 - y * 0.1) + (y * 0.1)
