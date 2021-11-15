@@ -3,6 +3,7 @@
         <Video 
             :artist="artist"
             :song="song"
+            :bpm="bpm"
             :videoId="videoId"
         ></Video>
         <Subtitle
@@ -25,6 +26,7 @@
             return {
                 song: "Make you happy",
                 artist: "NiziU",
+                bpm: 160,
                 videoId: "CN11U5t83Ro",
                 lyricsLines: [
                     {

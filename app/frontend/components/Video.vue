@@ -15,7 +15,9 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex'
+    import party from "party-js";
+    import Pubsub from 'pubsub-js'
+    import {mapActions, mapGetters} from 'vuex'
     export default {
         name: "Video",
         data() {
@@ -25,7 +27,7 @@
                     // YouTube のロゴを表示させない
                     modestbranding: 1,
                 },
-                demo: "hello",
+                callBackgroundColor: null,
             }
         },
         props: {
@@ -37,29 +39,58 @@
                 type: String,
                 required: true,
             },
+            bpm: {
+                type: Number,
+                required: true,
+            },
             videoId: {
                 type: String,
                 required: true,
             },
         },
         computed: {
+            ...mapGetters(["videoCurrentTime"]),
             player(){
                 return this.$refs.youtube.player
             },
         },
         methods: {
             ...mapActions(["getVideoCurrentTime"]),
+            createMouseEvent(x, y){
+                return new MouseEvent("confetti", {
+                    // 画面の幅の20％〜80％の間にエフェクトが出現する
+                    clientX: Math.random() * (x * 0.9 - x * 0.1) + (x * 0.1),
+                    // 画面の高さの10％〜90％の間（headerとfooterの間）にエフェクトが出現する
+                    clientY: Math.random() * (y * 0.9 - y * 0.1) + (y * 0.1)
+                })
+            },
             playing(){
-                this.processId = setInterval(() => {
+                this.videoTimeProcessId = setInterval(() => {
                     this.getVideoCurrentTime(this.player)
                 }, 250);
+
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+                this.partyLoopProcessId = setInterval(() => {
+                    party.sparkles(this.createMouseEvent(windowWidth, windowHeight),{
+                        color:party.Color.fromHex(this.callBackgroundColor)
+                    })
+                    // bpmをもとにループする間隔を計算。8拍子で1回。
+                }, 60 / this.bpm * 1000 * 8);
             },
             paused(){
-                clearInterval(this.processId)
+                clearInterval(this.videoTimeProcessId)
+                clearInterval(this.partyLoopProcessId)
             },
         },
+        mounted() {
+            Pubsub.subscribe("catchCallBackgroundColor", (_, color)=>{
+                this.callBackgroundColor = color;
+            })
+        },
         beforeDestroy() {
-            clearInterval(this.processId)
+            clearInterval(this.videoTimeProcessId)
+            clearInterval(this.partyLoopProcessId)
         },
     }
 </script>
