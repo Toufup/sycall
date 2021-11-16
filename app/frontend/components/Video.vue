@@ -28,6 +28,7 @@
                     modestbranding: 1,
                 },
                 callBackgroundColor: null,
+                openingAudio: new Audio(require('../audio/OP_5s.mp3')),
             }
         },
         props: {
@@ -65,10 +66,12 @@
                 })
             },
             playing(){
+                // YouTubeの現在再生時間を取得する
                 this.videoTimeProcessId = setInterval(() => {
                     this.getVideoCurrentTime(this.player)
                 }, 250);
 
+                // ランダムな場所に星の爆けるエフェクト
                 const windowWidth = window.innerWidth;
                 const windowHeight = window.innerHeight;
                 this.partyLoopProcessId = setInterval(() => {
@@ -77,10 +80,21 @@
                     })
                     // bpmをもとにループする間隔を計算。8拍子で1回。
                 }, 60 / this.bpm * 1000 * 8);
+
+                // 最初に叫ぶサウンドを再生
+                if (this.videoCurrentTime === 0) {
+                    this.openingAudio.currentTime = 0
+                    this.openingAudio.play()
+                } else if (this.openingAudio.paused && this.openingAudio.ended) {
+                    return
+                } else if (this.openingAudio.paused) {
+                    this.openingAudio.play()
+                }
             },
             paused(){
-                clearInterval(this.videoTimeProcessId)
-                clearInterval(this.partyLoopProcessId)
+                clearInterval(this.videoTimeProcessId);
+                clearInterval(this.partyLoopProcessId);
+                this.openingAudio.pause()
             },
         },
         mounted() {
