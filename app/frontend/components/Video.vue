@@ -76,7 +76,12 @@
                 const windowHeight = window.innerHeight;
                 this.partyLoopProcessId = setInterval(() => {
                     party.sparkles(this.createMouseEvent(windowWidth, windowHeight),{
-                        color:party.Color.fromHex(this.callBackgroundColor)
+                        color: party.variation.gradientSample(
+                            party.Gradient.simple(
+                                party.Color.fromHex(this.callBackgroundColor),
+                                party.Color.fromHex("#fffa6e")
+                            )
+                        )
                     })
                     // bpmをもとにループする間隔を計算。8拍子で1回。
                 }, 60 / this.bpm * 1000 * 8);
