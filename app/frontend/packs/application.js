@@ -16,5 +16,7 @@ require("channels")
 const images = require.context('../images', true)
 const imagePath = (name) => images(name, true)
 
+require.context('../audio', true, /\.mp3$/)
+
 require.context("../src", true);
 import "src/main.js";
