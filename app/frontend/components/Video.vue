@@ -6,7 +6,7 @@
         </v-row>
         <v-row id="video" justify="center">
             <v-sheet class="ma-0" id="video-player" width="820" color="transparent">
-                <youtube fitParent ref="youtube" :video-id="videoId" @playing="playing" @paused="paused"
+                <youtube fitParent ref="youtube" :video-id="videoId" @playing="playing" @paused="paused" @ended="ended"
                     :player-vars="playerVars"
                 ></youtube>
             </v-sheet>
@@ -58,7 +58,7 @@
         methods: {
             ...mapActions(["getVideoCurrentTime"]),
             createMouseEvent(x, y){
-                return new MouseEvent("confetti", {
+                return new MouseEvent("partyEvent", {
                     // 画面の幅の10％〜90％の間にエフェクトが出現する
                     clientX: Math.random() * (x * 0.9 - x * 0.1) + (x * 0.1),
                     // 画面の高さの10％〜90％の間（headerとfooterの間）にエフェクトが出現する
@@ -101,6 +101,15 @@
                 clearInterval(this.partyLoopProcessId);
                 this.openingAudio.pause()
             },
+            // 動画の最後に紙吹雪をランダムに出現させる
+            ended(){
+                clearInterval(this.partyLoopProcessId);
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+                for (let i = 0; i < 3; i++) {
+                    party.confetti(this.createMouseEvent(windowWidth, windowHeight))
+                }
+            }
         },
         mounted() {
             Pubsub.subscribe("catchCallBackgroundColor", (_, color)=>{
