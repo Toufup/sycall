@@ -10,6 +10,9 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # Database
 gem 'mysql2', '>= 0.4.4'
 
+# Environment Variaibles
+  gem 'dotenv-rails'
+  
 # Application server
 gem 'puma', '~> 4.1'
 
@@ -52,8 +55,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 5.0', '>= 5.0.2'
   gem 'factory_bot_rails'
 
-  # Environment Variaibles
-  gem 'dotenv-rails'
 end
 
 group :development do
