@@ -10,13 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_19_093150) do
+ActiveRecord::Schema.define(version: 2021_11_19_135140) do
 
   create_table "artists", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_artists_on_name", unique: true
+  end
+
+  create_table "languages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_languages_on_name", unique: true
+  end
+
+  create_table "lyrics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "lyrics_version_id", null: false
+    t.text "body", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["lyrics_version_id"], name: "index_lyrics_on_lyrics_version_id"
+  end
+
+  create_table "lyrics_versions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "source", null: false
+    t.bigint "song_id", null: false
+    t.bigint "language_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["language_id"], name: "index_lyrics_versions_on_language_id"
+    t.index ["song_id"], name: "index_lyrics_versions_on_song_id"
   end
 
   create_table "songs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -37,6 +62,9 @@ ActiveRecord::Schema.define(version: 2021_11_19_093150) do
     t.index ["url"], name: "index_videos_on_url", unique: true
   end
 
+  add_foreign_key "lyrics", "lyrics_versions"
+  add_foreign_key "lyrics_versions", "languages"
+  add_foreign_key "lyrics_versions", "songs"
   add_foreign_key "songs", "artists"
   add_foreign_key "videos", "songs"
 end
