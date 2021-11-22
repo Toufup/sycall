@@ -73,12 +73,13 @@
                 this.showNoUrlAlert = this.hasNoUrlError ? true : false;
                 this.showUrlFormatAlert = this.hasUrlFormatError ? true : false;
                 this.showCallAlert = this.hasCallError ? true : false;
-                // TODO C Railsサーバーを構築し、Ajax通信を実装後に、バリデーションを満たす場合にのみ遷移できる条件分岐を書く
-                setTimeout(() => {
-                    this.$router.push({
-                        path: "/practice",
-                    })
-                }, 90);
+                if (!this.hasNoUrlError && !this.hasUrlFormatError && !this.hasCallError) {
+                    setTimeout(() => {
+                        this.$router.push({
+                            path: "/practice",
+                        })
+                    }, 90);
+                }
             },
             setHasCallErrorFlag(hasSelected){
                 this.hasCallError = hasSelected ? false : true;
