@@ -46,6 +46,7 @@
 </template>
 
 <script>
+    import axios from 'axios'
     export default {
         name: "Search",
         data() {
@@ -74,6 +75,19 @@
             keyword(value){
                 this.activeTarget = 0;
                 this.selectedResult = null;
+
+                axios.get("/calls/search", {
+                    params: {
+                        keyword: value
+                    }
+                })
+                .then(res => {
+                    console.log(res.data)
+                })
+                .catch(err => {
+                    console.error(err.message); 
+                })
+
                 if (value && value.trim()) {
                     this.isValid = true;
                     this.results = this.calls.filter((c) => {
