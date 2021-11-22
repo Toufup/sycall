@@ -1,7 +1,5 @@
 class CallsController < ApplicationController
     def search
-        keyword = params[:keyword]
-        @calls = LyricsVersion.joins(song: :artist).where("songs.title LIKE ?", "%#{keyword}%")
-                .or(LyricsVersion.joins(song: :artist).where("artists.name LIKE ?", "%#{keyword}%"))
+        @calls = LyricsVersion.search_calls_info(params[:keyword])
     end
 end

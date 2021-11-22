@@ -30,7 +30,7 @@
                     </v-list-item>
                 </v-list-item-group>
             </v-list>
-            <v-list v-show="isValid && !hasResult" rounded max-height="200px" class="rounded-xl overflow-y-auto mt-n7 mb-7">
+            <v-list v-else-if="isValid && !hasResult" rounded max-height="200px" class="rounded-xl overflow-y-auto mt-n7 mb-7">
                 <v-list-item>
                     <v-list-item-content>
                         <v-list-item-title class="font-weight-bold">一致するコールは見つかりませんでした</v-list-item-title>
