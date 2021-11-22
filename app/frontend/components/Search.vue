@@ -9,7 +9,14 @@
             ></v-text-field>
         </div>
         <div>
-            <v-list v-if="isValid && hasResult" rounded max-height="280px" class="rounded-xl overflow-y-auto mt-n5 mb-7">
+            <v-list v-if="isLoading" rounded max-height="200px" class="rounded-xl overflow-y-auto mt-n7 mb-7">
+                <v-list-item>
+                    <v-list-item-content>
+                        <v-progress-circular indeterminate color="maccha"></v-progress-circular>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-list>
+            <v-list v-else-if="isValid && hasResult" rounded max-height="280px" class="rounded-xl overflow-y-auto mt-n5 mb-7">
                 <v-list-item-group color="maccha" mandatory v-model="activeTarget">
                     <v-list-item 
                         v-for="result in results" :key="result.id" 
@@ -56,6 +63,7 @@
                 selectedResult: null,
                 activeTarget: 0,
                 keyword: "",
+                isLoading: false,
                 results: [],
             }
         },
@@ -70,10 +78,12 @@
                 this.selectedResult = null;
 
                 if (value && value.trim()) {
+                    this.isLoading = true;
                     axios.get("/calls/search", {params: {keyword: value}})
                     .then(res => {
                         this.isValid = true;
-                        this.results = res.data
+                        this.results = res.data;
+                        this.isLoading = false;
                         this.results.length > 0 ? this.hasResult = true : this.hasResult = false;
                         this.selectedResult = this.results[0];
                     })
