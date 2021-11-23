@@ -1,8 +1,27 @@
 <template>
-    <div id="video-area">
-        <v-row justify="center" id="info" class="my-0">
-            <v-icon left color="mainColor" id="music-circle-icon">mdi-music-circle</v-icon>
-            <h4 class="white--text text-center">練習中：{{artist}} - {{song}}</h4>
+    <div id="video-area" class="mx-16">
+        <v-row justify="center" align="center" id="info" class="my-0">
+            <v-col cols="auto" class="py-0">
+                <v-tooltip top>
+                    <template v-slot:activator="{on}">
+                        <v-btn depressed fab color="white" v-on="on" @click="pageBack">
+                            <v-icon x-large color="maccha">mdi-arrow-left</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>戻る</span>
+                </v-tooltip>
+            </v-col>
+            <v-col cols="10">
+                <h3 class="white--text text-center">
+                    <v-icon left color="mainColor" id="music-circle-icon">mdi-music-circle</v-icon>
+                    練習中：{{artist}} - {{song}}
+                </h3>
+            </v-col>
+            <v-col cols="auto" class="py-0">
+                <v-btn disabled fab plain>
+                    <v-icon disabled x-large color="transparent"></v-icon>
+                </v-btn>
+            </v-col>
         </v-row>
         <v-row id="video" justify="center">
             <v-sheet class="ma-0" id="video-player" width="820" color="transparent">
@@ -57,6 +76,9 @@
         },
         methods: {
             ...mapActions(["getVideoCurrentTime"]),
+            pageBack(){
+                this.$router.back();
+            },
             createMouseEvent(x, y){
                 return new MouseEvent("partyEvent", {
                     // 画面の幅の10％〜90％の間にエフェクトが出現する
@@ -119,6 +141,8 @@
         beforeDestroy() {
             clearInterval(this.videoTimeProcessId)
             clearInterval(this.partyLoopProcessId)
+            this.openingAudio.pause()
+            this.openingAudio.currentTime = 0
         },
     }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div id="subtitle-area">
+    <div id="subtitle-area" class="mx-16">
         <v-row align="center" justify="center">
             <v-col cols="auto">
                 <v-tooltip top>
@@ -11,7 +11,7 @@
                     <span>字幕ON/OFF</span>
                 </v-tooltip>
             </v-col>
-            <v-col cols="9" class="px-0">
+            <v-col cols="10" class="px-0">
                 <v-sheet v-show="this.isVisible" color="white rounded-pill px-5 py-2" min-height="56px" id="lyrics-wrapper">
                     <Lyrics
                         :lyricsLines="lyricsLines"

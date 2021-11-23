@@ -3,7 +3,9 @@
         <NavBar></NavBar>
         <v-main >
             <transition appear enter-active-class="animate__animated animate__fadeIn">
-                <router-view></router-view>
+                <keep-alive include="PreparationBody">
+                    <router-view></router-view>
+                </keep-alive>
             </transition>
         </v-main>
         <Footer ></Footer>
