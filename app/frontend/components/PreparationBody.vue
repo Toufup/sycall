@@ -56,13 +56,17 @@
                 return this.videoUrl ? false : true
             },
             hasUrlFormatError(){
-                const urlReg = /^(https\:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)+[\S]{11}$/
+                const urlReg = /^(https\:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)+([\S]{11}$)/
                 if (this.hasNoUrlError) {
                     return false
                 } else {
                     return urlReg.test(this.videoUrl) ? false : true
                 }
             },
+            videoId(){
+                const urlReg = /^(https\:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)+([\S]{11}$)/
+                return this.videoUrl.match(urlReg).pop()
+            }
         },
         components: {
             Search,
@@ -76,7 +80,10 @@
                 if (!this.hasNoUrlError && !this.hasUrlFormatError && !this.hasCallError) {
                     setTimeout(() => {
                         this.$router.push({
-                            path: "/practice",
+                            name: "practice",
+                            params: {
+                                videoId: this.videoId
+                            }
                         })
                     }, 90);
                 }

@@ -27,7 +27,7 @@
                 song: "Make you happy",
                 artist: "NiziU",
                 bpm: 160,
-                videoId: "CN11U5t83Ro",
+                // TODO Rails より受け取った歌詞Jsonを格納する
                 lyricsLines: [
                     {
                         "time": 1.694,
@@ -268,5 +268,11 @@
                 ],
             }
         },
+        props: {
+            videoId: {
+                type: String,
+                required: true,
+            }
+        }
     }
 </script>
