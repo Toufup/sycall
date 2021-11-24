@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from "vuex-persistedstate";
+
 Vue.use(Vuex)
 
 const actions = {
@@ -8,21 +10,42 @@ const actions = {
             commit("updateVideoCurrentTime", time)
         })
     },
+    sendSelectedCallInfo({commit}, result){
+        commit("updateSelectedCallInfo", result)
+    },
+    sendVideoUrl({commit}, url){
+        commit("updateVideoUrl", url)
+    }
 }
 
 const mutations = {
     updateVideoCurrentTime(state, time){
         state.time = time;
     },
+    updateSelectedCallInfo(state, result){
+        state.selectedCallInfo = result;
+    },
+    updateVideoUrl(state, url){
+        const urlReg = /^(https\:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)+([\S]{11}$)/
+        state.videoId = url.match(urlReg).pop()
+    }
 }
 
 const state = {
     time: 0,
+    selectedCallInfo: null,
+    videoId: null,
 }
 
 const getters = {
     videoCurrentTime(state){
         return state.time;
+    },
+    selectedCallInfo(state){
+        return state.selectedCallInfo
+    },
+    videoId(state){
+        return state.videoId
     }
 }
 
@@ -31,4 +54,11 @@ export default new Vuex.Store({
     mutations,
     state,
     getters,
+    plugins: [
+        createPersistedState({
+            key: "sycallApp",
+            paths: ["selectedCallInfo", "videoId"],
+            storage: window.sessionStorage
+        })
+    ]
 })

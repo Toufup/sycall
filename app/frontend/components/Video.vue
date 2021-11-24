@@ -14,7 +14,7 @@
             <v-col cols="10">
                 <h3 class="white--text text-center">
                     <v-icon left color="mainColor" id="music-circle-icon">mdi-music-circle</v-icon>
-                    練習中：{{artist}} - {{song}}
+                    練習中：{{artist}} - {{title}}
                 </h3>
             </v-col>
             <v-col cols="auto" class="py-0">
@@ -36,7 +36,7 @@
 <script>
     import party from "party-js";
     import Pubsub from 'pubsub-js'
-    import {mapActions, mapGetters} from 'vuex'
+    import {mapActions, mapMutations, mapGetters} from 'vuex'
     export default {
         name: "Video",
         data() {
@@ -55,7 +55,7 @@
                 type: String,
                 required: true,
             },
-            song: {
+            title: {
                 type: String,
                 required: true,
             },
@@ -76,6 +76,7 @@
         },
         methods: {
             ...mapActions(["getVideoCurrentTime"]),
+            ...mapMutations(["updateVideoCurrentTime"]),
             pageBack(){
                 this.$router.back();
             },
@@ -112,8 +113,9 @@
                 if (this.videoCurrentTime === 0) {
                     this.openingAudio.currentTime = 0
                     this.openingAudio.play()
-                } else if (this.openingAudio.paused && this.openingAudio.ended) {
-                    return
+                } else if (this.videoCurrentTime >= this.openingAudio.duration) {
+                    this.openingAudio.currentTime = 0
+                    this.openingAudio.pause()
                 } else if (this.openingAudio.paused) {
                     this.openingAudio.play()
                 }
@@ -143,6 +145,7 @@
             clearInterval(this.partyLoopProcessId)
             this.openingAudio.pause()
             this.openingAudio.currentTime = 0
+            this.updateVideoCurrentTime(0)
         },
     }
 </script>
