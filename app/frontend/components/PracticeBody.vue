@@ -13,6 +13,7 @@
 </template>
 
 <script>
+    import axios from 'axios'
     import Video from './Video.vue'
     import Subtitle from './Subtitle.vue'
 
@@ -27,7 +28,6 @@
                 song: "Make you happy",
                 artist: "NiziU",
                 bpm: 160,
-                videoId: "CN11U5t83Ro",
                 lyricsLines: [
                     {
                         "time": 1.694,
@@ -267,6 +267,19 @@
                     }
                 ],
             }
+        },
+        props: {
+            videoId: {
+                type: String,
+                required: true,
+            },
+            callId: {
+                type: Number,
+                required: true,
+            }
+        },
+        created() {
+            // TODO railsサーバに歌詞をリクエストして、lyricsLinesに格納する
         },
     }
 </script>

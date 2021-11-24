@@ -25,7 +25,7 @@
                         コールを選択してください
                     </v-alert>
                 </div>
-                <Search @checkCallError="setHasCallErrorFlag"></Search>
+                <Search @checkCallError="setHasCallErrorFlag" @sendCallId="setCallId"></Search>
                 <v-row id="start-button" justify="center" align="center">
                     <v-btn color="primary" class="my-4 black--text"
                         depressed x-large rounded width="170px"
@@ -45,6 +45,7 @@
         data() {
             return {
                 videoUrl: "",
+                callId: null,
                 showNoUrlAlert: false,
                 showUrlFormatAlert: false,
                 hasCallError: false,
@@ -56,13 +57,17 @@
                 return this.videoUrl ? false : true
             },
             hasUrlFormatError(){
-                const urlReg = /^(https\:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)+[\S]{11}$/
+                const urlReg = /^(https\:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)+([\S]{11}$)/
                 if (this.hasNoUrlError) {
                     return false
                 } else {
                     return urlReg.test(this.videoUrl) ? false : true
                 }
             },
+            videoId(){
+                const urlReg = /^(https\:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)+([\S]{11}$)/
+                return this.videoUrl.match(urlReg).pop()
+            }
         },
         components: {
             Search,
@@ -76,7 +81,11 @@
                 if (!this.hasNoUrlError && !this.hasUrlFormatError && !this.hasCallError) {
                     setTimeout(() => {
                         this.$router.push({
-                            path: "/practice",
+                            name: "practice",
+                            params: {
+                                videoId: this.videoId,
+                                callId: this.callId
+                            }
                         })
                     }, 90);
                 }
@@ -84,6 +93,9 @@
             setHasCallErrorFlag(hasSelected){
                 this.hasCallError = hasSelected ? false : true;
             },
+            setCallId(callId){
+                this.callId = callId;
+            }
         },
     }
 </script>
