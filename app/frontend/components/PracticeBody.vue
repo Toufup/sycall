@@ -1,9 +1,9 @@
 <template>
     <v-container fluid id="practice-body" px-16 py-0>
         <Video 
-            :artist="artist"
-            :song="song"
-            :bpm="bpm"
+            :artist="selectedCallInfo.artist"
+            :title="selectedCallInfo.title"
+            :bpm="selectedCallInfo.bpm"
             :videoId="videoId"
         ></Video>
         <Subtitle
@@ -14,6 +14,7 @@
 
 <script>
     import axios from 'axios'
+    import {mapGetters} from 'vuex'
     import Video from './Video.vue'
     import Subtitle from './Subtitle.vue'
 
@@ -25,11 +26,11 @@
         },
         data() {
             return {
-                song: "Make you happy",
-                artist: "NiziU",
-                bpm: 160,
                 lyricsLines: [],
             }
+        },
+        computed: {
+            ...mapGetters(["selectedCallInfo"]),
         },
         props: {
             videoId: {

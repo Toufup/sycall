@@ -14,7 +14,7 @@
             <v-col cols="10">
                 <h3 class="white--text text-center">
                     <v-icon left color="mainColor" id="music-circle-icon">mdi-music-circle</v-icon>
-                    練習中：{{artist}} - {{song}}
+                    練習中：{{artist}} - {{title}}
                 </h3>
             </v-col>
             <v-col cols="auto" class="py-0">
@@ -55,7 +55,7 @@
                 type: String,
                 required: true,
             },
-            song: {
+            title: {
                 type: String,
                 required: true,
             },

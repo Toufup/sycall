@@ -54,6 +54,7 @@
 
 <script>
     import axios from 'axios'
+    import {mapActions} from 'vuex'
     export default {
         name: "Search",
         data() {
@@ -105,6 +106,7 @@
             }
         },
         methods: {
+            ...mapActions(["sendSelectedCallInfo"]),
             selectResult(result){
                 if (result) {
                     this.selectedResult = result;
@@ -113,6 +115,7 @@
                     this.selectedResult = null;
                     this.$emit("sendCallId", null)
                 }
+                this.sendSelectedCallInfo(result);
             }
         },
     }

@@ -8,21 +8,31 @@ const actions = {
             commit("updateVideoCurrentTime", time)
         })
     },
+    sendSelectedCallInfo({commit}, result){
+        commit("updateSelectedCallInfo", result)
+    }
 }
 
 const mutations = {
     updateVideoCurrentTime(state, time){
         state.time = time;
     },
+    updateSelectedCallInfo(state, result){
+        state.selectedCallInfo = result;
+    }
 }
 
 const state = {
     time: 0,
+    selectedCallInfo: null,
 }
 
 const getters = {
     videoCurrentTime(state){
         return state.time;
+    },
+    selectedCallInfo(state){
+        return state.selectedCallInfo
     }
 }
 
