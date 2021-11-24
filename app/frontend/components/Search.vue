@@ -85,14 +85,16 @@
                         this.results = res.data;
                         this.isLoading = false;
                         this.results.length > 0 ? this.hasResult = true : this.hasResult = false;
-                        this.selectedResult = this.results[0];
+                        this.selectResult(this.results[0]);
                     })
                     .catch(err => {
                         console.error(err.message); 
                     })
                 } else {
                     this.hasResult = false;
+                    this.results = [];
                     this.isValid = false;
+                    this.selectResult(null);
                 }
             },
             hasSelected: {
@@ -104,7 +106,13 @@
         },
         methods: {
             selectResult(result){
-                this.selectedResult = result;
+                if (result) {
+                    this.selectedResult = result;
+                    this.$emit("sendCallId", result.id)
+                } else {
+                    this.selectedResult = null;
+                    this.$emit("sendCallId", null)
+                }
             }
         },
     }

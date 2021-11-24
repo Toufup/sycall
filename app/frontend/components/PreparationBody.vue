@@ -25,7 +25,7 @@
                         コールを選択してください
                     </v-alert>
                 </div>
-                <Search @checkCallError="setHasCallErrorFlag"></Search>
+                <Search @checkCallError="setHasCallErrorFlag" @sendCallId="setCallId"></Search>
                 <v-row id="start-button" justify="center" align="center">
                     <v-btn color="primary" class="my-4 black--text"
                         depressed x-large rounded width="170px"
@@ -45,6 +45,7 @@
         data() {
             return {
                 videoUrl: "",
+                callId: null,
                 showNoUrlAlert: false,
                 showUrlFormatAlert: false,
                 hasCallError: false,
@@ -82,7 +83,8 @@
                         this.$router.push({
                             name: "practice",
                             params: {
-                                videoId: this.videoId
+                                videoId: this.videoId,
+                                callId: this.callId
                             }
                         })
                     }, 90);
@@ -91,6 +93,9 @@
             setHasCallErrorFlag(hasSelected){
                 this.hasCallError = hasSelected ? false : true;
             },
+            setCallId(callId){
+                this.callId = callId;
+            }
         },
     }
 </script>

@@ -16,7 +16,7 @@ export default new VueRouter({
         },
         {
             name: "practice",
-            path: "/practice/:videoId",
+            path: "/practice/:videoId/:callId",
             component: PracticeBody,
             props: true,
         },
