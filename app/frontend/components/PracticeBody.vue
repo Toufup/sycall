@@ -30,13 +30,7 @@
             }
         },
         computed: {
-            ...mapGetters(["selectedCallInfo"]),
-        },
-        props: {
-            videoId: {
-                type: String,
-                required: true,
-            },
+            ...mapGetters(["selectedCallInfo", "videoId"]),
         },
         created() {
             axios.get("/calls/get_lyrics",{params: {callId: this.selectedCallInfo.id}})

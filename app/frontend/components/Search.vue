@@ -110,10 +110,8 @@
             selectResult(result){
                 if (result) {
                     this.selectedResult = result;
-                    this.$emit("sendCallId", result.id)
                 } else {
                     this.selectedResult = null;
-                    this.$emit("sendCallId", null)
                 }
                 this.sendSelectedCallInfo(result);
             }

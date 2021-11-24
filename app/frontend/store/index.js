@@ -12,6 +12,9 @@ const actions = {
     },
     sendSelectedCallInfo({commit}, result){
         commit("updateSelectedCallInfo", result)
+    },
+    sendVideoUrl({commit}, url){
+        commit("updateVideoUrl", url)
     }
 }
 
@@ -21,12 +24,17 @@ const mutations = {
     },
     updateSelectedCallInfo(state, result){
         state.selectedCallInfo = result;
+    },
+    updateVideoUrl(state, url){
+        const urlReg = /^(https\:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)+([\S]{11}$)/
+        state.videoId = url.match(urlReg).pop()
     }
 }
 
 const state = {
     time: 0,
     selectedCallInfo: null,
+    videoId: null,
 }
 
 const getters = {
@@ -35,6 +43,9 @@ const getters = {
     },
     selectedCallInfo(state){
         return state.selectedCallInfo
+    },
+    videoId(state){
+        return state.videoId
     }
 }
 
@@ -46,7 +57,7 @@ export default new Vuex.Store({
     plugins: [
         createPersistedState({
             key: "sycallApp",
-            paths: ['selectedCallInfo'],
+            paths: ["selectedCallInfo", "videoId"],
             storage: window.sessionStorage
         })
     ]

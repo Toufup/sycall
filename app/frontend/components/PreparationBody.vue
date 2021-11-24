@@ -25,7 +25,7 @@
                         コールを選択してください
                     </v-alert>
                 </div>
-                <Search @checkCallError="setHasCallErrorFlag" @sendCallId="setCallId"></Search>
+                <Search @checkCallError="setHasCallErrorFlag"></Search>
                 <v-row id="start-button" justify="center" align="center">
                     <v-btn color="primary" class="my-4 black--text"
                         depressed x-large rounded width="170px"
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+    import {mapGetters, mapActions} from 'vuex'
     import {hearts} from '../src/effects/hearts'
     import Search from './Search.vue'
     export default {
@@ -45,7 +46,6 @@
         data() {
             return {
                 videoUrl: "",
-                callId: null,
                 showNoUrlAlert: false,
                 showUrlFormatAlert: false,
                 hasCallError: false,
@@ -53,6 +53,7 @@
             }
         },
         computed: {
+            ...mapGetters(["videoId"]),
             hasNoUrlError(){
                 return this.videoUrl ? false : true
             },
@@ -64,28 +65,22 @@
                     return urlReg.test(this.videoUrl) ? false : true
                 }
             },
-            videoId(){
-                const urlReg = /^(https\:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)+([\S]{11}$)/
-                return this.videoUrl.match(urlReg).pop()
-            }
         },
         components: {
             Search,
         },
         methods: {
+            ...mapActions(["sendVideoUrl"]),
             toPractice(event){
                 hearts(event.target);
                 this.showNoUrlAlert = this.hasNoUrlError ? true : false;
                 this.showUrlFormatAlert = this.hasUrlFormatError ? true : false;
                 this.showCallAlert = this.hasCallError ? true : false;
                 if (!this.hasNoUrlError && !this.hasUrlFormatError && !this.hasCallError) {
+                    this.sendVideoUrl(this.videoUrl)
                     setTimeout(() => {
                         this.$router.push({
-                            name: "practice",
-                            params: {
-                                videoId: this.videoId,
-                                callId: this.callId
-                            }
+                            path: "/practice",
                         })
                     }, 90);
                 }
@@ -93,9 +88,6 @@
             setHasCallErrorFlag(hasSelected){
                 this.hasCallError = hasSelected ? false : true;
             },
-            setCallId(callId){
-                this.callId = callId;
-            }
         },
     }
 </script>
