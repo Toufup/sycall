@@ -37,13 +37,9 @@
                 type: String,
                 required: true,
             },
-            callId: {
-                type: Number,
-                required: true,
-            }
         },
         created() {
-            axios.get("/calls/get_lyrics",{params: {callId: this.callId}})
+            axios.get("/calls/get_lyrics",{params: {callId: this.selectedCallInfo.id}})
             .then(res => {
                 this.lyricsLines = res.data
             })
