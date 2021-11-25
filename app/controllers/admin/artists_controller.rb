@@ -1,6 +1,6 @@
 class Admin::ArtistsController < ApplicationController
     skip_before_action :verify_authenticity_token
-    
+
     def index
         @artists = Artist.all
     end
@@ -10,6 +10,12 @@ class Admin::ArtistsController < ApplicationController
         artist.save!
     end
     
+    def destroy
+        artist = Artist.find(params[:id])
+        artist.destroy!
+    end
+    
+    private
     def artists_params
         params.require(:artist).permit(:name)
     end

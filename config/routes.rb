@@ -4,7 +4,10 @@ Rails.application.routes.draw do
     get "/calls/search", to: "calls#search"
     get "/calls/get_lyrics", to: "calls#get_lyrics"
 
-    get "/api/admin/artists", to: "admin/artists#index"
-    post "/api/admin/artists", to: "admin/artists#create"
+    scope :api do
+      namespace :admin do
+        resources :artists, only: [:index, :create, :destroy]
+      end
+    end
   end
 end

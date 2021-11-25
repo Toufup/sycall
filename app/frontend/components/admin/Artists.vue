@@ -1,6 +1,6 @@
 <template>
     <v-container id="artists-group">
-        <v-dialog max-width="600px" v-model="dialog" class="rounded-xl">
+        <v-dialog max-width="600px" v-model="dialogAdd" class="rounded-xl" :retain-focus="false">
             <template v-slot:activator="{on}">
                 <v-btn depressed rounded color="primary" class="black--text mx-2" v-on="on">
                     <v-icon left color="black">mdi-plus-circle</v-icon>追加
@@ -23,7 +23,7 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn depressed rounded color="black" class="white--text mx-2" @click="dialog = false">
+                    <v-btn depressed rounded color="black" class="white--text mx-2" @click="dialogAdd = false">
                         キャンセル
                     </v-btn>
                     <v-btn depressed rounded color="primary" class="black--text mx-2" @click="addArtist">
@@ -44,9 +44,30 @@
                     <v-btn depressed rounded color="mainColor" class="black--text mx-2">
                         <v-icon left color="black">mdi-pencil</v-icon>編集
                     </v-btn>
-                    <v-btn depressed rounded color="pink" class="black--text mx-2">
-                        <v-icon left color="black">mdi-delete</v-icon>削除
-                    </v-btn>
+                    <v-dialog max-width="600px" :value="dialogDeleteId === artist.id" class="rounded-xl" 
+                    :retain-focus="false">
+                        <template v-slot:activator="{on}">
+                            <v-btn depressed rounded color="pink" class="black--text mx-2" 
+                            v-on="on" @click="confirm(artist.id)"
+                            >
+                                <v-icon left color="black">mdi-delete</v-icon>削除
+                            </v-btn>
+                        </template>
+                        <v-card>
+                            <v-card-title>
+                                <h3>本当に削除しますか？</h3>
+                            </v-card-title>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn depressed rounded color="black" class="white--text mx-2" @click="dialogDeleteId = false">
+                                    キャンセル
+                                </v-btn>
+                                <v-btn depressed rounded color="pink" class="black--text mx-2" @click="destroyArtist(artist.id)">
+                                    <v-icon left color="black">mdi-delete</v-icon>削除
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
                 </v-list-item>
                 <v-divider></v-divider>
             </div>
@@ -62,25 +83,46 @@
         data() {
             return {
                 artists: [],
-                dialog: false,
+                dialogAdd: false,
+                dialogDeleteId: false,
                 inputArtistName: "",
                 page: 1,
             }
         },
         methods: {
+            // TODO AA CRUD の関数は抽出して共通化した方がいいです
             addArtist(){
-                this.dialog = false;
+                this.dialogAdd = false;
                 axios.post("/api/admin/artists",{
                     artist: {
                         name: this.inputArtistName
                 }})
-                .then(res => {
-                    console.log(res)
+                .then(() => {
+                    this.artists.push({
+                        id: this.artists.slice(-1)[0].id + 1,
+                        name: this.inputArtistName
+                    })
+                    this.inputArtistName = "";
                 })
                 .catch(err => {
                     console.error(err); 
                 })
-            }
+            },
+            confirm(id){
+                this.dialogDeleteId = id
+            },
+            destroyArtist(id){
+                this.dialogDeleteId = false
+                axios.delete(`/api/admin/artists/${id}`)
+                .then(() => {
+                    this.artists = this.artists.filter((e) => {
+                        return e.id !== id;
+                    });
+                })
+                .catch(err => {
+                    console.error(err); 
+                })
+            },
         },
         mounted() {
             axios.get("/api/admin/artists")
