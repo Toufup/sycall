@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import TopPageBody from '../components/TopPageBody.vue'
 import PreparationBody from '../components/PreparationBody.vue'
 import PracticeBody from '../components/PracticeBody.vue'
+import Dashboard from '../components/admin/Dashboard.vue'
 
 export default new VueRouter({
     routes: [
@@ -18,5 +19,9 @@ export default new VueRouter({
             path: "/practice",
             component: PracticeBody,
         },
+        {
+            path: "/admin",
+            component: Dashboard,
+        }
     ]
 })
