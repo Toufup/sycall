@@ -24,14 +24,14 @@
 <script>
     import Artists from './Artists.vue'
     import Songs from './Songs.vue'
-    import CallVersions from './CallVersions.vue'
+    import CallLyricsVersions from './CallLyricsVersions.vue'
     import CallLyrics from './CallLyrics.vue'
     export default {
         name: "Dashboard",
         components: {
             Artists,
             Songs,
-            CallVersions,
+            CallLyricsVersions,
             CallLyrics
         },
         data() {
@@ -43,7 +43,7 @@
                     {icon: "music-box", name: "歌詞"},
                 ],
                 currentTab: "Artists",
-                components: ["Artists", "Songs", "CallVersions", "CallLyrics"],
+                components: ["Artists", "Songs", "CallLyricsVersions", "CallLyrics"],
             }
         },
     }
