@@ -79,7 +79,8 @@
                     {language: "Korean", value: "korean"},
                     {language: "Romanized", value: "romanized"},
                     {language: "English", value: "english"},
-                ]
+                ],
+                dialog: false,
             }
         },
     }

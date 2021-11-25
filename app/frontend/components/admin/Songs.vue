@@ -71,7 +71,8 @@
                     {id: 3, title: "Feel Special", artist: "TWICE", bpm: 129},
                     {id: 4, title: "Make you happy", artist: "ITZY", bpm: 160},
                     {id: 5, title: "Chopstick", artist: "ITZY", bpm: 141},
-                ]
+                ],
+                dialog: false,
             }
         },
     }

@@ -14,7 +14,9 @@
                     <v-container>
                         <v-row>
                             <v-col cols="12">
-                                <v-text-field label="名前" required color="maccha"></v-text-field>
+                                <v-text-field label="名前" required color="maccha"
+                                    v-model="inputArtistName"
+                                ></v-text-field>
                             </v-col>
                         </v-row>
                     </v-container>
@@ -24,7 +26,7 @@
                     <v-btn depressed rounded color="black" class="white--text mx-2" @click="dialog = false">
                         キャンセル
                     </v-btn>
-                    <v-btn depressed rounded color="primary" class="black--text mx-2" @click="dialog = false">
+                    <v-btn depressed rounded color="primary" class="black--text mx-2" @click="addArtist">
                         <v-icon left color="black">mdi-plus-circle</v-icon>追加
                     </v-btn>
                 </v-card-actions>
@@ -54,25 +56,40 @@
 </template>
 
 <script>
+    import axios from 'axios'
     export default {
         name: "Artists",
         data() {
             return {
-                artists: [
-                    {id: 1, name: "ITZY"},
-                    {id: 2, name: "TWICE"},
-                    {id: 3, name: "NiziU"},
-                    {id: 4, name: "BLACKPINK"},
-                    {id: 5, name: "EVERGLOW"},
-                ],
+                artists: [],
                 dialog: false,
+                inputArtistName: "",
                 page: 1,
             }
         },
         methods: {
             addArtist(){
-
+                this.dialog = false;
+                axios.post("/api/admin/artists",{
+                    artist: {
+                        name: this.inputArtistName
+                }})
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(err => {
+                    console.error(err); 
+                })
             }
+        },
+        mounted() {
+            axios.get("/api/admin/artists")
+            .then(res => {
+                this.artists = res.data
+            })
+            .catch(err => {
+                console.error(err.message); 
+            })
         },
     }
 </script>
