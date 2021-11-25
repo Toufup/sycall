@@ -10,9 +10,7 @@
                     </v-tab>
                     <v-tabs-items v-model="currentTab" class="rounded-r-xl">
                         <v-tab-item v-for="comp in components" :key="comp">
-                            <keep-alive>
-                                <component :is="comp"></component>
-                            </keep-alive>
+                            <component :is="comp"></component>
                         </v-tab-item>
                     </v-tabs-items>
                 </v-tabs>

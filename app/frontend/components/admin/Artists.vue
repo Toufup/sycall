@@ -1,8 +1,35 @@
 <template>
     <v-container id="artists-group">
-        <v-btn depressed rounded color="primary" class="black--text">
-            <v-icon left color="black">mdi-plus-circle</v-icon>追加
-        </v-btn>
+        <v-dialog max-width="600px" v-model="dialog" class="rounded-xl">
+            <template v-slot:activator="{on}">
+                <v-btn depressed rounded color="primary" class="black--text mx-2" v-on="on">
+                    <v-icon left color="black">mdi-plus-circle</v-icon>追加
+                </v-btn>
+            </template>
+            <v-card>
+                <v-card-title>
+                    <h3>アーティストを追加する</h3>
+                </v-card-title>
+                <v-card-text>
+                    <v-container>
+                        <v-row>
+                            <v-col cols="12">
+                                <v-text-field label="名前" required color="maccha"></v-text-field>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn depressed rounded color="black" class="white--text mx-2" @click="dialog = false">
+                        キャンセル
+                    </v-btn>
+                    <v-btn depressed rounded color="primary" class="black--text mx-2" @click="dialog = false">
+                        <v-icon left color="black">mdi-plus-circle</v-icon>追加
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
         <v-list>
             <div id="artist" v-for="artist in artists" :key="artist.id">
                 <v-list-item>
@@ -38,7 +65,13 @@
                     {id: 4, name: "BLACKPINK"},
                     {id: 5, name: "EVERGLOW"},
                 ],
+                dialog: false,
                 page: 1,
+            }
+        },
+        methods: {
+            addArtist(){
+
             }
         },
     }
