@@ -13,12 +13,13 @@
                     </a>
                 </v-col>
                 <v-spacer></v-spacer>
-                <v-col cols="auto">
+                <!-- ログイン機能は一旦コメントアウト -->
+                <!-- <v-col cols="auto">
                     <div id="navbar-right">
                         <v-btn depressed rounded outlined color="mainColor" class="ml-2">Login</v-btn>
                         <v-btn depressed rounded color="mainColor" class="ml-2">Sign up</v-btn>
                     </div>
-                </v-col>
+                </v-col> -->
             </v-row>
         </v-container>
     </v-app-bar>
