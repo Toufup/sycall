@@ -1,37 +1,22 @@
 <template>
     <v-container id="artists-group">
-        <v-dialog max-width="600px" v-model="dialogAdd" class="rounded-xl" :retain-focus="false">
-            <template v-slot:activator="{on}">
-                <v-btn depressed rounded color="primary" class="black--text mx-2" v-on="on">
-                    <v-icon left color="black">mdi-plus-circle</v-icon>追加
-                </v-btn>
+        <AddButton
+            :moduleName="'アーティスト'"
+            :inputValue="inputValue"
+            :emitEventName="'sendToArtistList'"
+            @sendToArtistList="renderToArtistList"
+            @resetInput="resetInput"
+            :apiPath="'/api/admin/artists'"
+            :paramsType="'artist'"
+        >
+            <template v-slot:formArea>
+                <v-col cols="12">
+                    <v-text-field label="名前" required color="maccha"
+                        v-model="inputValue"
+                    ></v-text-field>
+                </v-col>
             </template>
-            <v-card>
-                <v-card-title>
-                    <h3>アーティストを追加する</h3>
-                </v-card-title>
-                <v-card-text>
-                    <v-container>
-                        <v-row>
-                            <v-col cols="12">
-                                <v-text-field label="名前" required color="maccha"
-                                    v-model="inputArtistName"
-                                ></v-text-field>
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-card-text>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn depressed rounded color="black" class="white--text mx-2" @click="dialogAdd = false">
-                        キャンセル
-                    </v-btn>
-                    <v-btn depressed rounded color="primary" class="black--text mx-2" @click="addArtist">
-                        <v-icon left color="black">mdi-plus-circle</v-icon>追加
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
+        </AddButton>
         <v-list>
             <div id="artist" v-for="artist in artists" :key="artist.id">
                 <v-list-item>
@@ -44,8 +29,7 @@
                     <v-btn depressed rounded color="mainColor" class="black--text mx-2">
                         <v-icon left color="black">mdi-pencil</v-icon>編集
                     </v-btn>
-                    <v-dialog max-width="600px" :value="dialogDeleteId === artist.id" class="rounded-xl" 
-                    :retain-focus="false">
+                    <v-dialog max-width="600px" :value="dialogDeleteId === artist.id" class="rounded-xl">
                         <template v-slot:activator="{on}">
                             <v-btn depressed rounded color="pink" class="black--text mx-2" 
                             v-on="on" @click="confirm(artist.id)"
@@ -77,37 +61,33 @@
 </template>
 
 <script>
+    import AddButton from './AddButton.vue'
     import axios from 'axios'
     export default {
         name: "Artists",
+        components: {
+            AddButton,
+        },
         data() {
             return {
+                inputValue: "",
                 artists: [],
-                dialogAdd: false,
                 dialogDeleteId: false,
-                inputArtistName: "",
                 page: 1,
             }
         },
         methods: {
-            // TODO AA CRUD の関数は抽出して共通化した方がいいです
-            addArtist(){
-                this.dialogAdd = false;
-                axios.post("/api/admin/artists",{
-                    artist: {
-                        name: this.inputArtistName
-                }})
-                .then(() => {
-                    this.artists.push({
-                        id: this.artists.slice(-1)[0].id + 1,
-                        name: this.inputArtistName
-                    })
-                    this.inputArtistName = "";
-                })
-                .catch(err => {
-                    console.error(err); 
+            renderToArtistList(value){
+                this.artists.push({
+                    id: this.artists.slice(-1)[0].id + 1,
+                    name: value
                 })
             },
+            resetInput(){
+                this.inputValue = "";
+            },
+            // TODO AA CRUD の関数は抽出して共通化した方がいいです
+            
             confirm(id){
                 this.dialogDeleteId = id
             },
