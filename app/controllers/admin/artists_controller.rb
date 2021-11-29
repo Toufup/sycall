@@ -1,6 +1,4 @@
 class Admin::ArtistsController < ApplicationController
-    skip_before_action :verify_authenticity_token
-
     def index
         @artists = Artist.all
     end
@@ -10,7 +8,7 @@ class Admin::ArtistsController < ApplicationController
     end
     
     def create
-        artist = Artist.new(artists_params)
+        artist = Artist.new(artist_params)
         artist.save!
     end
     
@@ -21,12 +19,11 @@ class Admin::ArtistsController < ApplicationController
     
     def update
         artist = Artist.find(params[:id])
-        artist.update!(artists_params)
+        artist.update!(artist_params)
     end
     
     private
-    def artists_params
+    def artist_params
         params.require(:artist).permit(:name)
     end
-    
 end

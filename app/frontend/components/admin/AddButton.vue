@@ -45,7 +45,7 @@
                 required: true,
             },
             inputValue: {
-                type: String,
+                type: String | Object,
                 required: true,
             },
             apiPath: {
@@ -65,6 +65,17 @@
                             artist: {
                                 name: this.inputValue
                         }}
+                        break;
+                    case "song":
+                        return {
+                            song: {
+                                title: this.inputValue.title,
+                                bpm: this.inputValue.bpm,
+                            },
+                            artist: {
+                                name: this.inputValue.artistName,
+                            }
+                        }
                         break;
                 }
             }

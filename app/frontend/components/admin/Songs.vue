@@ -1,79 +1,122 @@
 <template>
     <v-container id="songs-group">
-        <v-dialog max-width="600px" v-model="dialog" class="rounded-xl">
-            <template v-slot:activator="{on}">
-                <v-btn depressed rounded color="primary" class="black--text" v-on="on">
-                    <v-icon left color="black">mdi-plus-circle</v-icon>追加
-                </v-btn>
+        <AddButton
+            :moduleName="moduleName"
+            :inputValue="inputAddValue"
+            @addItem="addToSongsList"
+            :apiPath="'/api/admin/songs'"
+            :paramsType="'song'"
+        >
+            <template v-slot:formAddArea>
+                <v-col cols="12">
+                    <v-text-field label="曲名" required color="maccha"
+                        v-model="inputAddValue.title"
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field label="アーティスト" required color="maccha"
+                        v-model="inputAddValue.artistName"
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field label="BPM（任意）" color="maccha"
+                        v-model="inputAddValue.bpm"
+                    ></v-text-field>
+                </v-col>
             </template>
-            <v-card>
-                <v-card-title>
-                    <h3>曲を追加する</h3>
-                </v-card-title>
-                <v-card-text>
-                    <v-container>
-                        <v-row>
-                            <v-col cols="12">
-                                <v-text-field label="曲名" required color="maccha"></v-text-field>
-                            </v-col>
-                            <v-col cols="12">
-                                <v-text-field label="アーティスト" required color="maccha"></v-text-field>
-                            </v-col>
-                            <v-col cols="12">
-                                <v-text-field label="BPM（任意）" required color="maccha"></v-text-field>
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-card-text>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn depressed rounded color="black" class="white--text mx-2" @click="dialog = false">
-                        キャンセル
-                    </v-btn>
-                    <v-btn depressed rounded color="primary" class="black--text mx-2" @click="dialog = false">
-                        <v-icon left color="black">mdi-plus-circle</v-icon>追加
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-        <v-list>
-            <div id="song" v-for="song in songs" :key="song.id">
-                <v-list-item>
-                    <v-list-item-icon>
-                        <v-icon large color="maccha">mdi-music-clef-treble</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                        <v-list-item-title class="black--text">{{song.title}}</v-list-item-title>
-                        <v-list-item-subtitle>アーティスト：{{song.artist}}</v-list-item-subtitle>
-                        <v-list-item-subtitle>BPM：{{song.bpm}}</v-list-item-subtitle>
-                    </v-list-item-content>
-                    <v-btn depressed rounded color="mainColor" class="black--text mx-2">
-                        <v-icon left color="black">mdi-pencil</v-icon>編集
-                    </v-btn>
-                    <v-btn depressed rounded color="pink" class="black--text mx-2">
-                        <v-icon left color="black">mdi-delete</v-icon>削除
-                    </v-btn>
-                </v-list-item>
-                <v-divider></v-divider>
-            </div>
-        </v-list>
+        </AddButton>
+        <List
+            :moduleName="moduleName"
+            :iconName="'account-music'"
+            :items="songs"
+
+            :apiPath="'/api/admin/songs'"
+            @destroyItem="destroyFromSongsList"
+
+            :paramsType="'song'"
+            :inputValue="this.inputEditValue"
+            @updateItem="updateSongsList"
+        >
+            <template v-slot:contentArea="{item}">
+                <v-list-item-title class="black--text">{{item.title}}</v-list-item-title>
+                <v-list-item-subtitle>アーティスト：{{item.artistName}}</v-list-item-subtitle>
+                <v-list-item-subtitle>BPM：{{item.bpm}}</v-list-item-subtitle>
+            </template>
+            <template v-slot:formEditArea="{itemToEdit}">
+                <v-col cols="12">
+                    <v-text-field label="曲名" required color="maccha"
+                        v-model="itemToEdit.title"
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field label="アーティスト" required color="maccha"
+                        v-model="itemToEdit.artistName"
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field label="BPM（任意）" color="maccha"
+                        v-model="itemToEdit.name"
+                    ></v-text-field>
+                </v-col>
+            </template>
+        </List>
     </v-container>
 </template>
 
 <script>
+    import AddButton from './AddButton.vue'
+    import List from './List.vue'
+    import axios from 'axios'
     export default {
         name: "Songs",
         data() {
             return {
-                songs: [
-                    {id: 1, title: "DALLA DALLA", artist: "ITZY", bpm: 125},
-                    {id: 2, title: "WANNABE", artist: "ITZY", bpm: 122},
-                    {id: 3, title: "Feel Special", artist: "TWICE", bpm: 129},
-                    {id: 4, title: "Make you happy", artist: "ITZY", bpm: 160},
-                    {id: 5, title: "Chopstick", artist: "ITZY", bpm: 141},
-                ],
+                inputAddValue: {
+                    title: "",
+                    artistName: "",
+                    bpm: "",
+                },
+                inputEditValue: "",
+                songs: [],
+                moduleName: "曲",
                 dialog: false,
             }
+        },
+        components: {
+            AddButton,
+            List,
+        },
+        methods: {
+            addToSongsList(value){
+                this.songs.push({
+                    id: this.songs.slice(-1)[0].id + 1,
+                    title: value.title,
+                    artistName: value.artistName,
+                    bpm: value.bpm,
+                })
+                this.inputAddValue = {
+                    title: "",
+                    artistName: "",
+                    bpm: "",
+                };
+            },
+            // destroyFromSongsList(id){
+            //     this.songs = this.songs.filter((e) => {
+            //         return e.id !== id;
+            //     });
+            // },
+            // updateSongsList(id, itemToEdit){
+            //     this.songs.find((e) => e.id === id).name = itemToEdit.name;
+            // }
+        },
+        mounted() {
+            axios.get("/api/admin/songs")
+            .then(res => {
+                this.songs = res.data
+            })
+            .catch(err => {
+                console.error(err.message); 
+            })
         },
     }
 </script>
