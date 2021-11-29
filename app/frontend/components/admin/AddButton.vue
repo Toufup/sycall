@@ -12,7 +12,7 @@
             <v-card-text>
                 <v-container>
                     <v-row>
-                        <slot name="formArea"></slot>
+                        <slot name="formAddArea"></slot>
                     </v-row>
                 </v-container>
             </v-card-text>
@@ -47,10 +47,6 @@
                 type: String,
                 required: true,
             },
-            emitEventName: {
-                type: String,
-                required: true,
-            },
             apiPath: {
                 type: String,
                 required: true,
@@ -77,8 +73,7 @@
                 this.dialogAdd = false;
                 axios.post(this.apiPath,this.paramsFormat)
                 .then(() => {
-                    this.$emit(this.emitEventName, this.inputValue)
-                    this.$emit("resetInput")
+                    this.$emit("addItem", this.inputValue)
                 })
                 .catch(err => {
                     console.error(err); 

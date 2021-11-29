@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
     scope :api do
       namespace :admin do
-        resources :artists, only: [:index, :create, :destroy]
+        resources :artists, only: [:show, :index, :create, :destroy, :update]
       end
     end
   end

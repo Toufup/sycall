@@ -5,6 +5,10 @@ class Admin::ArtistsController < ApplicationController
         @artists = Artist.all
     end
 
+    def show
+        @artist = Artist.find(params[:id])
+    end
+    
     def create
         artist = Artist.new(artists_params)
         artist.save!
@@ -13,6 +17,11 @@ class Admin::ArtistsController < ApplicationController
     def destroy
         artist = Artist.find(params[:id])
         artist.destroy!
+    end
+    
+    def update
+        artist = Artist.find(params[:id])
+        artist.update!(artists_params)
     end
     
     private
