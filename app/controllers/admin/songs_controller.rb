@@ -3,9 +3,9 @@ class Admin::SongsController < ApplicationController
         @songs = Song.all.includes(:artist)
     end
 
-    # def show
-    #     @song = Song.find(params[:id])
-    # end
+    def show
+        @song = Song.find(params[:id])
+    end
     
     def create
         artist = Artist.find_by(artist_params)
@@ -18,10 +18,12 @@ class Admin::SongsController < ApplicationController
         song.destroy!
     end
     
-    # def update
-    #     song = Song.find(params[:id])
-    #     song.update!(songs_params)
-    # end
+    def update
+        song = Song.find(params[:id])
+        artist = song.artist
+        song.update!(song_params)
+        artist.update!(artist_params)
+    end
     
     private
     def song_params

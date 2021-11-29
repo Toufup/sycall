@@ -45,17 +45,17 @@
             <template v-slot:formEditArea="{itemToEdit}">
                 <v-col cols="12">
                     <v-text-field label="曲名" required color="maccha"
-                        v-model="itemToEdit.title"
+                        v-model="itemToEdit.song.title"
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                     <v-text-field label="アーティスト" required color="maccha"
-                        v-model="itemToEdit.artistName"
+                        v-model="itemToEdit.artist.name"
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                     <v-text-field label="BPM（任意）" color="maccha"
-                        v-model="itemToEdit.name"
+                        v-model="itemToEdit.song.bpm"
                     ></v-text-field>
                 </v-col>
             </template>
@@ -104,9 +104,9 @@
                     return e.id !== id;
                 });
             },
-            // updateSongsList(id, itemToEdit){
-            //     this.songs.find((e) => e.id === id).name = itemToEdit.name;
-            // }
+            updateSongsList(id, itemToEdit){
+                this.songs.find((e) => e.id === id).name = itemToEdit.name;
+            }
         },
         mounted() {
             axios.get("/api/admin/songs")

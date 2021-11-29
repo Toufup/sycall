@@ -78,7 +78,15 @@
             return {
                 dialogDeleteId: false,
                 dialogEditId: false,
-                itemToEdit: {}
+                itemToEdit: {
+                    song: {
+                        title: "",
+                        bpm: "",
+                    },
+                    artist: {
+                        name: "",
+                    }
+                }
             }
         },
         props: {
@@ -124,10 +132,10 @@
                 })
             },
             startEditing(id){
-                this.openDialog(id, 'dialogEditId')
                 axios.get(`${this.apiPath}/${id}`,{id: id})
                 .then(res => {
                     this.itemToEdit = res.data
+                    this.openDialog(id, 'dialogEditId')
                 })
             },
             edit(id){
