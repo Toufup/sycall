@@ -1,5 +1,5 @@
 class Admin::SongsController < ApplicationController
-    before_action :set_song, only: [:edit, :show, :update, :destroy]
+    before_action :set_song, only: [:edit, :update, :destroy]
 
     def new; end
     
@@ -7,8 +7,6 @@ class Admin::SongsController < ApplicationController
         @songs = Song.all.includes(:artist)
     end
 
-    def show; end
-    
     def create
         artist = Artist.find_by(artist_params)
         song = artist.songs.build(song_params)
@@ -22,9 +20,8 @@ class Admin::SongsController < ApplicationController
     def edit; end
     
     def update
-        @artist = @song.artist
-        @song.update!(song_params)
-        @artist.update!(artist_params)
+        artist = Artist.find_by(artist_params)
+        @song.update!(song_params.merge(artist: artist))
     end
     
     private

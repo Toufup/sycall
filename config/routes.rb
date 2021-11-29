@@ -6,9 +6,9 @@ Rails.application.routes.draw do
 
     scope :api do
       namespace :admin do
-        resources :artists
-        resources :songs
-        resources :lyrics_versions
+        resources :artists, only: [:new, :index, :create, :destroy, :edit, :update]
+        resources :songs, only: [:new, :index, :create, :destroy, :edit, :update]
+        resources :lyrics_versions, only: [:new, :index, :create, :destroy, :edit, :update]
       end
     end
   end

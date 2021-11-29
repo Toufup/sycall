@@ -1,5 +1,5 @@
 class Admin::ArtistsController < ApplicationController
-    before_action :set_artist, only: [:edit, :show, :update, :destroy]
+    before_action :set_artist, only: [:edit, :update, :destroy]
 
     def new; end
     
@@ -7,8 +7,6 @@ class Admin::ArtistsController < ApplicationController
         @artists = Artist.all
     end
 
-    def show; end
-    
     def create
         artist = Artist.new(artist_params)
         artist.save!

@@ -1,5 +1,5 @@
 class Admin::LyricsVersionsController < ApplicationController
-    before_action :set_lyrics_versions, only: [:edit, :show, :update, :destroy]
+    before_action :set_lyrics_version, only: [:edit, :update, :destroy]
 
     def new; end
     
@@ -7,8 +7,6 @@ class Admin::LyricsVersionsController < ApplicationController
         @lyrics_versions = LyricsVersion.all.includes(:song, :language)
     end
 
-    # def show; end
-    
     def create
         song = Song.find_by(song_params)
         language = Language.find_by(language_params)
@@ -18,16 +16,16 @@ class Admin::LyricsVersionsController < ApplicationController
     end
     
     def destroy
-        @lyrics_versions.destroy!
+        @lyrics_version.destroy!
     end
     
-    # def edit; end
+    def edit; end
     
-    # def update
-    #     @artist = @song.artist
-    #     @song.update!(song_params)
-    #     @artist.update!(artist_params)
-    # end
+    def update
+        song = Song.find_by(song_params)
+        language = Language.find_by(language_params)
+        @lyrics_version.update!(lyrics_version_params.merge(song: song, language: language))
+    end
     
     private
     def song_params
@@ -42,7 +40,7 @@ class Admin::LyricsVersionsController < ApplicationController
         params.require(:lyrics_version).permit(:source)
     end
 
-    def set_lyrics_versions
-        @lyrics_versions = LyricsVersion.find(params[:id])
+    def set_lyrics_version
+        @lyrics_version = LyricsVersion.find(params[:id])
     end
 end
