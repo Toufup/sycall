@@ -71,6 +71,7 @@
 
 <script>
     import axios from 'axios'
+    import {mapMutations} from 'vuex'
     export default {
         name: "List",
         data() {
@@ -103,6 +104,7 @@
             },
         },
         methods: {
+            ...mapMutations(["showSuccessAlert"]),
             openDialog(id, dialogId){
                 this[dialogId] = id
             },
@@ -111,6 +113,11 @@
                 axios.delete(`${this.apiPath}/${id}`)
                 .then(() => {
                     this.$emit("destroyItem", id)
+                    this.showSuccessAlert({
+                        action: "削除",
+                        flag: true, 
+                        type: this.moduleName
+                    })
                 })
                 .catch(err => {
                     console.error(err); 
@@ -128,6 +135,11 @@
                 axios.put(`${this.apiPath}/${id}`, this.itemToEdit)
                 .then(() => {
                     this.$emit("updateItem", id, this.itemToEdit)
+                    this.showSuccessAlert({
+                        action: "変更",
+                        flag: true, 
+                        type: this.moduleName
+                    })
                 })
                 .catch(err => {
                     console.error(err); 

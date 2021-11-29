@@ -30,6 +30,7 @@
 </template>
 
 <script>
+    import {mapMutations} from 'vuex'
     import axios from 'axios'
     export default {
         name: "AddButton",
@@ -69,11 +70,17 @@
             }
         },
         methods: {
+            ...mapMutations(["showSuccessAlert"]),
             add(){
                 this.dialogAdd = false;
                 axios.post(this.apiPath,this.paramsFormat)
                 .then(() => {
                     this.$emit("addItem", this.inputValue)
+                    this.showSuccessAlert({
+                        action: "追加",
+                        flag: true, 
+                        type: this.moduleName
+                    })
                 })
                 .catch(err => {
                     console.error(err); 
