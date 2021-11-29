@@ -2,38 +2,37 @@
     <v-container id="artists-group">
         <AddButton
             :moduleName="moduleName"
-            :inputValue="inputAddValue"
+            :apiPath="apiPath"
+            @startAdding="getAddFormat"
+            :addFormat="addFormat"
             @addItem="addToArtistsList"
-            :apiPath="'/api/admin/artists'"
-            :paramsType="'artist'"
         >
-            <template v-slot:formAddArea>
+            <template v-if="addFormat" v-slot:formAddArea>
                 <v-col cols="12">
                     <v-text-field label="名前" required color="maccha"
-                        v-model="inputAddValue"
+                        v-model="addFormat.artist.name"
                     ></v-text-field>
                 </v-col>
             </template>
         </AddButton>
         <List
             :moduleName="moduleName"
+            :apiPath="apiPath"
             :iconName="'account-music'"
             :items="artists"
 
-            :apiPath="'/api/admin/artists'"
             @destroyItem="destroyFromArtistsList"
-
-            :paramsType="'artist'"
-            :inputValue="this.inputEditValue"
+            @startEditing="getEditFormat"
+            :editFormat="editFormat"
             @updateItem="updateArtistsList"
         >
             <template v-slot:contentArea="{item}">
                 <v-list-item-title class="black--text">{{item.name}}</v-list-item-title>
             </template>
-            <template v-slot:formEditArea="{itemToEdit}">
+            <template v-if="editFormat" v-slot:formEditArea>
                 <v-col cols="12">
                     <v-text-field label="名前" required color="maccha"
-                        v-model="itemToEdit.name"
+                        v-model="editFormat.artist.name"
                     ></v-text-field>
                 </v-col>
             </template>
@@ -53,31 +52,45 @@
         },
         data() {
             return {
-                inputAddValue: "",
-                inputEditValue: "",
+                apiPath: "/api/admin/artists",
+                addFormat: null,
+                editFormat: null,
                 artists: [],
                 moduleName: "アーティスト",
             }
         },
         methods: {
-            addToArtistsList(value){
+            getAddFormat(){
+                axios.get(`${this.apiPath}/new`)
+                .then((res) => {
+                    this.addFormat = res.data
+                })
+            },
+            addToArtistsList(obj){
                 this.artists.push({
                     id: this.artists.slice(-1)[0].id + 1,
-                    name: value
+                    name: obj.artist.name
                 })
-                this.inputAddValue = "";
+                this.addFormat = null;
             },
             destroyFromArtistsList(id){
                 this.artists = this.artists.filter((e) => {
                     return e.id !== id;
                 });
             },
-            updateArtistsList(id, itemToEdit){
-                this.artists.find((e) => e.id === id).name = itemToEdit.name;
+            getEditFormat(id){
+                axios.get(`${this.apiPath}/${id}/edit`,{id: id})
+                .then(res => {
+                    this.editFormat = res.data
+                })
+            },
+            updateArtistsList(id, obj){
+                this.artists.find((e) => e.id === id).name = obj.artist.name;
+                this.editFormat = null;
             }
         },
         mounted() {
-            axios.get("/api/admin/artists")
+            axios.get(this.apiPath)
             .then(res => {
                 this.artists = res.data
             })

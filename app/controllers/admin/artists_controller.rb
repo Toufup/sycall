@@ -1,11 +1,11 @@
 class Admin::ArtistsController < ApplicationController
+    before_action :set_artist, only: [:edit, :show, :update, :destroy]
+
     def index
         @artists = Artist.all
     end
 
-    def show
-        @artist = Artist.find(params[:id])
-    end
+    def show; end
     
     def create
         artist = Artist.new(artist_params)
@@ -13,17 +13,21 @@ class Admin::ArtistsController < ApplicationController
     end
     
     def destroy
-        artist = Artist.find(params[:id])
-        artist.destroy!
+        @artist.destroy!
     end
     
+    def edit; end
+    
     def update
-        artist = Artist.find(params[:id])
-        artist.update!(artist_params)
+        @artist.update!(artist_params)
     end
     
     private
     def artist_params
         params.require(:artist).permit(:name)
+    end
+
+    def set_artist
+        @artist = Artist.find(params[:id])
     end
 end

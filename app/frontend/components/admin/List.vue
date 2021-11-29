@@ -22,7 +22,7 @@
                         <v-card-text>
                             <v-container>
                                 <v-row>
-                                    <slot name="formEditArea" :itemToEdit=itemToEdit></slot>
+                                    <slot name="formEditArea"></slot>
                                 </v-row>
                             </v-container>
                         </v-card-text>
@@ -78,15 +78,6 @@
             return {
                 dialogDeleteId: false,
                 dialogEditId: false,
-                itemToEdit: {
-                    song: {
-                        title: "",
-                        bpm: "",
-                    },
-                    artist: {
-                        name: "",
-                    }
-                }
             }
         },
         props: {
@@ -106,9 +97,9 @@
                 type: String,
                 required: true,
             },
-            paramsType: {
-                type: String,
-                required: true,
+            editFormat: {
+                type: Object,
+                required: false,
             },
         },
         methods: {
@@ -132,17 +123,14 @@
                 })
             },
             startEditing(id){
-                axios.get(`${this.apiPath}/${id}`,{id: id})
-                .then(res => {
-                    this.itemToEdit = res.data
-                    this.openDialog(id, 'dialogEditId')
-                })
+                this.$emit("startEditing", id)
+                this.openDialog(id, 'dialogEditId')
             },
             edit(id){
                 this.dialogEditId = false;
-                axios.put(`${this.apiPath}/${id}`, this.itemToEdit)
+                axios.put(`${this.apiPath}/${id}`, this.editFormat)
                 .then(() => {
-                    this.$emit("updateItem", id, this.itemToEdit)
+                    this.$emit("updateItem", id, this.editFormat)
                     this.showSuccessAlert({
                         action: "変更",
                         flag: true, 

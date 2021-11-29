@@ -1,7 +1,9 @@
 <template>
     <v-dialog max-width="600px" v-model="dialogAdd" class="rounded-xl">
         <template v-slot:activator="{on}">
-            <v-btn depressed rounded color="primary" class="black--text mx-2" v-on="on">
+            <v-btn depressed rounded color="primary" class="black--text mx-2" v-on="on"
+                @click="$emit('startAdding')"
+            >
                 <v-icon left color="black">mdi-plus-circle</v-icon>追加
             </v-btn>
         </template>
@@ -44,49 +46,22 @@
                 type: String,
                 required: true,
             },
-            inputValue: {
-                type: String | Object,
-                required: true,
+            addFormat: {
+                type: Object,
+                required: false,
             },
             apiPath: {
                 type: String,
                 required: true,
             },
-            paramsType: {
-                type: String,
-                required: true,
-            }
-        },
-        computed: {
-            paramsFormat(){
-                switch (this.paramsType) {
-                    case "artist":
-                        return {
-                            artist: {
-                                name: this.inputValue
-                        }}
-                        break;
-                    case "song":
-                        return {
-                            song: {
-                                title: this.inputValue.title,
-                                bpm: this.inputValue.bpm,
-                            },
-                            artist: {
-                                name: this.inputValue.artistName,
-                            }
-                        }
-                        break;
-                }
-            }
         },
         methods: {
             ...mapMutations(["showSuccessAlert"]),
             add(){
                 this.dialogAdd = false;
-                axios.post(this.apiPath,this.paramsFormat)
+                axios.post(this.apiPath,this.addFormat)
                 .then(() => {
-                    this.$emit("addItem", this.inputValue)
+                    this.$emit("addItem", this.addFormat)
                     this.showSuccessAlert({
                         action: "追加",
                         flag: true, 
