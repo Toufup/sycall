@@ -79,7 +79,6 @@
                 inputEditValue: "",
                 songs: [],
                 moduleName: "曲",
-                dialog: false,
             }
         },
         components: {
@@ -100,11 +99,11 @@
                     bpm: "",
                 };
             },
-            // destroyFromSongsList(id){
-            //     this.songs = this.songs.filter((e) => {
-            //         return e.id !== id;
-            //     });
-            // },
+            destroyFromSongsList(id){
+                this.songs = this.songs.filter((e) => {
+                    return e.id !== id;
+                });
+            },
             // updateSongsList(id, itemToEdit){
             //     this.songs.find((e) => e.id === id).name = itemToEdit.name;
             // }

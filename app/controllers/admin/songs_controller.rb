@@ -13,10 +13,10 @@ class Admin::SongsController < ApplicationController
         song.save!
     end
     
-    # def destroy
-    #     song = Song.find(params[:id])
-    #     song.destroy!
-    # end
+    def destroy
+        song = Song.find(params[:id])
+        song.destroy!
+    end
     
     # def update
     #     song = Song.find(params[:id])
