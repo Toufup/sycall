@@ -1,6 +1,8 @@
 class Admin::ArtistsController < ApplicationController
     before_action :set_artist, only: [:edit, :show, :update, :destroy]
 
+    def new; end
+    
     def index
         @artists = Artist.all
     end

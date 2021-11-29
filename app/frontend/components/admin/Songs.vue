@@ -2,60 +2,59 @@
     <v-container id="songs-group">
         <AddButton
             :moduleName="moduleName"
-            :inputValue="inputAddValue"
+            :apiPath="apiPath"
+            @startAdding="getAddFormat"
+            :addFormat="addFormat"
             @addItem="addToSongsList"
-            :apiPath="'/api/admin/songs'"
-            :paramsType="'song'"
         >
-            <template v-slot:formAddArea>
+            <template v-if="addFormat" v-slot:formAddArea>
                 <v-col cols="12">
                     <v-text-field label="曲名" required color="maccha"
-                        v-model="inputAddValue.title"
+                        v-model="addFormat.song.title"
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                     <v-text-field label="アーティスト" required color="maccha"
-                        v-model="inputAddValue.artistName"
+                        v-model="addFormat.artist.name"
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                    <v-text-field label="BPM（任意）" color="maccha"
-                        v-model="inputAddValue.bpm"
+                    <v-text-field label="BPM" required color="maccha"
+                        v-model="addFormat.song.bpm"
                     ></v-text-field>
                 </v-col>
             </template>
         </AddButton>
         <List
             :moduleName="moduleName"
+            :apiPath="'/api/admin/songs'"
             :iconName="'account-music'"
             :items="songs"
 
-            :apiPath="'/api/admin/songs'"
             @destroyItem="destroyFromSongsList"
-
-            :paramsType="'song'"
-            :inputValue="this.inputEditValue"
+            @startEditing="getEditFormat"
+            :editFormat="editFormat"
             @updateItem="updateSongsList"
         >
             <template v-slot:contentArea="{item}">
-                <v-list-item-title class="black--text">{{item.title}}</v-list-item-title>
-                <v-list-item-subtitle>アーティスト：{{item.artistName}}</v-list-item-subtitle>
-                <v-list-item-subtitle>BPM：{{item.bpm}}</v-list-item-subtitle>
+                <v-list-item-title class="black--text">{{item.song.title}}</v-list-item-title>
+                <v-list-item-subtitle>アーティスト：{{item.artist.name}}</v-list-item-subtitle>
+                <v-list-item-subtitle>BPM：{{item.song.bpm}}</v-list-item-subtitle>
             </template>
-            <template v-slot:formEditArea="{itemToEdit}">
+            <template v-if="editFormat" v-slot:formEditArea>
                 <v-col cols="12">
                     <v-text-field label="曲名" required color="maccha"
-                        v-model="itemToEdit.song.title"
+                        v-model="editFormat.song.title"
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                     <v-text-field label="アーティスト" required color="maccha"
-                        v-model="itemToEdit.artist.name"
+                        v-model="editFormat.artist.name"
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                     <v-text-field label="BPM（任意）" color="maccha"
-                        v-model="itemToEdit.song.bpm"
+                        v-model="editFormat.song.bpm"
                     ></v-text-field>
                 </v-col>
             </template>
@@ -71,12 +70,9 @@
         name: "Songs",
         data() {
             return {
-                inputAddValue: {
-                    title: "",
-                    artistName: "",
-                    bpm: "",
-                },
-                inputEditValue: "",
+                apiPath: "/api/admin/songs",
+                addFormat: null,
+                editFormat: null,
                 songs: [],
                 moduleName: "曲",
             }
@@ -86,26 +82,35 @@
             List,
         },
         methods: {
-            addToSongsList(value){
+            getAddFormat(){
+                axios.get(`${this.apiPath}/new`)
+                .then((res) => {
+                    this.addFormat = res.data
+                })
+            },
+            addToSongsList(obj){
                 this.songs.push({
                     id: this.songs.slice(-1)[0].id + 1,
-                    title: value.title,
-                    artistName: value.artistName,
-                    bpm: value.bpm,
+                    title: obj.song.title,
+                    artist: {name: obj.artist.name},
+                    bpm: obj.song.bpm,
                 })
-                this.inputAddValue = {
-                    title: "",
-                    artistName: "",
-                    bpm: "",
-                };
+                this.addFormat = null;
             },
             destroyFromSongsList(id){
                 this.songs = this.songs.filter((e) => {
                     return e.id !== id;
                 });
             },
-            updateSongsList(id, itemToEdit){
-                this.songs.find((e) => e.id === id).name = itemToEdit.name;
+            getEditFormat(id){
+                axios.get(`${this.apiPath}/${id}/edit`,{id: id})
+                .then(res => {
+                    this.editFormat = res.data
+                })
+            },
+            updateSongsList(id, obj){
+                Object.assign(this.songs.find((e) => e.id === id), obj)
+                this.editFormat = null;
             }
         },
         mounted() {

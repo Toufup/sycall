@@ -27,7 +27,7 @@
             @updateItem="updateArtistsList"
         >
             <template v-slot:contentArea="{item}">
-                <v-list-item-title class="black--text">{{item.name}}</v-list-item-title>
+                <v-list-item-title class="black--text">{{item.artist.name}}</v-list-item-title>
             </template>
             <template v-if="editFormat" v-slot:formEditArea>
                 <v-col cols="12">
@@ -85,7 +85,7 @@
                 })
             },
             updateArtistsList(id, obj){
-                this.artists.find((e) => e.id === id).name = obj.artist.name;
+                Object.assign(this.artists.find((e) => e.id === id), obj)
                 this.editFormat = null;
             }
         },

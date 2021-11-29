@@ -1,11 +1,13 @@
 class Admin::SongsController < ApplicationController
+    before_action :set_song, only: [:edit, :show, :update, :destroy]
+
+    def new; end
+    
     def index
         @songs = Song.all.includes(:artist)
     end
 
-    def show
-        @song = Song.find(params[:id])
-    end
+    def show; end
     
     def create
         artist = Artist.find_by(artist_params)
@@ -14,15 +16,15 @@ class Admin::SongsController < ApplicationController
     end
     
     def destroy
-        song = Song.find(params[:id])
-        song.destroy!
+        @song.destroy!
     end
     
+    def edit; end
+    
     def update
-        song = Song.find(params[:id])
-        artist = song.artist
-        song.update!(song_params)
-        artist.update!(artist_params)
+        @artist = @song.artist
+        @song.update!(song_params)
+        @artist.update!(artist_params)
     end
     
     private
@@ -32,5 +34,9 @@ class Admin::SongsController < ApplicationController
     
     def artist_params
         params.require(:artist).permit(:name)
+    end
+
+    def set_song
+        @song = Song.find(params[:id])
     end
 end
