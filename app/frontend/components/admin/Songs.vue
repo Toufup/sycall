@@ -27,7 +27,7 @@
         </AddButton>
         <List
             :moduleName="moduleName"
-            :apiPath="'/api/admin/songs'"
+            :apiPath="apiPath"
             :iconName="'account-music'"
             :items="songs"
 
@@ -89,12 +89,9 @@
                 })
             },
             addToSongsList(obj){
-                this.songs.push({
-                    id: this.songs.slice(-1)[0].id + 1,
-                    title: obj.song.title,
-                    artist: {name: obj.artist.name},
-                    bpm: obj.song.bpm,
-                })
+                const addObj = obj
+                addObj.id = this.songs.slice(-1)[0].id + 1
+                this.songs.push(addObj)
                 this.addFormat = null;
             },
             destroyFromSongsList(id){

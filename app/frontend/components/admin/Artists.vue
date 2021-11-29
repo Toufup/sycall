@@ -67,10 +67,9 @@
                 })
             },
             addToArtistsList(obj){
-                this.artists.push({
-                    id: this.artists.slice(-1)[0].id + 1,
-                    name: obj.artist.name
-                })
+                const addObj = obj
+                addObj.id = this.artists.slice(-1)[0].id + 1
+                this.artists.push(addObj)
                 this.addFormat = null;
             },
             destroyFromArtistsList(id){
