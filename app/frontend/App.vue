@@ -30,6 +30,9 @@
     .v-application{
         font-family: 'Russo One', 'M PLUS Rounded 1c', sans-serif;
     }
+    .v-dialog {
+        border-radius: 24px !important;
+    }
     a{
         text-decoration: none;
     }

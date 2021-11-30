@@ -15,11 +15,13 @@
                 </v-col>
                 <v-col cols="12">
                     <v-text-field label="ソース（URL）" required color="maccha"
+                        clearable rounded outlined
                         v-model="addFormat.lyrics_version.source"
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                     <v-select label="言語" required color="maccha" item-color="maccha"
+                        clearable rounded outlined
                         :items="languages" item-text="text" item-value="value"
                         v-model="addFormat.language.name"
                     ></v-select>
@@ -51,11 +53,13 @@
                 </v-col>
                 <v-col cols="12">
                     <v-text-field label="ソース" required color="maccha"
+                        clearable rounded outlined
                         v-model="editFormat.lyrics_version.source"
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                     <v-select label="言語" required color="maccha" item-color="maccha"
+                        clearable rounded outlined
                         :items="languages" item-text="text" item-value="value"
                         v-model="editFormat.language.name"
                     ></v-select>

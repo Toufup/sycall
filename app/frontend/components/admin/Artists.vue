@@ -10,6 +10,7 @@
             <template v-if="addFormat" v-slot:formAddArea>
                 <v-col cols="12">
                     <v-text-field label="名前" required color="maccha"
+                        clearable rounded outlined
                         v-model="addFormat.artist.name"
                     ></v-text-field>
                 </v-col>
@@ -33,6 +34,7 @@
             <template v-if="editFormat" v-slot:formEditArea>
                 <v-col cols="12">
                     <v-text-field label="名前" required color="maccha"
+                        clearable rounded outlined
                         v-model="editFormat.artist.name"
                     ></v-text-field>
                 </v-col>

@@ -10,9 +10,10 @@
             <template v-if="addFormat" v-slot:formAddArea>
                 <v-col cols="12">
                     <v-autocomplete label="バージョン" required color="maccha"
+                        clearable rounded outlined
                         :items="lyricsVersionsList" item-text="title" item-value="id"
                         item-color="maccha" v-model="addFormat.lyrics_version.id"
-                        :search-input.sync="keyword" :loading="searchLoading" clearable
+                        :search-input.sync="keyword" :loading="searchLoading"
                         no-data-text="歌詞未登録のバージョンがありません、先にバージョンを作成してください"
                     >
                         <template v-slot:item="data">
@@ -27,6 +28,7 @@
                 </v-col>
                 <v-col cols="12">
                     <v-textarea label="歌詞" required color="maccha"
+                        rounded outlined
                         v-model="addFormat.lyric.body"
                     ></v-textarea>
                 </v-col>
@@ -51,13 +53,20 @@
             </template>
             <template v-if="editFormat" v-slot:formEditArea>
                 <v-col cols="12">
-                    <v-list-item-title>
-                        {{editFormat.lyrics_version.song.artist.name}} - {{editFormat.lyrics_version.song.title}}
-                    </v-list-item-title>
-                    <v-list-item-subtitle>{{editFormat.lyrics_version.language.name}}</v-list-item-subtitle>
+                    <v-card outlined class="rounded-xl">
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    {{editFormat.lyrics_version.song.artist.name}} - {{editFormat.lyrics_version.song.title}}
+                                </v-list-item-title>
+                                <v-list-item-subtitle>{{editFormat.lyrics_version.language.name}}</v-list-item-subtitle>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-card>
                 </v-col>
                 <v-col cols="12">
                     <v-textarea label="歌詞" required color="maccha"
+                        rounded outlined
                         v-model="editFormat.lyric.body"
                     ></v-textarea>
                 </v-col>

@@ -1,5 +1,5 @@
 <template>
-    <v-dialog max-width="600px" v-model="dialogAdd" class="rounded-xl">
+    <v-dialog max-width="600px" v-model="dialogAdd">
         <template v-slot:activator="{on}">
             <v-btn depressed rounded color="primary" class="black--text mx-2" v-on="on"
                 @click="$emit('startAdding')"

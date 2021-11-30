@@ -9,17 +9,19 @@
         >
             <template v-if="addFormat" v-slot:formAddArea>
                 <v-col cols="12">
-                    <v-text-field label="曲名" required color="maccha"
-                        v-model="addFormat.song.title"
-                    ></v-text-field>
-                </v-col>
-                <v-col cols="12">
                     <v-text-field label="アーティスト" required color="maccha"
                         v-model="addFormat.artist.name"
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12">
+                    <v-text-field label="曲名" required color="maccha"
+                        clearable rounded outlined
+                        v-model="addFormat.song.title"
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12">
                     <v-text-field label="BPM" required color="maccha"
+                        clearable rounded outlined
                         v-model="addFormat.song.bpm"
                     ></v-text-field>
                 </v-col>
@@ -44,17 +46,19 @@
             </template>
             <template v-if="editFormat" v-slot:formEditArea>
                 <v-col cols="12">
-                    <v-text-field label="曲名" required color="maccha"
-                        v-model="editFormat.song.title"
-                    ></v-text-field>
-                </v-col>
-                <v-col cols="12">
                     <v-text-field label="アーティスト" required color="maccha"
                         v-model="editFormat.artist.name"
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                    <v-text-field label="BPM（任意）" color="maccha"
+                    <v-text-field label="曲名" required color="maccha"
+                        clearable rounded outlined
+                        v-model="editFormat.song.title"
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field label="BPM" color="maccha"
+                        clearable rounded outlined
                         v-model="editFormat.song.bpm"
                     ></v-text-field>
                 </v-col>
