@@ -106,7 +106,6 @@
         watch: {
             dialogEditId(bool){
                 if (!bool) {
-                    console.log("closed");
                     this.$emit('handleEditDialogBlur')
                 }
             }

@@ -19,6 +19,7 @@ class Admin::LyricsVersionsController < ApplicationController
         lyrics_version.save!
         # TODO IMPROVE： 返すJsonをJbuiderで作成する
         render json: { 
+            id: lyrics_version.id,
             song: {
                 title: song.title
             }
@@ -36,6 +37,7 @@ class Admin::LyricsVersionsController < ApplicationController
         language = Language.find_by(language_params)
         @lyrics_version.update!(lyrics_version_params.merge(song: song, language: language))
         render json: { 
+            id: @lyrics_version.id,
             song: {
                 title: song.title
             }

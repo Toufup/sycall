@@ -46,7 +46,7 @@
             :apiPath="apiPath"
             :iconName="'file-document'"
             :items="lyricsVersions"
-
+            @handleEditDialogBlur="isEditing = false"
             @destroyItem="destroyFromLyricsVersionsList"
             @startEditing="getEditFormat"
             :editFormat="editFormat"
@@ -60,9 +60,21 @@
             </template>
             <template v-if="editFormat" v-slot:formEditArea>
                 <v-col cols="12">
-                    <v-text-field label="曲名" required color="maccha"
-                        v-model="editFormat.song.title"
-                    ></v-text-field>
+                    <v-autocomplete v-if="isEditing" label="曲名" required color="maccha"
+                        clearable rounded outlined
+                        :items="songsList" item-text="song.title" item-value="id"
+                        item-color="maccha" v-model="editFormat.song.id"
+                        :search-input.sync="keyword" :loading="searchLoading" cache-items
+                        no-data-text="曲名が見つかりません、先に作成してください"
+                    >
+                        <template v-slot:item="data">
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    {{data.item.artist.name}} - {{data.item.song.title}}
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </template>
+                    </v-autocomplete>
                 </v-col>
                 <v-col cols="12">
                     <v-text-field label="ソース" required color="maccha"
@@ -96,6 +108,7 @@
                 lyricsVersions: [],
                 keyword: "",
                 isAdding: false,
+                isEditing: false,
                 searchLoading: false,
                 songsList: [],
                 languages: [
@@ -144,9 +157,11 @@
                 });
             },
             getEditFormat(id){
+                this.isEditing = true
                 axios.get(`${this.apiPath}/${id}/edit`,{id: id})
                 .then(res => {
                     this.editFormat = res.data
+                    this.keyword = this.editFormat.song.title
                 })
             },
             updateLyricsVersionsList(obj){

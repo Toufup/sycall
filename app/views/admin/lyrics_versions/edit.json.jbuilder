@@ -1,4 +1,5 @@
 json.song do
+    json.id @lyrics_version.song.id
     json.title @lyrics_version.song.title
 end
 json.lyrics_version do
