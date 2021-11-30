@@ -115,10 +115,8 @@
                     this.addFormat = res.data
                 })
             },
-            addToSongsList(obj, response){
+            addToSongsList(obj){
                 const addObj = obj
-                addObj.id = response.id
-                addObj.artist.name = response.artist.name
                 this.songs.push(addObj)
                 this.addFormat = null;
             },

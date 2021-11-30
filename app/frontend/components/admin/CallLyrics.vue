@@ -17,7 +17,7 @@
                         no-data-text="歌詞未登録のバージョンがありません、先にバージョンを作成してください"
                     >
                         <template v-slot:item="data">
-                            <v-list-item-content @click="handleSelect(data)">
+                            <v-list-item-content>
                                 <v-list-item-title>
                                     {{data.item.artist}} - {{data.item.title}}
                                 </v-list-item-title>
@@ -119,13 +119,12 @@
                     this.addFormat = res.data
                 })
             },
-            handleSelect(data){
-                this.addFormat.lyrics_version.song.title = data.item.title
-                this.addFormat.lyrics_version.language.name = data.item.language
-            },
-            addToLyricsList(obj, id){
+            // handleSelect(data){
+            //     this.addFormat.lyrics_version.song.title = data.item.title
+            //     this.addFormat.lyrics_version.language.name = data.item.language
+            // },
+            addToLyricsList(obj){
                 const addObj = obj
-                addObj.id = id
                 addObj.lyric.body = addObj.lyric.body.slice(0, 50)
                 this.lyrics.push(addObj)
                 this.addFormat = null;

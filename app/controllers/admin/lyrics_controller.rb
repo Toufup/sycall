@@ -11,7 +11,17 @@ class Admin::LyricsController < ApplicationController
         lyrics_version = LyricsVersion.find_by(lyrics_version_params)
         lyric = lyrics_version.build_lyric(lyric_params)
         lyric.save!
-        render json: { id: lyric.id }
+        render json: {
+            id: lyric.id,
+            lyrics_version: {
+                song: {
+                    title: lyrics_version.song.title
+                },
+                language: {
+                    name: lyrics_version.language.name
+                }
+            }
+        }
     end
     
     def destroy
