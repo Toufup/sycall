@@ -3,5 +3,5 @@ json.song do
     json.bpm ""
 end
 json.artist do
-    json.name ""
+    json.id ""
 end

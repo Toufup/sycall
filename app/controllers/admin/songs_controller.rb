@@ -11,7 +11,12 @@ class Admin::SongsController < ApplicationController
         artist = Artist.find_by(artist_params)
         song = artist.songs.build(song_params)
         song.save!
-        render json: { id: song.id }
+        render json: {
+            id: song.id,
+            artist: {
+                name: artist.name
+            }
+        }
     end
     
     def destroy
@@ -31,7 +36,7 @@ class Admin::SongsController < ApplicationController
     end
     
     def artist_params
-        params.require(:artist).permit(:name)
+        params.require(:artist).permit(:id)
     end
 
     def set_song

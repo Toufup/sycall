@@ -102,7 +102,7 @@
             keyword(value){
                 if (value && value.trim()) {
                     this.searchLoading = true;
-                    axios.get(`${this.apiPath}/search_versions`, {params: {keyword: value}})
+                    axios.get("/api/admin/lyrics_versions/search_versions", {params: {keyword: value}})
                     .then(res => {
                         this.lyricsVersionsList = res.data;
                         this.searchLoading = false;

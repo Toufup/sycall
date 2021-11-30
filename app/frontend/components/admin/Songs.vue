@@ -9,9 +9,14 @@
         >
             <template v-if="addFormat" v-slot:formAddArea>
                 <v-col cols="12">
-                    <v-text-field label="アーティスト" required color="maccha"
-                        v-model="addFormat.artist.name"
-                    ></v-text-field>
+                    <v-autocomplete label="アーティスト" required color="maccha"
+                        clearable rounded outlined
+                        :items="artistsList" item-text="name" item-value="id"
+                        item-color="maccha" v-model="addFormat.artist.id"
+                        :search-input.sync="keyword" :loading="searchLoading"
+                        no-data-text="アーティストが見つかりません、先に作成してください"
+                    >
+                    </v-autocomplete>
                 </v-col>
                 <v-col cols="12">
                     <v-text-field label="曲名" required color="maccha"
@@ -79,12 +84,29 @@
                 addFormat: null,
                 editFormat: null,
                 songs: [],
+                keyword: "",
+                searchLoading: false,
+                artistsList: [],
                 moduleName: "曲",
             }
         },
         components: {
             AddButton,
             List,
+        },
+        watch: {
+            keyword(value){
+                if (value && value.trim()) {
+                    this.searchLoading = true;
+                    axios.get("/api/admin/artists/search_artists", {params: {keyword: value}})
+                    .then(res => {
+                        this.artistsList = res.data;
+                        this.searchLoading = false;
+                    })
+                } else {
+                    this.artistsList = [];
+                }
+            },
         },
         methods: {
             getAddFormat(){
@@ -93,9 +115,10 @@
                     this.addFormat = res.data
                 })
             },
-            addToSongsList(obj, id){
+            addToSongsList(obj, response){
                 const addObj = obj
-                addObj.id = id
+                addObj.id = response.id
+                addObj.artist.name = response.artist.name
                 this.songs.push(addObj)
                 this.addFormat = null;
             },

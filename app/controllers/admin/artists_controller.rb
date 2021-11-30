@@ -7,6 +7,10 @@ class Admin::ArtistsController < ApplicationController
         @artists = Artist.all
     end
 
+    def search_artists
+        @artists = Artist.search_artists(search_params[:keyword])
+    end
+    
     def create
         artist = Artist.new(artist_params)
         artist.save!
@@ -24,6 +28,10 @@ class Admin::ArtistsController < ApplicationController
     end
     
     private
+    def search_params
+        params.permit(:format, :keyword)
+    end
+
     def artist_params
         params.require(:artist).permit(:name)
     end

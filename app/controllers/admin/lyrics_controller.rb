@@ -7,10 +7,6 @@ class Admin::LyricsController < ApplicationController
         @lyrics = Lyric.all.includes(:lyrics_version, lyrics_version:[:song, :language])
     end
 
-    def search_versions
-        @lyrics_versions = LyricsVersion.search_versions(search_params[:keyword]).not_has_lyrics
-    end
-
     def create
         lyrics_version = LyricsVersion.find_by(lyrics_version_params)
         lyric = lyrics_version.build_lyric(lyric_params)
@@ -29,10 +25,6 @@ class Admin::LyricsController < ApplicationController
     end
     
     private
-    def search_params
-        params.permit(:format, :keyword)
-    end
-
     def lyrics_version_params
         params.require(:lyrics_version).permit(:id)
     end

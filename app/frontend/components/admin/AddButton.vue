@@ -61,7 +61,7 @@
                 this.dialogAdd = false;
                 axios.post(this.apiPath,this.addFormat)
                 .then((res) => {
-                    this.$emit("addItem", this.addFormat, res.data.id)
+                    this.$emit("addItem", this.addFormat, res.data)
                     this.showSuccessAlert({
                         action: "追加",
                         flag: true, 
