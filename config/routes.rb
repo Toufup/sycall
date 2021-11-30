@@ -10,6 +10,7 @@ Rails.application.routes.draw do
         resources :songs, only: [:new, :index, :create, :destroy, :edit, :update]
         resources :lyrics_versions, only: [:new, :index, :create, :destroy, :edit, :update]
         resources :lyrics, only: [:new, :index, :create, :destroy, :edit, :update]
+        get "lyrics/search_versions", to: "lyrics#search_versions"
       end
     end
   end

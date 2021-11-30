@@ -1,40 +1,37 @@
 <template>
     <v-container id="call-lyrics-group">
-        <v-dialog max-width="600px" v-model="dialog" class="rounded-xl">
-            <template v-slot:activator="{on}">
-                <v-btn depressed rounded color="primary" class="black--text" v-on="on">
-                    <v-icon left color="black">mdi-plus-circle</v-icon>追加
-                </v-btn>
+        <AddButton
+            :moduleName="moduleName"
+            :apiPath="apiPath"
+            @startAdding="getAddFormat"
+            :addFormat="addFormat"
+            @addItem="addToLyricsList"
+        >
+            <template v-if="addFormat" v-slot:formAddArea>
+                <v-col cols="12">
+                    <v-autocomplete label="バージョン" required color="maccha"
+                        :items="lyricsVersionsList" item-text="title" item-value="id"
+                        item-color="maccha" v-model="addFormat.lyrics_version.id"
+                        :search-input.sync="keyword" :loading="searchLoading" 
+                        no-data-text="歌詞未登録のバージョンがありません、先にバージョンを作成してください"
+                    >
+                        <template v-slot:item="data">
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    {{data.item.artist}} - {{data.item.title}}
+                                </v-list-item-title>
+                                <v-list-item-subtitle>{{data.item.language}}</v-list-item-subtitle>
+                            </v-list-item-content>
+                        </template>
+                    </v-autocomplete>
+                </v-col>
+                <v-col cols="12">
+                    <v-textarea label="歌詞" required color="maccha"
+                        v-model="addFormat.lyric.body"
+                    ></v-textarea>
+                </v-col>
             </template>
-            <v-card>
-                <v-card-title>
-                    <h3>歌詞を追加する</h3>
-                </v-card-title>
-                <v-card-text>
-                    <v-container>
-                        <v-row>
-                            <v-col cols="12">
-                                <v-autocomplete label="バージョン" required color="maccha"
-                                    item-color="maccha"
-                                ></v-autocomplete>
-                            </v-col>
-                            <v-col cols="12">
-                                <v-textarea label="歌詞" required color="maccha"></v-textarea>
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-card-text>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn depressed rounded color="black" class="white--text mx-2" @click="dialog = false">
-                        キャンセル
-                    </v-btn>
-                    <v-btn depressed rounded color="primary" class="black--text mx-2" @click="dialog = false">
-                        <v-icon left color="black">mdi-plus-circle</v-icon>追加
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
+        </AddButton>
         <List
             :moduleName="moduleName"
             :apiPath="apiPath"
@@ -49,7 +46,7 @@
             <template v-slot:contentArea="{item}">
                 <v-progress-circular v-if="isLoading" indeterminate color="maccha"></v-progress-circular>
                 <v-list-item-title class="black--text">{{item.lyrics_version.song.title}}</v-list-item-title>
-                <v-list-item-subtitle>ソース：{{item.lyric.body}}</v-list-item-subtitle>
+                <v-list-item-subtitle>歌詞：{{item.lyric.body}}</v-list-item-subtitle>
             </template>
             <template v-if="editFormat" v-slot:formEditArea>
                 <v-col cols="12">
@@ -85,6 +82,9 @@
                 addFormat: null,
                 editFormat: null,
                 lyrics: [],
+                keyword: "",
+                searchLoading: false,
+                lyricsVersionsList: [],
                 moduleName: "歌詞",
                 isLoading: false,
             }
@@ -92,6 +92,32 @@
         components: {
             AddButton,
             List,
+            },
+        watch: {
+            keyword(value){
+                if (value && value.trim()) {
+                    this.searchLoading = true;
+                    axios.get(`${this.apiPath}/search_versions`, {params: {keyword: value}})
+                    .then(res => {
+                        this.lyricsVersionsList = res.data;
+                        this.searchLoading = false;
+                    })
+                } else {
+                    this.lyricsVersionsList = [];
+                }
+            },
+        },
+        methods: {
+            getAddFormat(){
+                axios.get(`${this.apiPath}/new`)
+                .then((res) => {
+                    this.addFormat = res.data
+                })
+            },
+            addToLyricsList(){},
+            destroyFromLyricsList(){},
+            getEditFormat(){},
+            updateLyricsList(){},
         },
         mounted() {
             this.isLoading = true
