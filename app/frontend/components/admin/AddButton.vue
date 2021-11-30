@@ -55,6 +55,13 @@
                 required: true,
             },
         },
+        watch: {
+            dialogAdd(bool){
+                if (!bool) {
+                    this.$emit('handleAddDialogBlur')
+                }
+            }
+        },
         methods: {
             ...mapMutations(["showSuccessAlert"]),
             add(){

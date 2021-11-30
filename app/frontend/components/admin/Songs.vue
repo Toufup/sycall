@@ -3,17 +3,18 @@
         <AddButton
             :moduleName="moduleName"
             :apiPath="apiPath"
+            @handleAddDialogBlur="isAdding = false"
             @startAdding="getAddFormat"
             :addFormat="addFormat"
             @addItem="addToSongsList"
         >
             <template v-if="addFormat" v-slot:formAddArea>
                 <v-col cols="12">
-                    <v-autocomplete label="アーティスト" required color="maccha"
+                    <v-autocomplete v-if="isAdding" label="アーティスト" required color="maccha"
                         clearable rounded outlined
                         :items="artistsList" item-text="name" item-value="id"
                         item-color="maccha" v-model="addFormat.artist.id"
-                        :search-input.sync="keyword" :loading="searchLoading"
+                        :search-input.sync="keyword" :loading="searchLoading" cache-items
                         no-data-text="アーティストが見つかりません、先に作成してください"
                     >
                     </v-autocomplete>
@@ -37,7 +38,7 @@
             :apiPath="apiPath"
             :iconName="'account-music'"
             :items="songs"
-
+            @handleEditDialogBlur="isEditing = false"
             @destroyItem="destroyFromSongsList"
             @startEditing="getEditFormat"
             :editFormat="editFormat"
@@ -51,9 +52,14 @@
             </template>
             <template v-if="editFormat" v-slot:formEditArea>
                 <v-col cols="12">
-                    <v-text-field label="アーティスト" required color="maccha"
-                        v-model="editFormat.artist.name"
-                    ></v-text-field>
+                    <v-autocomplete v-if="isEditing" label="アーティスト" required color="maccha"
+                        clearable rounded outlined
+                        :items="artistsList" item-text="name" item-value="id"
+                        item-color="maccha" v-model="editFormat.artist.id"
+                        :search-input.sync="keyword" :loading="searchLoading" cache-items
+                        no-data-text="アーティストが見つかりません、先に作成してください"
+                    >
+                    </v-autocomplete>
                 </v-col>
                 <v-col cols="12">
                     <v-text-field label="曲名" required color="maccha"
@@ -85,6 +91,8 @@
                 editFormat: null,
                 songs: [],
                 keyword: "",
+                isAdding: false,
+                isEditing: false,
                 searchLoading: false,
                 artistsList: [],
                 moduleName: "曲",
@@ -110,6 +118,7 @@
         },
         methods: {
             getAddFormat(){
+                this.isAdding = true
                 axios.get(`${this.apiPath}/new`)
                 .then((res) => {
                     this.addFormat = res.data
@@ -126,13 +135,16 @@
                 });
             },
             getEditFormat(id){
+                this.isEditing = true
                 axios.get(`${this.apiPath}/${id}/edit`,{id: id})
                 .then(res => {
                     this.editFormat = res.data
+                    this.keyword = this.editFormat.artist.name
                 })
             },
-            updateSongsList(id, obj){
-                Object.assign(this.songs.find((e) => e.id === id), obj)
+            updateSongsList(obj){
+                Object.assign(this.songs.find((e) => e.id === obj.id), obj)
+                this.keyword = "";
                 this.editFormat = null;
             }
         },

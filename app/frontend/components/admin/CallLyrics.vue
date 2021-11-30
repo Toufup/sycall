@@ -3,17 +3,18 @@
         <AddButton
             :moduleName="moduleName"
             :apiPath="apiPath"
+            @handleAddDialogBlur="isAdding = false"
             @startAdding="getAddFormat"
             :addFormat="addFormat"
             @addItem="addToLyricsList"
         >
             <template v-if="addFormat" v-slot:formAddArea>
                 <v-col cols="12">
-                    <v-autocomplete label="バージョン" required color="maccha"
+                    <v-autocomplete v-if="isAdding" label="バージョン" required color="maccha"
                         clearable rounded outlined
                         :items="lyricsVersionsList" item-text="title" item-value="id"
                         item-color="maccha" v-model="addFormat.lyrics_version.id"
-                        :search-input.sync="keyword" :loading="searchLoading"
+                        :search-input.sync="keyword" :loading="searchLoading" cache-items
                         no-data-text="歌詞未登録のバージョンがありません、先にバージョンを作成してください"
                     >
                         <template v-slot:item="data">
@@ -88,6 +89,7 @@
                 editFormat: null,
                 lyrics: [],
                 keyword: "",
+                isAdding: false,
                 searchLoading: false,
                 lyricsVersionsList: [],
                 moduleName: "歌詞",
@@ -114,15 +116,12 @@
         },
         methods: {
             getAddFormat(){
+                this.isAdding = true
                 axios.get(`${this.apiPath}/new`)
                 .then((res) => {
                     this.addFormat = res.data
                 })
             },
-            // handleSelect(data){
-            //     this.addFormat.lyrics_version.song.title = data.item.title
-            //     this.addFormat.lyrics_version.language.name = data.item.language
-            // },
             addToLyricsList(obj){
                 const addObj = obj
                 addObj.lyric.body = addObj.lyric.body.slice(0, 50)
@@ -142,6 +141,7 @@
             },
             updateLyricsList(id, obj){
                 Object.assign(this.lyrics.find((e) => e.id === id), obj)
+                this.keyword = "";
                 this.editFormat = null;
             }
         },

@@ -87,8 +87,8 @@
                     this.editFormat = res.data
                 })
             },
-            updateArtistsList(id, obj){
-                Object.assign(this.artists.find((e) => e.id === id), obj)
+            updateArtistsList(obj){
+                Object.assign(this.artists.find((e) => e.id === obj.id), obj)
                 this.editFormat = null;
             }
         },

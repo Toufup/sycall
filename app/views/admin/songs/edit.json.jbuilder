@@ -3,5 +3,6 @@ json.song do
     json.bpm @song.bpm
 end 
 json.artist do
+    json.id @song.artist.id
     json.name @song.artist.name
 end

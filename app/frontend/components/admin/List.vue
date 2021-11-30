@@ -8,7 +8,8 @@
                 <v-list-item-content>
                     <slot name="contentArea" :item=item></slot>
                 </v-list-item-content>
-                <v-dialog max-width="600px" :value="dialogEditId === item.id" class="rounded-xl">
+                <v-dialog max-width="600px" :value="dialogEditId === item.id" class="rounded-xl" 
+                    @click:outside="dialogEditId = false">
                     <template v-slot:activator="{on}">
                         <v-btn depressed rounded color="mainColor" class="black--text mx-2" 
                             v-on="on" @click="startEditing(item.id)">
@@ -102,6 +103,14 @@
                 required: false,
             },
         },
+        watch: {
+            dialogEditId(bool){
+                if (!bool) {
+                    console.log("closed");
+                    this.$emit('handleEditDialogBlur')
+                }
+            }
+        },
         methods: {
             ...mapMutations(["showSuccessAlert"]),
             openDialog(id, dialogId){
@@ -129,8 +138,9 @@
             edit(id){
                 this.dialogEditId = false;
                 axios.put(`${this.apiPath}/${id}`, this.editFormat)
-                .then(() => {
-                    this.$emit("updateItem", id, this.editFormat)
+                .then((res) => {
+                    const obj = Object.assign(this.editFormat, res.data)
+                    this.$emit("updateItem", obj)
                     this.showSuccessAlert({
                         action: "変更",
                         flag: true, 

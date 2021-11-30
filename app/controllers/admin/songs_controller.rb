@@ -28,6 +28,12 @@ class Admin::SongsController < ApplicationController
     def update
         artist = Artist.find_by(artist_params)
         @song.update!(song_params.merge(artist: artist))
+        render json: {
+            id: @song.id,
+            artist: {
+                name: artist.name
+            }
+        }
     end
     
     private

@@ -25,6 +25,7 @@ class Admin::ArtistsController < ApplicationController
     
     def update
         @artist.update!(artist_params)
+        render json: { id: @artist.id }
     end
     
     private
