@@ -89,9 +89,9 @@
                     this.addFormat = res.data
                 })
             },
-            addToSongsList(obj){
+            addToSongsList(obj, id){
                 const addObj = obj
-                addObj.id = this.songs.slice(-1)[0].id + 1
+                addObj.id = id
                 this.songs.push(addObj)
                 this.addFormat = null;
             },

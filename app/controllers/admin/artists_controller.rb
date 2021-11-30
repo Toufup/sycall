@@ -10,6 +10,7 @@ class Admin::ArtistsController < ApplicationController
     def create
         artist = Artist.new(artist_params)
         artist.save!
+        render json: { id: artist.id }
     end
     
     def destroy

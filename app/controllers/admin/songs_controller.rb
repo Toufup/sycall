@@ -11,6 +11,7 @@ class Admin::SongsController < ApplicationController
         artist = Artist.find_by(artist_params)
         song = artist.songs.build(song_params)
         song.save!
+        render json: { id: song.id }
     end
     
     def destroy

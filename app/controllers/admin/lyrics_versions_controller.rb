@@ -13,6 +13,7 @@ class Admin::LyricsVersionsController < ApplicationController
         lyrics_version = song.lyrics_versions.build(lyrics_version_params)
         lyrics_version.language = language
         lyrics_version.save!
+        render json: { id: lyrics_version.id }
     end
     
     def destroy

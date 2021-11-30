@@ -51,20 +51,15 @@
             </template>
             <template v-if="editFormat" v-slot:formEditArea>
                 <v-col cols="12">
-                    <v-text-field label="曲名" required color="maccha"
-                        v-model="editFormat.song.title"
-                    ></v-text-field>
+                    <v-list-item-title>
+                        {{editFormat.lyrics_version.song.artist.name}} - {{editFormat.lyrics_version.song.title}}
+                    </v-list-item-title>
+                    <v-list-item-subtitle>{{editFormat.lyrics_version.language.name}}</v-list-item-subtitle>
                 </v-col>
                 <v-col cols="12">
-                    <v-text-field label="ソース" required color="maccha"
-                        v-model="editFormat.lyrics_version.source"
-                    ></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                    <v-select label="言語" required color="maccha" item-color="maccha"
-                        :items="languages" item-text="text" item-value="value"
-                        v-model="editFormat.language.name"
-                    ></v-select>
+                    <v-textarea label="歌詞" required color="maccha"
+                        v-model="editFormat.lyric.body"
+                    ></v-textarea>
                 </v-col>
             </template>
         </List>
@@ -119,16 +114,28 @@
                 this.addFormat.lyrics_version.song.title = data.item.title
                 this.addFormat.lyrics_version.language.name = data.item.language
             },
-            addToLyricsList(obj){
+            addToLyricsList(obj, id){
                 const addObj = obj
-                addObj.id = this.lyrics.slice(-1)[0].id + 1
+                addObj.id = id
                 addObj.lyric.body = addObj.lyric.body.slice(0, 50)
                 this.lyrics.push(addObj)
                 this.addFormat = null;
             },
-            destroyFromLyricsList(){},
-            getEditFormat(){},
-            updateLyricsList(){},
+            destroyFromLyricsList(id){
+                this.lyrics = this.lyrics.filter((e) => {
+                    return e.id !== id;
+                });
+            },
+            getEditFormat(id){
+                axios.get(`${this.apiPath}/${id}/edit`,{id: id})
+                .then(res => {
+                    this.editFormat = res.data
+                })
+            },
+            updateLyricsList(id, obj){
+                Object.assign(this.lyrics.find((e) => e.id === id), obj)
+                this.editFormat = null;
+            }
         },
         mounted() {
             this.isLoading = true

@@ -1,36 +1,35 @@
 class Admin::LyricsController < ApplicationController
-    before_action :set_lyrics_version, only: [:edit, :update, :destroy]
+    before_action :set_lyric, only: [:edit, :update, :destroy]
 
     def new; end
     
     def index
-        @lyrics = Lyric.all.includes(:lyrics_version, lyrics_version:[:song])
+        @lyrics = Lyric.all.includes(:lyrics_version, lyrics_version:[:song, :language])
     end
 
     def search_versions
-        @lyrics_versions = LyricsVersion.search_versions(call_params[:keyword]).not_has_lyrics
+        @lyrics_versions = LyricsVersion.search_versions(search_params[:keyword]).not_has_lyrics
     end
 
     def create
         lyrics_version = LyricsVersion.find_by(lyrics_version_params)
         lyric = lyrics_version.build_lyric(lyric_params)
         lyric.save!
+        render json: { id: lyric.id }
     end
     
-    # def destroy
-    #     @lyrics_version.destroy!
-    # end
+    def destroy
+        @lyric.destroy!
+    end
     
-    # def edit; end
+    def edit; end
     
-    # def update
-    #     song = Song.find_by(song_params)
-    #     language = Language.find_by(language_params)
-    #     @lyrics_version.update!(lyrics_version_params.merge(song: song, language: language))
-    # end
+    def update
+        @lyric.update!(lyric_params)
+    end
     
     private
-    def call_params
+    def search_params
         params.permit(:format, :keyword)
     end
 
@@ -42,7 +41,7 @@ class Admin::LyricsController < ApplicationController
         params.require(:lyric).permit(:body)
     end
 
-    # def set_lyrics_version
-    #     @lyrics_version = LyricsVersion.find(params[:id])
-    # end
+    def set_lyric
+        @lyric = Lyric.find(params[:id])
+    end
 end

@@ -97,9 +97,9 @@
                     this.addFormat = res.data
                 })
             },
-            addToLyricsVersionsList(obj){
+            addToLyricsVersionsList(obj, id){
                 const addObj = obj
-                addObj.id = this.lyricsVersions.slice(-1)[0].id + 1
+                addObj.id = id
                 this.lyricsVersions.push(addObj)
                 this.addFormat = null;
             },
