@@ -10,13 +10,12 @@ class Admin::LyricsController < ApplicationController
     def search_versions
         @lyrics_versions = LyricsVersion.search_versions(call_params[:keyword]).not_has_lyrics
     end
-    # def create
-    #     song = Song.find_by(song_params)
-    #     language = Language.find_by(language_params)
-    #     lyrics_version = song.lyrics_versions.build(lyrics_version_params)
-    #     lyrics_version.language = language
-    #     lyrics_version.save!
-    # end
+
+    def create
+        lyrics_version = LyricsVersion.find_by(lyrics_version_params)
+        lyric = lyrics_version.build_lyric(lyric_params)
+        lyric.save!
+    end
     
     # def destroy
     #     @lyrics_version.destroy!
@@ -35,17 +34,13 @@ class Admin::LyricsController < ApplicationController
         params.permit(:format, :keyword)
     end
 
-    # def song_params
-    #     params.require(:song).permit(:title)
-    # end
+    def lyrics_version_params
+        params.require(:lyrics_version).permit(:id)
+    end
     
-    # def language_params
-    #     params.require(:language).permit(:name)
-    # end
-    
-    # def lyrics_version_params
-    #     params.require(:lyrics_version).permit(:source)
-    # end
+    def lyric_params
+        params.require(:lyric).permit(:body)
+    end
 
     # def set_lyrics_version
     #     @lyrics_version = LyricsVersion.find(params[:id])

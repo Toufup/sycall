@@ -4,6 +4,9 @@ json.array! @lyrics do |lyric|
         json.song do
             json.title lyric.lyrics_version.song.title
         end
+        json.language do
+            json.name lyric.lyrics_version.language.name
+        end
     end
     json.lyric do 
         json.body lyric.body[0, 50]

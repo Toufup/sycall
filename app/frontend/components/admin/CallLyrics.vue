@@ -12,11 +12,11 @@
                     <v-autocomplete label="バージョン" required color="maccha"
                         :items="lyricsVersionsList" item-text="title" item-value="id"
                         item-color="maccha" v-model="addFormat.lyrics_version.id"
-                        :search-input.sync="keyword" :loading="searchLoading" 
+                        :search-input.sync="keyword" :loading="searchLoading" clearable
                         no-data-text="歌詞未登録のバージョンがありません、先にバージョンを作成してください"
                     >
                         <template v-slot:item="data">
-                            <v-list-item-content>
+                            <v-list-item-content @click="handleSelect(data)">
                                 <v-list-item-title>
                                     {{data.item.artist}} - {{data.item.title}}
                                 </v-list-item-title>
@@ -46,6 +46,7 @@
             <template v-slot:contentArea="{item}">
                 <v-progress-circular v-if="isLoading" indeterminate color="maccha"></v-progress-circular>
                 <v-list-item-title class="black--text">{{item.lyrics_version.song.title}}</v-list-item-title>
+                <v-list-item-subtitle>言語：{{item.lyrics_version.language.name}}</v-list-item-subtitle>
                 <v-list-item-subtitle>歌詞：{{item.lyric.body}}</v-list-item-subtitle>
             </template>
             <template v-if="editFormat" v-slot:formEditArea>
@@ -114,7 +115,17 @@
                     this.addFormat = res.data
                 })
             },
-            addToLyricsList(){},
+            handleSelect(data){
+                this.addFormat.lyrics_version.song.title = data.item.title
+                this.addFormat.lyrics_version.language.name = data.item.language
+            },
+            addToLyricsList(obj){
+                const addObj = obj
+                addObj.id = this.lyrics.slice(-1)[0].id + 1
+                addObj.lyric.body = addObj.lyric.body.slice(0, 50)
+                this.lyrics.push(addObj)
+                this.addFormat = null;
+            },
             destroyFromLyricsList(){},
             getEditFormat(){},
             updateLyricsList(){},
