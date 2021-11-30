@@ -34,6 +34,8 @@ gem 'html2slim'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+# Security
+gem 'rails_same_site_cookie'
 
 group :development, :test do
   # Code analyze
