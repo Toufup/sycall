@@ -5,4 +5,9 @@ class Song < ApplicationRecord
 
     validates :title, presence: true
     validates :bpm, numericality: {only_integer: true}, allow_blank: true
+
+    scope :search_songs, -> (keyword) {
+        includes(:artist)
+        .where("title LIKE ?", "%#{keyword}%")
+    }
 end

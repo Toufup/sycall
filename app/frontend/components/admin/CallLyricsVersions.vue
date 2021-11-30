@@ -3,15 +3,28 @@
         <AddButton
             :moduleName="moduleName"
             :apiPath="apiPath"
+            @handleAddDialogBlur="isAdding = false"
             @startAdding="getAddFormat"
             :addFormat="addFormat"
             @addItem="addToLyricsVersionsList"
         >
             <template v-if="addFormat" v-slot:formAddArea>
                 <v-col cols="12">
-                    <v-text-field label="曲名" required color="maccha"
-                        v-model="addFormat.song.title"
-                    ></v-text-field>
+                    <v-autocomplete v-if="isAdding" label="曲名" required color="maccha"
+                        clearable rounded outlined
+                        :items="songsList" item-text="song.title" item-value="id"
+                        item-color="maccha" v-model="addFormat.song.id"
+                        :search-input.sync="keyword" :loading="searchLoading" cache-items
+                        no-data-text="曲名が見つかりません、先に作成してください"
+                    >
+                        <template v-slot:item="data">
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    {{data.item.artist.name}} - {{data.item.song.title}}
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </template>
+                    </v-autocomplete>
                 </v-col>
                 <v-col cols="12">
                     <v-text-field label="ソース（URL）" required color="maccha"
@@ -81,6 +94,10 @@
                 addFormat: null,
                 editFormat: null,
                 lyricsVersions: [],
+                keyword: "",
+                isAdding: false,
+                searchLoading: false,
+                songsList: [],
                 languages: [
                     {text: "Japanese", value: "japanese"},
                     {text: "Korean", value: "korean"},
@@ -94,16 +111,30 @@
             AddButton,
             List,
         },
+        watch: {
+            keyword(value){
+                if (value && value.trim()) {
+                    this.searchLoading = true;
+                    axios.get("/api/admin/songs/search_songs", {params: {keyword: value}})
+                    .then(res => {
+                        this.songsList = res.data;
+                        this.searchLoading = false;
+                    })
+                } else {
+                    this.songsList = [];
+                }
+            },
+        },
         methods: {
             getAddFormat(){
+                this.isAdding = true
                 axios.get(`${this.apiPath}/new`)
                 .then((res) => {
                     this.addFormat = res.data
                 })
             },
-            addToLyricsVersionsList(obj, id){
+            addToLyricsVersionsList(obj){
                 const addObj = obj
-                addObj.id = id
                 this.lyricsVersions.push(addObj)
                 this.addFormat = null;
             },
@@ -118,8 +149,9 @@
                     this.editFormat = res.data
                 })
             },
-            updateLyricsVersionsList(id, obj){
-                Object.assign(this.lyricsVersions.find((e) => e.id === id), obj)
+            updateLyricsVersionsList(obj){
+                Object.assign(this.lyricsVersions.find((e) => e.id === obj.id), obj)
+                this.keyword = "";
                 this.editFormat = null;
             }
         },

@@ -7,6 +7,10 @@ class Admin::SongsController < ApplicationController
         @songs = Song.all.includes(:artist)
     end
 
+    def search_songs
+        @songs = Song.search_songs(search_params[:keyword])
+    end
+    
     def create
         artist = Artist.find_by(artist_params)
         song = artist.songs.build(song_params)
@@ -37,6 +41,10 @@ class Admin::SongsController < ApplicationController
     end
     
     private
+    def search_params
+        params.permit(:format, :keyword)
+    end
+    
     def song_params
         params.require(:song).permit(:title, :bpm)
     end

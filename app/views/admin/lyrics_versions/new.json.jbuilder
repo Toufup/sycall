@@ -1,5 +1,5 @@
 json.song do
-    json.title ""
+    json.id ""
 end
 json.lyrics_version do
     json.source ""

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         resources :artists, only: [:new, :index, :create, :destroy, :edit, :update]
         get "artists/search_artists", to: "artists#search_artists"
         resources :songs, only: [:new, :index, :create, :destroy, :edit, :update]
+        get "songs/search_songs", to: "songs#search_songs"
         resources :lyrics_versions, only: [:new, :index, :create, :destroy, :edit, :update]
         get "lyrics_versions/search_versions", to: "lyrics_versions#search_versions"
         resources :lyrics, only: [:new, :index, :create, :destroy, :edit, :update]
