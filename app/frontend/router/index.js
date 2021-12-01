@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import TopPageBody from '../components/TopPageBody.vue'
 import PreparationBody from '../components/PreparationBody.vue'
 import PracticeBody from '../components/PracticeBody.vue'
+import Login from '../components/Login.vue'
 import Dashboard from '../components/admin/Dashboard.vue'
 import Artists from '../components/admin/Artists.vue'
 import Songs from '../components/admin/Songs.vue'
@@ -10,6 +11,7 @@ import CallLyricsVersions from '../components/admin/CallLyricsVersions.vue'
 import CallLyrics from '../components/admin/CallLyrics.vue'
 
 export default new VueRouter({
+    mode: "history",
     routes: [
         {
             path: "/",
@@ -22,6 +24,10 @@ export default new VueRouter({
         {
             path: "/practice",
             component: PracticeBody,
+        },
+        {
+            path: "/login",
+            component: Login,
         },
         {
             path: "/admin",

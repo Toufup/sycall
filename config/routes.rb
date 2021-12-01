@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :users
-  root "static_pages#index"
+  root "home#index"
+  get "/preparation", to: "home#index"
+  get "/practice", to: "home#index"
+
+  get "/admin", to: "admin/dashboard#index"
+  get "/admin/*path", to: "admin/dashboard#index"
+
   defaults format: :json do
     get "/calls/search", to: "calls#search"
     get "/calls/get_lyrics", to: "calls#get_lyrics"
