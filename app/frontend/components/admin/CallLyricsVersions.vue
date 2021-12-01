@@ -53,7 +53,6 @@
             @updateItem="updateLyricsVersionsList"
         >
             <template v-slot:contentArea="{item}">
-                <v-progress-circular v-if="isLoading" indeterminate color="maccha"></v-progress-circular>
                 <v-list-item-title class="black--text">{{item.song.title}}</v-list-item-title>
                 <v-list-item-subtitle>ソース：{{item.lyrics_version.source}}</v-list-item-subtitle>
                 <v-list-item-subtitle>言語：{{item.language.name}}</v-list-item-subtitle>
@@ -171,11 +170,9 @@
             }
         },
         mounted() {
-            this.isLoading = true
             axios.get(this.apiPath)
             .then(res => {
                 this.lyricsVersions = res.data
-                this.isLoading = false
             })
             .catch(err => {
                 console.error(err.message); 

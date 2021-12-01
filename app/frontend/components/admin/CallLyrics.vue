@@ -47,7 +47,6 @@
             @updateItem="updateLyricsList"
         >
             <template v-slot:contentArea="{item}">
-                <v-progress-circular v-if="isLoading" indeterminate color="maccha"></v-progress-circular>
                 <v-list-item-title class="black--text">{{item.lyrics_version.song.title}}</v-list-item-title>
                 <v-list-item-subtitle>言語：{{item.lyrics_version.language.name}}</v-list-item-subtitle>
                 <v-list-item-subtitle>歌詞：{{item.lyric.body}}</v-list-item-subtitle>
@@ -93,7 +92,6 @@
                 searchLoading: false,
                 lyricsVersionsList: [],
                 moduleName: "歌詞",
-                isLoading: false,
             }
         },
         components: {
@@ -146,11 +144,9 @@
             }
         },
         mounted() {
-            this.isLoading = true
             axios.get(this.apiPath)
             .then(res => {
                 this.lyrics = res.data
-                this.isLoading = false
             })
             .catch(err => {
                 console.error(err.message); 

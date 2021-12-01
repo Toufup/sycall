@@ -45,7 +45,6 @@
             @updateItem="updateSongsList"
         >
             <template v-slot:contentArea="{item}">
-                <v-progress-circular v-if="isLoading" indeterminate color="maccha"></v-progress-circular>
                 <v-list-item-title class="black--text">{{item.song.title}}</v-list-item-title>
                 <v-list-item-subtitle>アーティスト：{{item.artist.name}}</v-list-item-subtitle>
                 <v-list-item-subtitle>BPM：{{item.song.bpm}}</v-list-item-subtitle>
@@ -149,11 +148,9 @@
             }
         },
         mounted() {
-            this.isLoading = true
             axios.get("/api/admin/songs")
             .then(res => {
                 this.songs = res.data
-                this.isLoading = false
             })
             .catch(err => {
                 console.error(err.message); 

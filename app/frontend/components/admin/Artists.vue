@@ -28,7 +28,6 @@
             @updateItem="updateArtistsList"
         >
             <template v-slot:contentArea="{item}">
-                <v-progress-circular v-if="isLoading" indeterminate color="maccha"></v-progress-circular>
                 <v-list-item-title class="black--text">{{item.artist.name}}</v-list-item-title>
             </template>
             <template v-if="editFormat" v-slot:formEditArea>
@@ -47,6 +46,7 @@
     import AddButton from './AddButton.vue'
     import List from './List.vue'
     import axios from 'axios'
+    import {mapGetters} from 'vuex'
     export default {
         name: "Artists",
         components: {
@@ -60,7 +60,6 @@
                 editFormat: null,
                 artists: [],
                 moduleName: "アーティスト",
-                isLoading: false,
             }
         },
         methods: {
@@ -93,11 +92,9 @@
             }
         },
         mounted() {
-            this.isLoading = true
             axios.get(this.apiPath)
             .then(res => {
                 this.artists = res.data
-                this.isLoading = false
             })
             .catch(err => {
                 console.error(err.message); 
