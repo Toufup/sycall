@@ -2,9 +2,16 @@ Rails.application.routes.draw do
   root "home#index"
   get "/preparation", to: "home#index"
   get "/practice", to: "home#index"
+  get "/login", to: "home#index"
 
   get "/admin", to: "admin/dashboard#index"
   get "/admin/*path", to: "admin/dashboard#index"
+
+  devise_for :users, skip: :all
+  devise_scope :user do
+    post "/login", to: "users/sessions#create", defaults: { format: :json }
+    delete "/logout", to: "users/sessions#destroy", defaults: { format: :json }
+  end
 
   defaults format: :json do
     get "/calls/search", to: "calls#search"
