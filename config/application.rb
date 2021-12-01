@@ -39,5 +39,7 @@ module Sycall
       g.skip_routes   true
       g.helper false
     end
+    # autoload lib files
+    config.autoload_paths += %W(#{config.root}/lib)
   end
 end
