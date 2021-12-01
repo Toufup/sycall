@@ -1,4 +1,5 @@
 class Admin::ArtistsController < ApplicationController
+    before_action :authenticate_user!
     before_action :set_artist, only: [:edit, :update, :destroy]
 
     def new; end
