@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   root "static_pages#index"
   defaults format: :json do
     get "/calls/search", to: "calls#search"
