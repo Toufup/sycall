@@ -69,9 +69,8 @@
                     this.addFormat = res.data
                 })
             },
-            addToArtistsList(obj, id){
+            addToArtistsList(obj){
                 const addObj = obj
-                addObj.id = id
                 this.artists.push(addObj)
                 this.addFormat = null;
             },
