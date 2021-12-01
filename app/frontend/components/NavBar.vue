@@ -20,12 +20,18 @@
                         <v-btn depressed rounded color="mainColor" class="ml-2">Sign up</v-btn>
                     </div>
                 </v-col> -->
+                <v-col cols="auto">
+                    <div id="navbar-right">
+                        <v-btn depressed rounded outlined color="mainColor" class="ml-2" @click="logout">Log out</v-btn>
+                    </div>
+                </v-col>
             </v-row>
         </v-container>
     </v-app-bar>
 </template>
 
 <script>
+    import axios from 'axios'
     import {hearts} from '../src/effects/hearts'
     import {animateCss} from '../src/effects/animateCss'
     export default {
@@ -55,6 +61,14 @@
                     })
                 }, 90);
             },
+            logout(){
+                axios.delete("/logout")
+                .then((res) => {
+                    if (res.data.state) {
+                        this.$router.push("/")
+                    }
+                })
+            }
         },
     }
 </script>

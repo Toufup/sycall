@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import axios from 'axios'
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
 import App from '../App.vue';
@@ -6,6 +7,9 @@ import VueRouter from 'vue-router';
 import router from '../router/index.js';
 import VueYoutube from 'vue-youtube'
 import store from '../store'
+
+let token = document.getElementsByName('csrf-token')[0].getAttribute('content')
+axios.defaults.headers.common['X-CSRF-Token'] = token
 
 Vue.config.productionTip = false;
 

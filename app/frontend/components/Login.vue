@@ -41,17 +41,17 @@
         },
         methods: {
             login(){
-                axios.post("/users/sign_in",{
+                const params = {
                     user: {
                         email: this.email,
                         password: this.password
-                    }}
-                )
-                .then(res => {
-                    console.log(res)
-                })
-                .catch(err => {
-                    console.error(err); 
+                    }
+                };
+                axios.post("/login", params)
+                .then((res) => {
+                    if (res.data.state) {
+                        this.$router.push("/admin");
+                    }
                 })
             }
         },
