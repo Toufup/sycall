@@ -64,15 +64,17 @@
                     const notCallLyrics = lyric.match(notCallReg)
 
                     const indexLyrics = {}
-    
+
                     // indexはコール歌詞が元の歌詞で初めて現れたインデックス
                     for(let i=0;i<callLyrics.length;i++){
                         const index = lyric.indexOf(callLyrics[i])
                         indexLyrics[index] = callLyrics[i]
                     }
-                    for(let b=0;b<notCallLyrics.length;b++){
-                        const index = lyric.indexOf(notCallLyrics[b])
-                        indexLyrics[index] = notCallLyrics[b]
+                    if (notCallLyrics) {
+                        for(let b=0;b<notCallLyrics.length;b++){
+                            const index = lyric.indexOf(notCallLyrics[b])
+                            indexLyrics[index] = notCallLyrics[b]
+                        }
                     }
     
                     // 次の処理では配列が望ましいので、下記にように変換する

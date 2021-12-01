@@ -1,0 +1,182 @@
+<template>
+    <v-container id="call-versions-group">
+        <AddButton
+            :moduleName="moduleName"
+            :apiPath="apiPath"
+            @handleAddDialogBlur="isAdding = false"
+            @startAdding="getAddFormat"
+            :addFormat="addFormat"
+            @addItem="addToLyricsVersionsList"
+        >
+            <template v-if="addFormat" v-slot:formAddArea>
+                <v-col cols="12">
+                    <v-autocomplete v-if="isAdding" label="曲名" required color="maccha"
+                        clearable rounded outlined
+                        :items="songsList" item-text="song.title" item-value="id"
+                        item-color="maccha" v-model="addFormat.song.id"
+                        :search-input.sync="keyword" :loading="searchLoading" cache-items
+                        no-data-text="曲名が見つかりません、先に作成してください"
+                    >
+                        <template v-slot:item="data">
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    {{data.item.artist.name}} - {{data.item.song.title}}
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </template>
+                    </v-autocomplete>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field label="ソース（URL）" required color="maccha"
+                        clearable rounded outlined
+                        v-model="addFormat.lyrics_version.source"
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-select label="言語" required color="maccha" item-color="maccha"
+                        clearable rounded outlined
+                        :items="languages" item-text="text" item-value="value"
+                        v-model="addFormat.language.name"
+                    ></v-select>
+                </v-col>
+            </template>
+        </AddButton>
+        <List
+            :moduleName="moduleName"
+            :apiPath="apiPath"
+            :iconName="'file-document'"
+            :items="lyricsVersions"
+            @handleEditDialogBlur="isEditing = false"
+            @destroyItem="destroyFromLyricsVersionsList"
+            @startEditing="getEditFormat"
+            :editFormat="editFormat"
+            @updateItem="updateLyricsVersionsList"
+        >
+            <template v-slot:contentArea="{item}">
+                <v-list-item-title class="black--text">{{item.song.title}}</v-list-item-title>
+                <v-list-item-subtitle>ソース：{{item.lyrics_version.source}}</v-list-item-subtitle>
+                <v-list-item-subtitle>言語：{{item.language.name}}</v-list-item-subtitle>
+            </template>
+            <template v-if="editFormat" v-slot:formEditArea>
+                <v-col cols="12">
+                    <v-autocomplete v-if="isEditing" label="曲名" required color="maccha"
+                        clearable rounded outlined
+                        :items="songsList" item-text="song.title" item-value="id"
+                        item-color="maccha" v-model="editFormat.song.id"
+                        :search-input.sync="keyword" :loading="searchLoading" cache-items
+                        no-data-text="曲名が見つかりません、先に作成してください"
+                    >
+                        <template v-slot:item="data">
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    {{data.item.artist.name}} - {{data.item.song.title}}
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </template>
+                    </v-autocomplete>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field label="ソース" required color="maccha"
+                        clearable rounded outlined
+                        v-model="editFormat.lyrics_version.source"
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-select label="言語" required color="maccha" item-color="maccha"
+                        clearable rounded outlined
+                        :items="languages" item-text="text" item-value="value"
+                        v-model="editFormat.language.name"
+                    ></v-select>
+                </v-col>
+            </template>
+        </List>
+    </v-container>
+</template>
+
+<script>
+    import AddButton from './AddButton.vue'
+    import List from './List.vue'
+    import axios from 'axios'
+    export default {
+        name: "CallLyricsVersions",
+        data() {
+            return {
+                apiPath: "/api/admin/lyrics_versions",
+                addFormat: null,
+                editFormat: null,
+                lyricsVersions: [],
+                keyword: "",
+                isAdding: false,
+                isEditing: false,
+                searchLoading: false,
+                songsList: [],
+                languages: [
+                    {text: "Japanese", value: "japanese"},
+                    {text: "Korean", value: "korean"},
+                    {text: "Romanized", value: "romanized"},
+                    {text: "English", value: "english"},
+                ],
+                moduleName: "バージョン",
+            }
+        },
+        components: {
+            AddButton,
+            List,
+        },
+        watch: {
+            keyword(value){
+                if (value && value.trim()) {
+                    this.searchLoading = true;
+                    axios.get("/api/admin/songs/search_songs", {params: {keyword: value}})
+                    .then(res => {
+                        this.songsList = res.data;
+                        this.searchLoading = false;
+                    })
+                } else {
+                    this.songsList = [];
+                }
+            },
+        },
+        methods: {
+            getAddFormat(){
+                this.isAdding = true
+                axios.get(`${this.apiPath}/new`)
+                .then((res) => {
+                    this.addFormat = res.data
+                })
+            },
+            addToLyricsVersionsList(obj){
+                const addObj = obj
+                this.lyricsVersions.push(addObj)
+                this.addFormat = null;
+            },
+            destroyFromLyricsVersionsList(id){
+                this.lyricsVersions = this.lyricsVersions.filter((e) => {
+                    return e.id !== id;
+                });
+            },
+            getEditFormat(id){
+                this.isEditing = true
+                axios.get(`${this.apiPath}/${id}/edit`,{id: id})
+                .then(res => {
+                    this.editFormat = res.data
+                    this.keyword = this.editFormat.song.title
+                })
+            },
+            updateLyricsVersionsList(obj){
+                Object.assign(this.lyricsVersions.find((e) => e.id === obj.id), obj)
+                this.keyword = "";
+                this.editFormat = null;
+            }
+        },
+        mounted() {
+            axios.get(this.apiPath)
+            .then(res => {
+                this.lyricsVersions = res.data
+            })
+            .catch(err => {
+                console.error(err.message); 
+            })
+        },
+    }
+</script>
