@@ -1,8 +1,10 @@
 import VueRouter from 'vue-router'
+import store from '../store'
 
 import TopPageBody from '../components/TopPageBody.vue'
 import PreparationBody from '../components/PreparationBody.vue'
 import PracticeBody from '../components/PracticeBody.vue'
+import LoginBody from '../components/LoginBody.vue'
 import Dashboard from '../components/admin/Dashboard.vue'
 import Artists from '../components/admin/Artists.vue'
 import Songs from '../components/admin/Songs.vue'
@@ -10,6 +12,7 @@ import CallLyricsVersions from '../components/admin/CallLyricsVersions.vue'
 import CallLyrics from '../components/admin/CallLyrics.vue'
 
 export default new VueRouter({
+    mode: "history",
     routes: [
         {
             path: "/",
@@ -24,9 +27,27 @@ export default new VueRouter({
             component: PracticeBody,
         },
         {
+            path: "/login",
+            component: LoginBody,
+            beforeEnter: ((to,from,next) => {
+                if(store.getters.isLogin){
+                    next("/")
+                }else{
+                    next()
+                }
+            })
+        },
+        {
             path: "/admin",
             redirect: {name: "artists"},
             component: Dashboard,
+            beforeEnter: ((to,from,next) => {
+                if(store.getters.isLogin){
+                    next()
+                }else{
+                    next("/login")
+                }
+            }),
             children: [
                 {
                     path: "artists",

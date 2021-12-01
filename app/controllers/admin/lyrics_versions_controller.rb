@@ -1,4 +1,5 @@
 class Admin::LyricsVersionsController < ApplicationController
+    before_action :authenticate_user!
     before_action :set_lyrics_version, only: [:edit, :update, :destroy]
 
     def new; end
