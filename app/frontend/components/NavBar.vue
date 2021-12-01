@@ -13,17 +13,8 @@
                     </a>
                 </v-col>
                 <v-spacer></v-spacer>
-                <!-- ログイン機能は一旦コメントアウト -->
-                <!-- <v-col cols="auto">
-                    <div id="navbar-right">
-                        <v-btn depressed rounded outlined color="mainColor" class="ml-2">Login</v-btn>
-                        <v-btn depressed rounded color="mainColor" class="ml-2">Sign up</v-btn>
-                    </div>
-                </v-col> -->
                 <v-col cols="auto">
-                    <div id="navbar-right">
-                        <v-btn depressed rounded outlined color="mainColor" class="ml-2" @click="logout">Log out</v-btn>
-                    </div>
+                    <SessionFunctions></SessionFunctions>
                 </v-col>
             </v-row>
         </v-container>
@@ -31,7 +22,7 @@
 </template>
 
 <script>
-    import axios from 'axios'
+    import SessionFunctions from './SessionFunctions.vue'
     import {hearts} from '../src/effects/hearts'
     import {animateCss} from '../src/effects/animateCss'
     export default {
@@ -41,6 +32,9 @@
                 outlineLogo: require('../images/sycall.png'),
                 filledLogo: require('../images/sycall_filled.png'),
             }
+        },
+        components: {
+            SessionFunctions
         },
         methods: {
             mouseOverAction(){
@@ -61,14 +55,6 @@
                     })
                 }, 90);
             },
-            logout(){
-                axios.delete("/logout")
-                .then((res) => {
-                    if (res.data.state) {
-                        this.$router.push("/")
-                    }
-                })
-            }
         },
     }
 </script>

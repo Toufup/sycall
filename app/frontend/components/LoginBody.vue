@@ -31,8 +31,9 @@
 
 <script>
     import axios from 'axios'
+    import {mapMutations} from 'vuex'
     export default {
-        name: "Login",
+        name: "LoginBody",
         data() {
             return {
                 email: "",
@@ -40,6 +41,7 @@
             }
         },
         methods: {
+            ...mapMutations(["setIsLogin"]),
             login(){
                 const params = {
                     user: {
@@ -50,6 +52,7 @@
                 axios.post("/login", params)
                 .then((res) => {
                     if (res.data.state) {
+                        this.setIsLogin(true)
                         this.$router.push("/admin");
                     }
                 })

@@ -38,6 +38,9 @@ const mutations = {
         state.successAlert.action = null;
         state.successAlert.flag = false;
         state.successAlert.type = null;
+    },
+    setIsLogin(state,bool){
+        state.isLogin = bool
     }
 }
 
@@ -49,7 +52,8 @@ const state = {
         action: null,
         flag: false,
         type: null,
-    }
+    },
+    isLogin: false,
 }
 
 const getters = {
@@ -62,8 +66,11 @@ const getters = {
     videoId(state){
         return state.videoId
     },
-    successAlert(){
+    successAlert(state){
         return state.successAlert
+    },
+    isLogin(state){
+        return state.isLogin
     }
 }
 
@@ -75,7 +82,7 @@ export default new Vuex.Store({
     plugins: [
         createPersistedState({
             key: "sycallApp",
-            paths: ["selectedCallInfo", "videoId"],
+            paths: ["selectedCallInfo", "videoId", "isLogin"],
             storage: window.sessionStorage
         })
     ]
