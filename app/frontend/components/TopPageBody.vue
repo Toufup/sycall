@@ -81,16 +81,16 @@
                 dialogGuide: false,
                 carousel: 0,
                 guidePics: [
-                    {src: "https://dummyimage.com/1280x720/ff3030/ffffff&text=Step1"},
-                    {src: "https://dummyimage.com/1280x720/419147/ffffff&text=Step2"},
-                    {src: "https://dummyimage.com/1280x720/40818f/ffffff&text=Step3"},
-                    {src: "https://dummyimage.com/1280x720/d4b760/ffffff&text=Step4"},
-                    {src: "https://dummyimage.com/1280x720/8c62c7/ffffff&text=Step5"},
+                    {src: require('../images/step1.png')},
+                    {src: require('../images/step2.png')},
+                    {src: require('../images/step3.png')},
+                    {src: require('../images/step4.png')},
+                    {src: require('../images/step5.png')}
                 ],
                 guideText: [
-                    "お気に入りの動画のURLを貼り付けて、練習するコールを選ぼう",
-                    "色付きの歌詞とリズムに合わせてコールしよう！",
-                    "覚えてきたら字幕をオフにしてみよう",
+                    "お気に入りの動画のURLを貼り付け、練習するコールを選ぼう",
+                    "リズムに合わせて、色付きの歌詞でコールしよう！",
+                    "覚えてきたら、字幕をオフにしてみよう",
                     "歌詞のタイミングが合わない時は調整しよう",
                     "コールの色を変えてみよう"
                 ]
@@ -114,7 +114,6 @@
                     this.$router.push({
                         path: "/preparation",
                     })
-                    
                 }, 90);
             },
         },
