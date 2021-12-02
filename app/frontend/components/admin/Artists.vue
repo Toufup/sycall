@@ -95,9 +95,6 @@
             .then(res => {
                 this.artists = res.data
             })
-            .catch(err => {
-                console.error(err.message); 
-            })
         },
     }
 </script>

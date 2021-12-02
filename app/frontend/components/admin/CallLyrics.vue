@@ -148,9 +148,6 @@
             .then(res => {
                 this.lyrics = res.data
             })
-            .catch(err => {
-                console.error(err.message); 
-            })
         },
     }
 </script>

@@ -126,9 +126,6 @@
                         type: this.moduleName
                     })
                 })
-                .catch(err => {
-                    console.error(err); 
-                })
             },
             startEditing(id){
                 this.$emit("startEditing", id)
@@ -145,9 +142,6 @@
                         flag: true, 
                         type: this.moduleName
                     })
-                })
-                .catch(err => {
-                    console.error(err); 
                 })
             },
         },

@@ -76,9 +76,6 @@
                         type: this.moduleName
                     })
                 })
-                .catch(err => {
-                    console.error(err); 
-                })
             },
         },
     }

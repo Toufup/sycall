@@ -37,9 +37,6 @@
             .then(res => {
                 this.lyricsLines = res.data
             })
-            .catch(err => {
-                console.error(err.message); 
-            })
         },
     }
 </script>
