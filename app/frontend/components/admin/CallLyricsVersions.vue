@@ -174,9 +174,6 @@
             .then(res => {
                 this.lyricsVersions = res.data
             })
-            .catch(err => {
-                console.error(err.message); 
-            })
         },
     }
 </script>

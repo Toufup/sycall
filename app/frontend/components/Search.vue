@@ -88,9 +88,6 @@
                         this.results.length > 0 ? this.hasResult = true : this.hasResult = false;
                         this.selectResult(this.results[0]);
                     })
-                    .catch(err => {
-                        console.error(err.message); 
-                    })
                 } else {
                     this.hasResult = false;
                     this.results = [];

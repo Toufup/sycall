@@ -152,9 +152,6 @@
             .then(res => {
                 this.songs = res.data
             })
-            .catch(err => {
-                console.error(err.message); 
-            })
         },
     }
 </script>
