@@ -1,6 +1,7 @@
 class LyricsVersion < ApplicationRecord
   belongs_to :song
   belongs_to :language
+  has_many :videos, dependent: :destroy
   has_one :lyric, dependent: :destroy
 
   scope :search_versions, -> (keyword) {
