@@ -1,25 +1,31 @@
 <template>
     <div id="search-box">
-        <div>
-            <p class="black--text">追加済みのコール数：{{callLyricsCount}} 。随時更新します♪</p>
+        <div align="center" class="d-flex align-center mb-1">
+            <v-icon large color="warning">mdi-fire</v-icon>
+            <p class="ma-0">人気キーワード：</p>
+            <v-chip v-for="tag in popularTags" :key="tag" class="ma-1 black-text"
+                link outlined color="black" @click="keyword = tag"
+            >
+                {{ tag }}
+            </v-chip>
         </div>
         <div>
             <v-text-field placeholder="曲名、アーティスト名で検索する" 
-                clearable clear-icon="mdi-close-circle"
-                prepend-inner-icon="mdi-subtitles" class="mt-2"
+                autofocus clearable clear-icon="mdi-close-circle" hide-details
+                prepend-inner-icon="mdi-subtitles"
                 background-color="white" color="maccha" rounded outlined
                 id="search-input" v-model="keyword"
             ></v-text-field>
         </div>
-        <div>
-            <v-list v-if="isLoading" rounded max-height="200px" class="rounded-xl overflow-y-auto mt-n7 mb-7">
+        <div class="mt-2 mb-7">
+            <v-list v-if="isLoading" rounded max-height="200px" class="rounded-xl overflow-y-auto">
                 <v-list-item>
                     <v-list-item-content>
                         <v-progress-circular indeterminate color="maccha"></v-progress-circular>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
-            <v-list v-else-if="isValid && hasResult" rounded max-height="280px" class="rounded-xl overflow-y-auto mt-n5 mb-7">
+            <v-list v-else-if="isValid && hasResult" rounded max-height="280px" class="rounded-xl overflow-y-auto">
                 <v-list-item-group color="maccha" mandatory v-model="activeTarget">
                     <v-list-item 
                         v-for="result in results" :key="result.id" 
@@ -40,7 +46,7 @@
                     </v-list-item>
                 </v-list-item-group>
             </v-list>
-            <v-list v-else-if="isValid && !hasResult" rounded max-height="200px" class="rounded-xl overflow-y-auto mt-n7 mb-7">
+            <v-list v-else-if="isValid && !hasResult" rounded max-height="200px" class="rounded-xl overflow-y-auto">
                 <v-list-item>
                     <v-list-item-content>
                         <v-list-item-title class="font-weight-bold">一致するコールは見つかりませんでした</v-list-item-title>
@@ -69,7 +75,8 @@
                 keyword: "",
                 isLoading: false,
                 results: [],
-                callLyricsCount: null,
+                
+                popularTags: ["NiziU", "TWICE", "EXO", "BLACKPINK", "ITZY"]
             }
         },
         computed: {
@@ -116,12 +123,6 @@
                 }
                 this.sendSelectedCallInfo(result);
             }
-        },
-        mounted() {
-            axios.get("/calls/get_lyrics_count")
-            .then(res => {
-                this.callLyricsCount = res.data.lyrics.count
-            })
         },
     }
 </script>

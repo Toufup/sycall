@@ -2,8 +2,11 @@
     <v-container fluid id="preparation-body">
         <v-sheet class="mainColor rounded-xl mx-16">
             <v-container px-16 py-8>
-                <div>
+                <div class="mb-4">
                     <h1 class="black--text">どのコールを練習しますか？</h1>
+                    <p class="gray--text mb-2">
+                        追加済みのコール数：{{callLyricsCount}} 。随時更新します♪
+                    </p>
                     <v-alert v-show="showCallAlert" dense rounded color="primary" 
                         icon="mdi-information-outline" class="mb-2">
                         コールを選択してください
@@ -59,7 +62,7 @@
                         </v-row>
                     </v-container>
                     <v-text-field placeholder="おすすめのYouTube動画リンクを使用するか、好きな動画のリンクを貼り付ける" 
-                        autofocus clearable clear-icon="mdi-close-circle" hide-details
+                        clearable clear-icon="mdi-close-circle" hide-details
                         background-color="white" color="maccha" rounded outlined
                         prepend-inner-icon="mdi-youtube" class="my-2" v-model.trim="videoUrl"
                     ></v-text-field>
@@ -76,6 +79,7 @@
 </template>
 
 <script>
+    import axios from 'axios'
     import {mapGetters, mapActions} from 'vuex'
     import {hearts} from '../src/effects/hearts'
     import Search from './Search.vue'
@@ -83,6 +87,7 @@
         name: "PreparationBody",
         data() {
             return {
+                callLyricsCount: null,
                 videoUrl: "",
                 recommendUrl: "https://www.youtube.com/watch?v=CN11U5t83Ro",
                 officialGuideUrl: "https://www.youtube.com/watch?v=CN11U5t83Ro",
@@ -128,6 +133,12 @@
             setHasCallErrorFlag(hasSelected){
                 this.hasCallError = hasSelected ? false : true;
             },
+        },
+        mounted() {
+            axios.get("/calls/get_lyrics_count")
+            .then(res => {
+                this.callLyricsCount = res.data.lyrics.count
+            })
         },
     }
 </script>
