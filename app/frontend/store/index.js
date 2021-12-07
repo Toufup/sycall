@@ -26,8 +26,8 @@ const mutations = {
         state.selectedCallInfo = result;
     },
     updateVideoUrl(state, url){
-        const urlReg = /^(https\:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)+([\S]{11}$)/
-        state.videoId = url.match(urlReg).pop()
+        const urlReg = /^(https\:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)+([\S]{11})([\S]*$)/
+        state.videoId = url.match(urlReg)[4]
     },
     showSuccessAlert(state, props){
         state.successAlert.action = props.action;

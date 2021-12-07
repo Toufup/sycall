@@ -98,7 +98,7 @@
                 return this.videoUrl ? false : true
             },
             hasUrlFormatError(){
-                const urlReg = /^(https\:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)+([\S]{11}$)/
+                const urlReg = /^(https\:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)+([\S]{11})([\S]*$)/
                 if (this.hasNoUrlError) {
                     return false
                 } else {
