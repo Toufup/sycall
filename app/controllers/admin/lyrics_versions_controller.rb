@@ -39,6 +39,19 @@ class Admin::LyricsVersionsController < ApplicationController
         song = Song.find_by(song_params)
         language = Language.find_by(language_params)
         @lyrics_version.update!(lyrics_version_params.merge(song: song, language: language))
+
+        if recomment_url = @lyrics_version.videos.find_by(tag: "recommend")
+            recomment_url.update!(url: video_params[:recommend][:url])
+        else
+            @lyrics_version.videos.create(tag: "recommend", url: video_params[:recommend][:url])
+        end
+
+        if official_url = @lyrics_version.videos.find_by(tag: "official")
+            official_url.update!(url: video_params[:recommend][:url])
+        else
+            @lyrics_version.videos.create(tag: "official", url: video_params[:official][:url])
+        end
+
         render json: { 
             id: @lyrics_version.id,
             song: {

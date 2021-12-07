@@ -100,6 +100,18 @@
                         v-model="editFormat.language.name"
                     ></v-select>
                 </v-col>
+                <v-col cols="12">
+                    <v-text-field label="おすすめMV（URL）" required color="maccha"
+                        clearable rounded outlined
+                        v-model="editFormat.video.recommend.url"
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field label="公式ガイド（URL）" required color="maccha"
+                        clearable rounded outlined
+                        v-model="editFormat.video.official.url"
+                    ></v-text-field>
+                </v-col>
             </template>
         </List>
     </v-container>
