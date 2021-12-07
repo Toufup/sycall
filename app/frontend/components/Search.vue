@@ -30,9 +30,9 @@
                             <v-list-item-subtitle>
                                 アーティスト：{{result.artist}}
                             </v-list-item-subtitle>
-                            <v-list-item-subtitle>
+                            <!-- <v-list-item-subtitle>
                                 コール作成者：{{result.creator}}
-                            </v-list-item-subtitle>
+                            </v-list-item-subtitle> -->
                         </v-list-item-content>
                     </v-list-item>
                 </v-list-item-group>
