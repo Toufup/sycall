@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2021_12_07_130412) do
 
   create_table "videos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "url", null: false
-    t.integer "type", null: false
+    t.integer "tag", null: false
     t.bigint "lyrics_version_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
