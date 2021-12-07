@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   defaults format: :json do
     get "/calls/search", to: "calls#search"
+    get "/calls/get_lyrics_count", to: "calls#get_lyrics_count"
     get "/calls/get_lyrics", to: "calls#get_lyrics"
 
     scope :api do

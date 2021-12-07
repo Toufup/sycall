@@ -20,9 +20,9 @@
                         icon="mdi-information-outline" class="mb-2">
                         URLの形式が正しくありません。YouTubeの動画リンクを正しく入力してください。
                     </v-alert>
-                    <v-container>
+                    <v-container v-if="selectedCallInfo">
                         <v-row>
-                            <v-col cols="6" v-if="selectedCallInfo">
+                            <v-col cols="6" v-if="recommendUrl">
                                 <v-sheet outlined class="rounded-xl pa-4" color="white">
                                     <div class="d-flex flex-nowrap flex-row align-center">
                                         <v-btn depressed fab color="pink" class="mr-2 circle-btn">
@@ -39,7 +39,7 @@
                                     </v-chip>
                                 </v-sheet>
                             </v-col>
-                            <v-col cols="6" v-if="selectedCallInfo">
+                            <v-col cols="6" v-if="officialGuideUrl">
                                 <v-sheet outlined class="rounded-xl pa-4" color="white">
                                     <div class="d-flex flex-nowrap flex-row align-center">
                                         <v-btn depressed fab color="primary" class="mr-2 circle-btn">

@@ -1,6 +1,9 @@
 <template>
     <div id="search-box">
         <div>
+            <p class="black--text">追加済みのコール数：{{callLyricsCount}} 。随時更新します♪</p>
+        </div>
+        <div>
             <v-text-field placeholder="曲名、アーティスト名で検索する" 
                 clearable clear-icon="mdi-close-circle"
                 prepend-inner-icon="mdi-subtitles" class="mt-2"
@@ -66,6 +69,7 @@
                 keyword: "",
                 isLoading: false,
                 results: [],
+                callLyricsCount: null,
             }
         },
         computed: {
@@ -112,6 +116,12 @@
                 }
                 this.sendSelectedCallInfo(result);
             }
+        },
+        mounted() {
+            axios.get("/calls/get_lyrics_count")
+            .then(res => {
+                this.callLyricsCount = res.data.lyrics.count
+            })
         },
     }
 </script>
