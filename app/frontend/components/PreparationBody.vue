@@ -32,8 +32,8 @@
                                             {{selectedCallInfo.artist}} - {{selectedCallInfo.title}} のおすすめミュージックビデオ
                                         </p>
                                     </div>
-                                    <v-chip class="mt-2 white--text" link @click="videoUrl = recommendUrl"
-                                        color="maccha"
+                                    <v-chip class="mt-2 maccha--text" link outlined color="maccha"
+                                        @click="videoUrl = recommendUrl"
                                     >
                                         {{recommendUrl}}
                                     </v-chip>
@@ -49,8 +49,8 @@
                                             初めての練習ですか？ {{selectedCallInfo.artist}} - {{selectedCallInfo.title}} の公式ガイド動画でスタートしましょう
                                         </p>
                                     </div>
-                                    <v-chip class="mt-2 white--text" link @click="videoUrl = recommendUrl"
-                                        color="maccha"
+                                    <v-chip class="mt-2 maccha--text" link outlined color="maccha"
+                                        @click="videoUrl = officialGuideUrl"
                                     >
                                         {{officialGuideUrl}}
                                     </v-chip>
