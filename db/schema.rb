@@ -74,7 +74,6 @@ ActiveRecord::Schema.define(version: 2021_12_07_130412) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["lyrics_version_id"], name: "index_videos_on_lyrics_version_id"
-    t.index ["url"], name: "index_videos_on_url", unique: true
   end
 
   add_foreign_key "lyrics", "lyrics_versions"
