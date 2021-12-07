@@ -39,6 +39,18 @@
                         v-model="addFormat.language.name"
                     ></v-select>
                 </v-col>
+                <v-col cols="12">
+                    <v-text-field label="おすすめMV（URL）" required color="maccha"
+                        clearable rounded outlined
+                        v-model="addFormat.video.recommend.url"
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field label="公式ガイド（URL）" required color="maccha"
+                        clearable rounded outlined
+                        v-model="addFormat.video.official.url"
+                    ></v-text-field>
+                </v-col>
             </template>
         </AddButton>
         <List
