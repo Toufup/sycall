@@ -49,7 +49,7 @@
                                             <v-icon large color="black">mdi-check-decagram</v-icon>
                                         </v-btn>
                                         <p class="black--text mt-2 mb-0">
-                                            初めての練習ですか？ {{selectedCallInfo.artist}} - {{selectedCallInfo.title}} の公式ガイド動画でスタートしましょう
+                                            初めての練習ですか？ {{selectedCallInfo.artist}} - {{selectedCallInfo.title}} の応援声付き動画でスタートしましょう
                                         </p>
                                     </div>
                                     <v-chip class="mt-2 maccha--text" link outlined color="maccha"
@@ -89,8 +89,6 @@
             return {
                 callLyricsCount: null,
                 videoUrl: "",
-                recommendUrl: "https://www.youtube.com/watch?v=CN11U5t83Ro",
-                officialGuideUrl: "https://www.youtube.com/watch?v=CN11U5t83Ro",
                 showNoUrlAlert: false,
                 showUrlFormatAlert: false,
                 hasCallError: false,
@@ -99,6 +97,12 @@
         },
         computed: {
             ...mapGetters(["videoId", "selectedCallInfo"]),
+            recommendUrl(){
+                return this.selectedCallInfo.recommend
+            },
+            officialGuideUrl(){
+                return this.selectedCallInfo.official
+            },
             hasNoUrlError(){
                 return this.videoUrl ? false : true
             },
