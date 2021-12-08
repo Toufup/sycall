@@ -11,7 +11,7 @@ json.video do
     json.recommend do
         json.url ""
     end
-    json.official do
+    json.guide do
         json.url ""
     end
 end

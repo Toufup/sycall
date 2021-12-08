@@ -42,7 +42,7 @@
                                     </v-chip>
                                 </v-sheet>
                             </v-col>
-                            <v-col cols="6" v-if="officialGuideUrl">
+                            <v-col cols="6" v-if="guideUrl">
                                 <v-sheet outlined class="rounded-xl pa-4" color="white">
                                     <div class="d-flex flex-nowrap flex-row align-center">
                                         <v-btn depressed fab color="primary" class="mr-2 circle-btn">
@@ -53,9 +53,9 @@
                                         </p>
                                     </div>
                                     <v-chip class="mt-2 maccha--text" link outlined color="maccha"
-                                        @click="videoUrl = officialGuideUrl"
+                                        @click="videoUrl = guideUrl"
                                     >
-                                        {{officialGuideUrl}}
+                                        {{guideUrl}}
                                     </v-chip>
                                 </v-sheet>
                             </v-col>
@@ -100,8 +100,8 @@
             recommendUrl(){
                 return this.selectedCallInfo.recommend
             },
-            officialGuideUrl(){
-                return this.selectedCallInfo.official
+            guideUrl(){
+                return this.selectedCallInfo.guide
             },
             hasNoUrlError(){
                 return this.videoUrl ? false : true

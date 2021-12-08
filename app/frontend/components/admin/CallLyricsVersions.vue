@@ -46,9 +46,9 @@
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                    <v-text-field label="公式ガイド（URL）" required color="maccha"
+                    <v-text-field label="応援声付きガイド（URL）" required color="maccha"
                         clearable rounded outlined
-                        v-model="addFormat.video.official.url"
+                        v-model="addFormat.video.guide.url"
                     ></v-text-field>
                 </v-col>
             </template>
@@ -107,9 +107,9 @@
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                    <v-text-field label="公式ガイド（URL）" required color="maccha"
+                    <v-text-field label="応援声付きガイド（URL）" required color="maccha"
                         clearable rounded outlined
-                        v-model="editFormat.video.official.url"
+                        v-model="editFormat.video.guide.url"
                     ></v-text-field>
                 </v-col>
             </template>

@@ -12,7 +12,7 @@ json.video do
     json.recommend do
         json.url @lyrics_version.videos.find_by(tag: "recommend")&.url
     end
-    json.official do
-        json.url @lyrics_version.videos.find_by(tag: "official")&.url
+    json.guide do
+        json.url @lyrics_version.videos.find_by(tag: "guide")&.url
     end
 end

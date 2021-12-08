@@ -19,7 +19,7 @@ class Admin::LyricsVersionsController < ApplicationController
         lyrics_version.language = language
         lyrics_version.save!
         lyrics_version.videos.create(tag: "recommend", url: video_params[:recommend][:url])
-        lyrics_version.videos.create(tag: "official", url: video_params[:official][:url])
+        lyrics_version.videos.create(tag: "guide", url: video_params[:guide][:url])
         # TODO IMPROVE： 返すJsonをJbuiderで作成する
         render json: { 
             id: lyrics_version.id,
@@ -46,10 +46,10 @@ class Admin::LyricsVersionsController < ApplicationController
             @lyrics_version.videos.create(tag: "recommend", url: video_params[:recommend][:url])
         end
 
-        if official_url = @lyrics_version.videos.find_by(tag: "official")
-            official_url.update!(url: video_params[:recommend][:url])
+        if guide_url = @lyrics_version.videos.find_by(tag: "guide")
+            guide_url.update!(url: video_params[:recommend][:url])
         else
-            @lyrics_version.videos.create(tag: "official", url: video_params[:official][:url])
+            @lyrics_version.videos.create(tag: "guide", url: video_params[:guide][:url])
         end
 
         render json: { 
@@ -74,7 +74,7 @@ class Admin::LyricsVersionsController < ApplicationController
     end
     
     def video_params
-        params.require(:video).permit(recommend: [:tag, :url], official: [:tag, :url])
+        params.require(:video).permit(recommend: [:tag, :url], guide: [:tag, :url])
     end
     
     def lyrics_version_params

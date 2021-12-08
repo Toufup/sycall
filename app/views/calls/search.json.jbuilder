@@ -5,6 +5,6 @@ json.array! @lyrics_versions do |version|
     json.artist(version.song.artist.name)
     json.language(version.language.name)
     json.recommend(version.videos.find_by(tag: "recommend")&.url)
-    json.official(version.videos.find_by(tag: "official")&.url)
+    json.guide(version.videos.find_by(tag: "guide")&.url)
     json.creator("Admin")
 end
