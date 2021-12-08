@@ -21,14 +21,15 @@
                 <span>字幕0.5秒早める</span>
             </v-tooltip>
         </v-btn>
-        <v-btn depressed fab color="white" @click.stop="like($event)">
+        <!-- ユーザー機能を実装していないためお気に入り機能を一旦コメントアウト -->
+        <!-- <v-btn depressed fab color="white" @click.stop="like($event)">
             <v-tooltip top>
                 <template v-slot:activator="{on}">
                     <v-icon x-large color="pink" v-on="on">mdi-{{likeButton}}</v-icon>
                 </template>
                 <span>お気に入り</span>
             </v-tooltip>
-        </v-btn>
+        </v-btn> -->
         <v-btn depressed fab color="white" @click.stop>
             <v-tooltip top>
                 <template v-slot:activator="{on}">
