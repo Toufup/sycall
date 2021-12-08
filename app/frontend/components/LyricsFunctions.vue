@@ -63,6 +63,16 @@
                 swatches:[
                     "#ff94ce", "#ff9eff", "#c1c1ff", "#99ffff", "#b2ffd8", "#d8ffb2", "#ffffb2", "#ffe0c1"
                 ],
+                darkColorList: {
+                    "#ff94ce": "#d14f8d", 
+                    "#ff9eff": "#c456d6", 
+                    "#c1c1ff": "#786edc", 
+                    "#99ffff": "#2e9bd1", 
+                    "#b2ffd8": "#42d270", 
+                    "#d8ffb2": "#97cc44", 
+                    "#ffffb2": "#e4ca32", 
+                    "#ffe0c1": "#e6934c"
+                },
                 callBackgroundColor: "#ff94ce",
                 timeOffset: 0,
             }
@@ -74,6 +84,9 @@
             optionButton(){
                 return this.isSpeedDialActive ? "chevron-up" : "dots-vertical"
             },
+            darkCallBackgroundColor(){
+                return this.darkColorList[this.callBackgroundColor]
+            }
         },
         methods: {
             like(event){
@@ -92,10 +105,12 @@
             },
             sendColor(){
                 Pubsub.publish("catchCallBackgroundColor", this.callBackgroundColor)
+                Pubsub.publish("catchDarkCallBackgroundColor", this.darkCallBackgroundColor)
             }
         },
         mounted() {
             Pubsub.publish("catchCallBackgroundColor", this.callBackgroundColor)
+            Pubsub.publish("catchDarkCallBackgroundColor", this.darkCallBackgroundColor)
         },
     }
 </script>
