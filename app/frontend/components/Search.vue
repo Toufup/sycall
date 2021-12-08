@@ -1,22 +1,31 @@
 <template>
     <div id="search-box">
+        <div align="center" class="d-flex align-center mb-1">
+            <v-icon large color="warning">mdi-fire</v-icon>
+            <p class="ma-0">人気キーワード：</p>
+            <v-chip v-for="popular in popularWords" :key="popular.id" class="ma-1 black-text"
+                link outlined color="black" @click="keyword = popular.word"
+            >
+                {{ popular.word }}
+            </v-chip>
+        </div>
         <div>
             <v-text-field placeholder="曲名、アーティスト名で検索する" 
-                clearable clear-icon="mdi-close-circle"
-                prepend-inner-icon="mdi-subtitles" class="mt-2"
+                autofocus clearable clear-icon="mdi-close-circle" hide-details
+                prepend-inner-icon="mdi-subtitles"
                 background-color="white" color="maccha" rounded outlined
                 id="search-input" v-model="keyword"
             ></v-text-field>
         </div>
-        <div>
-            <v-list v-if="isLoading" rounded max-height="200px" class="rounded-xl overflow-y-auto mt-n7 mb-7">
+        <div class="mt-2 mb-7">
+            <v-list v-if="isLoading" rounded max-height="200px" class="rounded-xl overflow-y-auto">
                 <v-list-item>
                     <v-list-item-content>
                         <v-progress-circular indeterminate color="maccha"></v-progress-circular>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
-            <v-list v-else-if="isValid && hasResult" rounded max-height="280px" class="rounded-xl overflow-y-auto mt-n5 mb-7">
+            <v-list v-else-if="isValid && hasResult" rounded max-height="280px" class="rounded-xl overflow-y-auto">
                 <v-list-item-group color="maccha" mandatory v-model="activeTarget">
                     <v-list-item 
                         v-for="result in results" :key="result.id" 
@@ -30,14 +39,14 @@
                             <v-list-item-subtitle>
                                 アーティスト：{{result.artist}}
                             </v-list-item-subtitle>
-                            <v-list-item-subtitle>
+                            <!-- <v-list-item-subtitle>
                                 コール作成者：{{result.creator}}
-                            </v-list-item-subtitle>
+                            </v-list-item-subtitle> -->
                         </v-list-item-content>
                     </v-list-item>
                 </v-list-item-group>
             </v-list>
-            <v-list v-else-if="isValid && !hasResult" rounded max-height="200px" class="rounded-xl overflow-y-auto mt-n7 mb-7">
+            <v-list v-else-if="isValid && !hasResult" rounded max-height="200px" class="rounded-xl overflow-y-auto">
                 <v-list-item>
                     <v-list-item-content>
                         <v-list-item-title class="font-weight-bold">一致するコールは見つかりませんでした</v-list-item-title>
@@ -66,6 +75,7 @@
                 keyword: "",
                 isLoading: false,
                 results: [],
+                popularWords: [],
             }
         },
         computed: {
@@ -112,6 +122,12 @@
                 }
                 this.sendSelectedCallInfo(result);
             }
+        },
+        mounted() {
+            axios.get("/calls/get_popular_words")
+            .then(res => {
+                this.popularWords = res.data
+            })
         },
     }
 </script>

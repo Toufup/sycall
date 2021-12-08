@@ -39,6 +39,18 @@
                         v-model="addFormat.language.name"
                     ></v-select>
                 </v-col>
+                <v-col cols="12">
+                    <v-text-field label="おすすめMV（URL）" required color="maccha"
+                        clearable rounded outlined
+                        v-model="addFormat.video.recommend.url"
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field label="応援声付きガイド（URL）" required color="maccha"
+                        clearable rounded outlined
+                        v-model="addFormat.video.guide.url"
+                    ></v-text-field>
+                </v-col>
             </template>
         </AddButton>
         <List
@@ -87,6 +99,18 @@
                         :items="languages" item-text="text" item-value="value"
                         v-model="editFormat.language.name"
                     ></v-select>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field label="おすすめMV（URL）" required color="maccha"
+                        clearable rounded outlined
+                        v-model="editFormat.video.recommend.url"
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field label="応援声付きガイド（URL）" required color="maccha"
+                        clearable rounded outlined
+                        v-model="editFormat.video.guide.url"
+                    ></v-text-field>
                 </v-col>
             </template>
         </List>

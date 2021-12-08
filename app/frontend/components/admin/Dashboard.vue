@@ -33,6 +33,7 @@
                     {icon: "music-clef-treble", name: "曲", route: "songs"},
                     {icon: "file-document", name: "バージョン", route: "callLyricsVersions"},
                     {icon: "music-box", name: "歌詞", route: "callLyrics"},
+                    {icon: "fire", name: "人気キーワード", route: "populars"},
                 ],
                 currentTab: "Artists",
             }

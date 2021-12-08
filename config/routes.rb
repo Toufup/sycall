@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
   defaults format: :json do
     get "/calls/search", to: "calls#search"
+    get "/calls/get_lyrics_count", to: "calls#get_lyrics_count"
+    get "/calls/get_popular_words", to: "calls#get_popular_words"
     get "/calls/get_lyrics", to: "calls#get_lyrics"
 
     scope :api do
@@ -26,6 +28,7 @@ Rails.application.routes.draw do
         resources :lyrics_versions, only: [:new, :index, :create, :destroy, :edit, :update]
         get "lyrics_versions/search_versions", to: "lyrics_versions#search_versions"
         resources :lyrics, only: [:new, :index, :create, :destroy, :edit, :update]
+        resources :populars, only: [:new, :index, :create, :destroy, :edit, :update]
       end
     end
   end

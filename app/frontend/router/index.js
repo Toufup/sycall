@@ -10,6 +10,7 @@ import Artists from '../components/admin/Artists.vue'
 import Songs from '../components/admin/Songs.vue'
 import CallLyricsVersions from '../components/admin/CallLyricsVersions.vue'
 import CallLyrics from '../components/admin/CallLyrics.vue'
+import Populars from '../components/admin/Populars.vue'
 
 export default new VueRouter({
     mode: "history",
@@ -30,9 +31,10 @@ export default new VueRouter({
             path: "/login",
             component: LoginBody,
             beforeEnter: ((to,from,next) => {
-                if(store.getters.isLogin){
+                if(store.getters.isLogin && new Date(store.getters.loginExpireDate) > new Date()){
                     next("/")
                 }else{
+                    store.commit("setIsLogin", false)
                     next()
                 }
             })
@@ -42,9 +44,10 @@ export default new VueRouter({
             redirect: {name: "artists"},
             component: Dashboard,
             beforeEnter: ((to,from,next) => {
-                if(store.getters.isLogin){
+                if(store.getters.isLogin && new Date(store.getters.loginExpireDate) > new Date()){
                     next()
                 }else{
+                    store.commit("setIsLogin", false)
                     next("/login")
                 }
             }),
@@ -68,6 +71,11 @@ export default new VueRouter({
                     path: "call-lyrics",
                     name: "callLyrics",
                     component: CallLyrics,
+                },
+                {
+                    path: "populars",
+                    name: "populars",
+                    component: Populars,
                 },
             ]
         }

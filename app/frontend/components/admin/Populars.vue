@@ -1,17 +1,17 @@
 <template>
-    <v-container id="artists-group">
+    <v-container id="populars-group">
         <AddButton
             :moduleName="moduleName"
             :apiPath="apiPath"
             @startAdding="getAddFormat"
             :addFormat="addFormat"
-            @addItem="addToArtistsList"
+            @addItem="addToPopularsList"
         >
             <template v-if="addFormat" v-slot:formAddArea>
                 <v-col cols="12">
-                    <v-text-field label="名前" required color="maccha"
+                    <v-text-field label="ワード" required color="maccha"
                         clearable rounded outlined
-                        v-model="addFormat.artist.name"
+                        v-model="addFormat.popular.word"
                     ></v-text-field>
                 </v-col>
             </template>
@@ -19,22 +19,22 @@
         <List
             :moduleName="moduleName"
             :apiPath="apiPath"
-            :iconName="'account-music'"
-            :items="artists"
+            :iconName="'fire'"
+            :items="populars"
 
-            @destroyItem="destroyFromArtistsList"
+            @destroyItem="destroyFromPopularsList"
             @startEditing="getEditFormat"
             :editFormat="editFormat"
-            @updateItem="updateArtistsList"
+            @updateItem="updatePopularsList"
         >
             <template v-slot:contentArea="{item}">
-                <v-list-item-title class="black--text">{{item.artist.name}}</v-list-item-title>
+                <v-list-item-title class="black--text">{{item.popular.word}}</v-list-item-title>
             </template>
             <template v-if="editFormat" v-slot:formEditArea>
                 <v-col cols="12">
-                    <v-text-field label="名前" required color="maccha"
+                    <v-text-field label="ワード" required color="maccha"
                         clearable rounded outlined
-                        v-model="editFormat.artist.name"
+                        v-model="editFormat.popular.word"
                     ></v-text-field>
                 </v-col>
             </template>
@@ -47,18 +47,18 @@
     import List from './List.vue'
     import axios from 'axios'
     export default {
-        name: "Artists",
+        name: "Populars",
         components: {
             AddButton,
             List,
         },
         data() {
             return {
-                apiPath: "/api/admin/artists",
+                apiPath: "/api/admin/populars",
                 addFormat: null,
                 editFormat: null,
-                artists: [],
-                moduleName: "アーティスト",
+                populars: [],
+                moduleName: "人気キーワード",
             }
         },
         methods: {
@@ -68,13 +68,13 @@
                     this.addFormat = res.data
                 })
             },
-            addToArtistsList(obj){
+            addToPopularsList(obj){
                 const addObj = obj
-                this.artists.push(addObj)
+                this.populars.push(addObj)
                 this.addFormat = null;
             },
-            destroyFromArtistsList(id){
-                this.artists = this.artists.filter((e) => {
+            destroyFromPopularsList(id){
+                this.populars = this.populars.filter((e) => {
                     return e.id !== id;
                 });
             },
@@ -84,15 +84,15 @@
                     this.editFormat = res.data
                 })
             },
-            updateArtistsList(obj){
-                Object.assign(this.artists.find((e) => e.id === obj.id), obj)
+            updatePopularsList(obj){
+                Object.assign(this.populars.find((e) => e.id === obj.id), obj)
                 this.editFormat = null;
             }
         },
         mounted() {
             axios.get(this.apiPath)
             .then(res => {
-                this.artists = res.data
+                this.populars = res.data
             })
         },
     }
