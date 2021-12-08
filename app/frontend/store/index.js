@@ -41,6 +41,15 @@ const mutations = {
     },
     setIsLogin(state,bool){
         state.isLogin = bool
+        // 1日後にログインセッションが切れる
+        if (bool) {
+            state.loginDate = new Date(Date.now())
+            state.loginExpireDate = new Date(Date.now())
+            state.loginExpireDate.setDate(state.loginDate.getDate() + 1)
+        } else {
+            state.loginDate = null
+            state.loginExpireDate = null
+        }
     }
 }
 
@@ -54,6 +63,8 @@ const state = {
         type: null,
     },
     isLogin: false,
+    loginDate: null,
+    loginExpireDate: null,
 }
 
 const getters = {
@@ -71,6 +82,12 @@ const getters = {
     },
     isLogin(state){
         return state.isLogin
+    },
+    loginDate(state){
+        return state.loginDate
+    },
+    loginExpireDate(state){
+        return state.loginExpireDate
     }
 }
 
@@ -82,7 +99,7 @@ export default new Vuex.Store({
     plugins: [
         createPersistedState({
             key: "sycallApp",
-            paths: ["selectedCallInfo", "videoId", "isLogin"],
+            paths: ["selectedCallInfo", "videoId", "isLogin", "loginExpireDate"],
             storage: window.sessionStorage
         })
     ]

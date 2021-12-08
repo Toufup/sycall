@@ -31,9 +31,10 @@ export default new VueRouter({
             path: "/login",
             component: LoginBody,
             beforeEnter: ((to,from,next) => {
-                if(store.getters.isLogin){
+                if(store.getters.isLogin && new Date(store.getters.loginExpireDate) > new Date()){
                     next("/")
                 }else{
+                    store.commit("setIsLogin", false)
                     next()
                 }
             })
@@ -43,9 +44,10 @@ export default new VueRouter({
             redirect: {name: "artists"},
             component: Dashboard,
             beforeEnter: ((to,from,next) => {
-                if(store.getters.isLogin){
+                if(store.getters.isLogin && new Date(store.getters.loginExpireDate) > new Date()){
                     next()
                 }else{
+                    store.commit("setIsLogin", false)
                     next("/login")
                 }
             }),

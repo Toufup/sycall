@@ -5,5 +5,3 @@ class Video < ApplicationRecord
 
   enum tag: { recommend: 0, guide: 1 }
 end
-# TODO コールと動画URLの紐付けをする
-# TODO 人気キーワードのテーブルを作成する
