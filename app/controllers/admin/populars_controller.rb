@@ -15,7 +15,7 @@ class Admin::PopularsController < ApplicationController
     end
     
     def destroy
-        
+        @popular_word.destroy!
     end
     
     def edit; end
