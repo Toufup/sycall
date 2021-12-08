@@ -81,7 +81,6 @@
 
                     // indexはコール歌詞が元の歌詞において初めて現れたインデックス
                     if (callLyrics) {
-                        console.log("処理されたよ");
                         for(let i=0;i<callLyrics.length;i++){
                             const index = lyric.indexOf(callLyrics[i])
                             indexLyrics[index] = callLyrics[i]
