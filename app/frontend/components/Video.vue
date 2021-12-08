@@ -24,7 +24,7 @@
             </v-col>
         </v-row>
         <v-row id="video" justify="center">
-            <v-sheet class="ma-0" id="video-player" width="820" color="transparent">
+            <v-sheet class="ma-0" id="video-player" width="80%" color="transparent">
                 <youtube fitParent ref="youtube" :video-id="videoId" @playing="playing" @paused="paused" @ended="ended"
                     :player-vars="playerVars"
                 ></youtube>
