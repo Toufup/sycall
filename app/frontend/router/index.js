@@ -10,6 +10,7 @@ import Artists from '../components/admin/Artists.vue'
 import Songs from '../components/admin/Songs.vue'
 import CallLyricsVersions from '../components/admin/CallLyricsVersions.vue'
 import CallLyrics from '../components/admin/CallLyrics.vue'
+import Populars from '../components/admin/Populars.vue'
 
 export default new VueRouter({
     mode: "history",
@@ -68,6 +69,11 @@ export default new VueRouter({
                     path: "call-lyrics",
                     name: "callLyrics",
                     component: CallLyrics,
+                },
+                {
+                    path: "populars",
+                    name: "populars",
+                    component: Populars,
                 },
             ]
         }

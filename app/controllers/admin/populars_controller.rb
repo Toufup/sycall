@@ -9,7 +9,9 @@ class Admin::PopularsController < ApplicationController
     end
     
     def create
-        
+        popular_word = Popular.new(popular_word_params)
+        popular_word.save!
+        render json: { id: popular_word.id }
     end
     
     def destroy
@@ -23,11 +25,11 @@ class Admin::PopularsController < ApplicationController
     end
     
     private
-    def popular_params
+    def popular_word_params
         params.require(:popular).permit(:word)
     end
 
     def set_popular
-        @song = Popular.find(params[:id])
+        @popular_word = Popular.find(params[:id])
     end
 end
