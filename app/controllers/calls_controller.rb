@@ -7,7 +7,10 @@ class CallsController < ApplicationController
         @lyrics_versions_count = Lyric.count
         render json: { lyrics: { count: @lyrics_versions_count } }
     end
-    
+
+    def get_popular_words
+        @popular_words = Popular.all
+    end    
 
     def get_lyrics
         @call_lyrics = LyricsVersion.find(call_params[:callId]).lyric.body

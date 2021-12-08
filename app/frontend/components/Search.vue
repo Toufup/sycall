@@ -3,10 +3,10 @@
         <div align="center" class="d-flex align-center mb-1">
             <v-icon large color="warning">mdi-fire</v-icon>
             <p class="ma-0">人気キーワード：</p>
-            <v-chip v-for="tag in popularTags" :key="tag" class="ma-1 black-text"
-                link outlined color="black" @click="keyword = tag"
+            <v-chip v-for="popular in popularWords" :key="popular.id" class="ma-1 black-text"
+                link outlined color="black" @click="keyword = popular.word"
             >
-                {{ tag }}
+                {{ popular.word }}
             </v-chip>
         </div>
         <div>
@@ -75,8 +75,7 @@
                 keyword: "",
                 isLoading: false,
                 results: [],
-                
-                popularTags: ["NiziU", "TWICE", "EXO", "BLACKPINK", "ITZY"]
+                popularWords: [],
             }
         },
         computed: {
@@ -123,6 +122,12 @@
                 }
                 this.sendSelectedCallInfo(result);
             }
+        },
+        mounted() {
+            axios.get("/calls/get_popular_words")
+            .then(res => {
+                this.popularWords = res.data
+            })
         },
     }
 </script>
