@@ -22,10 +22,10 @@
             :iconName="'fire'"
             :items="populars"
 
-            @destroyItem="destroyFromPopularList"
+            @destroyItem="destroyFromPopularsList"
             @startEditing="getEditFormat"
             :editFormat="editFormat"
-            @updateItem="updatePopularList"
+            @updateItem="updatePopularsList"
         >
             <template v-slot:contentArea="{item}">
                 <v-list-item-title class="black--text">{{item.popular.word}}</v-list-item-title>
@@ -47,7 +47,7 @@
     import List from './List.vue'
     import axios from 'axios'
     export default {
-        name: "Popular",
+        name: "Populars",
         components: {
             AddButton,
             List,
@@ -73,7 +73,7 @@
                 this.populars.push(addObj)
                 this.addFormat = null;
             },
-            destroyFromPopularList(id){
+            destroyFromPopularsList(id){
                 this.populars = this.populars.filter((e) => {
                     return e.id !== id;
                 });
@@ -84,7 +84,7 @@
                     this.editFormat = res.data
                 })
             },
-            updatePopularList(obj){
+            updatePopularsList(obj){
                 Object.assign(this.populars.find((e) => e.id === obj.id), obj)
                 this.editFormat = null;
             }

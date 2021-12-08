@@ -21,7 +21,8 @@ class Admin::PopularsController < ApplicationController
     def edit; end
 
     def update
-        
+        @popular_word.update!(popular_word_params)
+        render json: { id: @popular_word.id }
     end
     
     private
