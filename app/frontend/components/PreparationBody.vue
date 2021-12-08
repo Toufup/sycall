@@ -5,7 +5,7 @@
                 <div class="mb-4">
                     <h1 class="black--text">どのコールを練習しますか？</h1>
                     <p class="gray--text mb-2">
-                        追加済みのコール数：{{callLyricsCount}} 。随時更新します♪
+                        追加済みのコール数：{{callLyricsCount}} 。随時更新中♪
                     </p>
                     <v-alert v-show="showCallAlert" dense rounded color="primary" 
                         icon="mdi-information-outline" class="mb-2">

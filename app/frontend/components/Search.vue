@@ -39,6 +39,9 @@
                             <v-list-item-subtitle>
                                 アーティスト：{{result.artist}}
                             </v-list-item-subtitle>
+                            <v-list-item-subtitle>
+                                形式：{{result.language}}
+                            </v-list-item-subtitle>
                             <!-- <v-list-item-subtitle>
                                 コール作成者：{{result.creator}}
                             </v-list-item-subtitle> -->
