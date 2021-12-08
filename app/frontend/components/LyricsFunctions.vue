@@ -59,7 +59,7 @@
         data() {
             return {
                 isLiked: false,
-                isSpeedDialActive: false,
+                isSpeedDialActive: true,
                 swatches:[
                     "#ff94ce", "#ff9eff", "#c1c1ff", "#99ffff", "#b2ffd8", "#d8ffb2", "#ffffb2", "#ffe0c1"
                 ],
