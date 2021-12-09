@@ -17,9 +17,10 @@
                             <v-chip color="mainColor" small link class="black--text mb-1">
                                 利用規約
                             </v-chip>
-                            <v-chip color="mainColor" small link class="black--text mb-1">
+                            <!-- 一旦コメントアウト -->
+                            <!-- <v-chip color="mainColor" small link class="black--text mb-1">
                                 よくある質問
-                            </v-chip>
+                            </v-chip> -->
                             <v-dialog max-width="800">
                                 <template v-slot:activator="{on}">
                                     <v-chip color="mainColor" small link class="black--text mb-1" v-on="on">
