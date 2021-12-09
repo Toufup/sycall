@@ -20,9 +20,14 @@
                             <v-chip color="mainColor" small link class="black--text mb-1">
                                 よくある質問
                             </v-chip>
-                            <v-chip color="mainColor" small link class="black--text mb-1">
-                                フィードバック・ご意見
-                            </v-chip>
+                            <v-dialog max-width="800">
+                                <template v-slot:activator="{on}">
+                                    <v-chip color="mainColor" small link class="black--text mb-1" v-on="on">
+                                        フィードバック・ご意見
+                                    </v-chip>
+                                </template>
+                                <Form></Form>
+                            </v-dialog>
                         </div>
                     </v-col>
                 </v-row>
@@ -33,8 +38,12 @@
 </template>
 
 <script>
+    import Form from './Form.vue'
     export default {
         name: "Footer",
+        components: {
+            Form
+        }
     }
 </script>
 
