@@ -12,7 +12,7 @@
                     <span>
                         <a href="https://twitter.com/SycallApp" target="_blank">
                             <v-chip color="#1DA1F2" small link class="ma-1" outlined>
-                                Twitterの公式アカウント<v-icon>mdi-open-in-new</v-icon>
+                                Twitterの公式アカウント<v-icon small>mdi-open-in-new</v-icon>
                             </v-chip>
                         </a>
                         をフォローして、最新のリリース情報をゲットしましょう！

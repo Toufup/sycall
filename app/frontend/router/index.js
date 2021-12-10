@@ -11,6 +11,7 @@ import Songs from '../components/admin/Songs.vue'
 import CallLyricsVersions from '../components/admin/CallLyricsVersions.vue'
 import CallLyrics from '../components/admin/CallLyrics.vue'
 import Populars from '../components/admin/Populars.vue'
+import Terms from '../components/Terms.vue'
 
 export default new VueRouter({
     mode: "history",
@@ -78,6 +79,10 @@ export default new VueRouter({
                     component: Populars,
                 },
             ]
+        },
+        {
+            path: "/terms",
+            component: Terms,
         }
     ]
 })
