@@ -4,7 +4,7 @@
             <v-container px-16 py-8>
                 <div class="mb-4">
                     <h1 class="black--text">どのコールを練習しますか？</h1>
-                    <p class="gray--text mb-2">
+                    <p class="gray--text mb-2" v-if="callLyricsCount">
                         追加済みのコール数：{{callLyricsCount}} 。随時更新中♪
                     </p>
                     <v-alert v-show="showCallAlert" dense rounded color="primary" 
