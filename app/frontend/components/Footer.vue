@@ -1,14 +1,19 @@
 <template>
     <v-container fluid id="footer">
-        <v-sheet class="mainColor rounded-t-xl mx-16">
+        <v-sheet class="rounded-t-xl mx-16" color="mainColor">
             <v-container px-16>
                 <v-row align="center">
                     <v-col cols="4">
                         <div id="footer-left">
                             <h2 class="black--text">Sycall</h2>
                             <v-divider vertical class="black mx-2"></v-divider>
-                            <v-btn icon color="black">
-                                <v-icon>mdi-twitter</v-icon>
+                            <v-btn depressed icon color="black" href="https://twitter.com/SycallApp" target="_blank">
+                                <v-tooltip top>
+                                    <template v-slot:activator="{on}">
+                                        <v-icon v-on="on">mdi-twitter</v-icon>
+                                    </template>
+                                    <span>Twitterをフォロー</span>
+                                </v-tooltip>
                             </v-btn>
                         </div>
                     </v-col>
