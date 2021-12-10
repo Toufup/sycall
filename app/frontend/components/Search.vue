@@ -1,6 +1,6 @@
 <template>
     <div id="search-box">
-        <div align="center" class="d-flex align-center mb-1">
+        <div align="center" class="d-flex align-center mb-1" v-if="popularWords">
             <v-icon large color="warning">mdi-fire</v-icon>
             <p class="ma-0">人気キーワード：</p>
             <v-chip v-for="popular in popularWords" :key="popular.id" class="ma-1 black-text"
