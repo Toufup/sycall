@@ -21,13 +21,15 @@
                             <!-- <v-chip color="mainColor" small link class="black--text mb-1">
                                 よくある質問
                             </v-chip> -->
-                            <v-dialog max-width="800">
+                            <v-dialog max-width="800" v-model="formDialog">
                                 <template v-slot:activator="{on}">
-                                    <v-chip color="black" small link class="black--text ma-1" outlined v-on="on">
+                                    <v-chip color="black" small link class="black--text ma-1" outlined 
+                                        v-on="on" 
+                                    >
                                         フィードバック・ご意見
                                     </v-chip>
                                 </template>
-                                <Form></Form>
+                                <Form @closeForm="formDialog = false"></Form>
                             </v-dialog>
                         </div>
                     </v-col>
@@ -44,7 +46,14 @@
         name: "Footer",
         components: {
             Form
-        }
+        },
+        data() {
+            return {
+                formDialog: false
+            }
+        },
+        methods: {
+        },
     }
 </script>
 

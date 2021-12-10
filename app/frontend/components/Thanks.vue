@@ -18,6 +18,15 @@
                         をフォローして、最新のリリース情報をゲットしましょう！
                     </span>
                 </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn x-large depressed class="ma-1 rounded-xl white--text" color="black" @click="closeForm">
+                        閉じる
+                    </v-btn>
+                    <v-btn x-large depressed class="ma-1 rounded-xl" color="maccha" outlined @click="openNew">
+                        別のフィードバックを送信
+                    </v-btn>
+                </v-card-actions>
             </v-card>
         </v-col>
     </v-container>
@@ -25,7 +34,15 @@
 
 <script>
     export default {
-        name: "Thanks"
+        name: "Thanks",
+        methods: {
+            closeForm(){
+                this.$emit("closeForm")
+            },
+            openNew(){
+                this.$emit("openNew")
+            }
+        },
     }
 </script>
 

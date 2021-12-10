@@ -51,14 +51,17 @@
                     </v-card>
                 </v-col>
                 <v-col cols="12" class="text-end">
-                    <v-btn x-large depressed class="black--text rounded-xl" color="primary" 
+                    <v-btn x-large depressed class="ma-1 rounded-xl white--text" color="maccha" @click="closeForm">
+                        閉じる
+                    </v-btn>
+                    <v-btn x-large depressed class="ma-1 black--text rounded-xl" color="primary" 
                         @click="submit" type="submit"
                     >送信</v-btn>
                 </v-col>
             </v-container>
         </form>
         <iframe name="dummyIframe" style="display:none;" @load="afterSubmit"></iframe>
-        <Thanks v-show="hasSent"></Thanks>
+        <Thanks v-show="hasSent" @openNew="openNew" @closeForm="closeForm"></Thanks>
     </v-card>
 </template>
 
@@ -108,6 +111,12 @@
                 this.contactVal = null
                 this.contactBody = null
                 this.email = null
+            },
+            openNew(){
+                this.hasSent = false
+            },
+            closeForm(){
+                this.$emit("closeForm")
             }
         },
     }
