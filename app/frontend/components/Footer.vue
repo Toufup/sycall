@@ -19,8 +19,11 @@
                     </v-col>
                     <v-col cols="8">
                         <div id="footer-right">
-                            <v-chip color="black" small link class="black--text ma-1" outlined v-on="on" to="/terms">
+                            <v-chip color="black" small link class="black--text ma-1" outlined to="/terms">
                                 利用規約<v-icon small>mdi-open-in-new</v-icon>
+                            </v-chip>
+                            <v-chip color="black" small link class="black--text ma-1" outlined to="/privacy">
+                                プライバシーポリシー<v-icon small>mdi-open-in-new</v-icon>
                             </v-chip>
                             <!-- 一旦コメントアウト -->
                             <!-- <v-chip color="mainColor" small link class="black--text mb-1">
