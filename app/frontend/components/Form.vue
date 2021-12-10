@@ -51,7 +51,7 @@
                     </v-card>
                 </v-col>
                 <v-col cols="12" class="text-end">
-                    <v-btn x-large depressed class="ma-1 rounded-xl white--text" color="maccha" @click="closeForm">
+                    <v-btn x-large depressed class="ma-1 rounded-xl white--text" color="black" @click="closeForm">
                         閉じる
                     </v-btn>
                     <v-btn x-large depressed class="ma-1 black--text rounded-xl" color="primary" 
