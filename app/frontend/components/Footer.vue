@@ -14,7 +14,7 @@
                     </v-col>
                     <v-col cols="8">
                         <div id="footer-right">
-                            <v-chip color="mainColor" small link class="black--text mb-1">
+                            <v-chip color="black" small link class="black--text ma-1" outlined>
                                 利用規約
                             </v-chip>
                             <!-- 一旦コメントアウト -->
@@ -23,7 +23,7 @@
                             </v-chip> -->
                             <v-dialog max-width="800">
                                 <template v-slot:activator="{on}">
-                                    <v-chip color="mainColor" small link class="black--text mb-1" v-on="on">
+                                    <v-chip color="black" small link class="black--text ma-1" outlined v-on="on">
                                         フィードバック・ご意見
                                     </v-chip>
                                 </template>

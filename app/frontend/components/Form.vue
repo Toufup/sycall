@@ -1,6 +1,6 @@
 <template>
     <v-card color="mainColor">
-        <form action="https://docs.google.com/forms/u/3/d/e/1FAIpQLSdoCe9AFGGQeQr1FC6kXwpwHNVrWl5_QVGZtgNWZm21uCBmhA/formResponse" method="post">
+        <form action="https://docs.google.com/forms/u/3/d/e/1FAIpQLSdoCe9AFGGQeQr1FC6kXwpwHNVrWl5_QVGZtgNWZm21uCBmhA/formResponse" method="post" target="dummyIframe" v-show="!hasSent" @submit="hasSent = true">
             <v-container class="pa-8 black--text">
                 <v-col cols="12">
                     <h1 style="font-size:45px;">フィードバック・ご意見</h1>
@@ -57,12 +57,19 @@
                 </v-col>
             </v-container>
         </form>
+        <iframe name="dummyIframe" style="display:none;" @load="afterSubmit"></iframe>
+        <Thanks v-show="hasSent"></Thanks>
     </v-card>
 </template>
 
 <script>
+    import party from "party-js";
+    import Thanks from './Thanks.vue'
     export default {
         name: "Form",
+        components: {
+            Thanks
+        },
         data() {
             return {
                 contactVal: null,
@@ -71,6 +78,7 @@
                 email: null,
                 hasContactTypeErr: false,
                 hasContactBodyErr: false,
+                hasSent: false
             }
         },
         computed: {
@@ -87,12 +95,19 @@
             },
         },
         methods: {
-            submit(){
+            submit(event){
                 this.hasContactTypeErr = this.contactVal ? false : true
                 this.hasContactBodyErr = this.contactBody ? false : true
                 if (this.canSubmit) {
-                    alert('OK!');
+                    party.confetti(event)
+                } else {
+                    return
                 }
+            },
+            afterSubmit(){
+                this.contactVal = null
+                this.contactBody = null
+                this.email = null
             }
         },
     }
