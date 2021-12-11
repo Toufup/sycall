@@ -18,8 +18,8 @@
                 </h3>
             </v-col>
             <v-col cols="auto" class="py-0">
-                <v-btn disabled fab plain>
-                    <v-icon disabled x-large color="transparent"></v-icon>
+                <v-btn depressed fab color="white" :href="shareTwitter" target="_blank">
+                    <v-icon x-large color="#1DA1F2">mdi-twitter</v-icon>
                 </v-btn>
             </v-col>
         </v-row>
@@ -48,6 +48,11 @@
                 },
                 callBackgroundColor: null,
                 openingAudio: new Audio(require('../audio/OP_5s.mp3')),
+                twitter: {
+                    formDialog: false,
+                    tweet: "https://twitter.com/intent/tweet",
+                    url: "https://sycall.app/",
+                }
             }
         },
         props: {
@@ -73,6 +78,18 @@
             player(){
                 return this.$refs.youtube.player
             },
+            twitterText(){
+                return ` @SycallApp で ${this.artist} のコールを練習しています🎉 `
+            },
+            twitterHashtags(){
+                return `sycall,サイコール,${this.artist},${this.title.replace(/\s+/g, "").toLowerCase()}`
+            },
+            shareTwitter(){
+                return this.twitter.tweet + 
+                        "?text=" + this.twitterText + 
+                        "&url=" + this.twitter.url + 
+                        "&hashtags=" + this.twitterHashtags
+            }
         },
         methods: {
             ...mapActions(["getVideoCurrentTime"]),
