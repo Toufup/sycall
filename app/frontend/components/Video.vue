@@ -18,9 +18,14 @@
                 </h3>
             </v-col>
             <v-col cols="auto" class="py-0">
-                <v-btn depressed fab color="white" :href="shareTwitter" target="_blank">
-                    <v-icon x-large color="#1DA1F2">mdi-twitter</v-icon>
-                </v-btn>
+                <v-tooltip top>
+                    <template v-slot:activator="{on}">
+                        <v-btn depressed fab color="white" :href="shareTwitter" target="_blank" v-on="on">
+                            <v-icon x-large color="#1DA1F2">mdi-twitter</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Twitterにシェア</span>
+                </v-tooltip>
             </v-col>
         </v-row>
         <v-row id="video" justify="center">
@@ -30,15 +35,24 @@
                 ></youtube>
             </v-sheet>
         </v-row>
+        <v-dialog max-width="800" v-model="ratingDialog">
+            <v-card color="mainColor">
+                <Rating :shareTwitter="shareTwitter"></Rating>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
 <script>
     import party from "party-js";
     import Pubsub from 'pubsub-js'
+    import Rating from './Rating.vue'
     import {mapActions, mapMutations, mapGetters} from 'vuex'
     export default {
         name: "Video",
+        components: {
+            Rating
+        },
         data() {
             return {
                 playerVars: {
@@ -52,7 +66,8 @@
                     formDialog: false,
                     tweet: "https://twitter.com/intent/tweet",
                     url: "https://sycall.app/",
-                }
+                },
+                ratingDialog: false,
             }
         },
         props: {
@@ -150,6 +165,7 @@
                 for (let i = 0; i < 3; i++) {
                     party.confetti(this.createMouseEvent(windowWidth, windowHeight))
                 }
+                this.ratingDialog = true
             }
         },
         mounted() {
