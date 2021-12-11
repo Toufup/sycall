@@ -40,6 +40,9 @@ gem 'html2slim'
 # Security
 gem 'rails_same_site_cookie'
 
+# SEO
+gem 'meta-tags'
+
 group :development, :test do
   # Code analyze
   gem 'rubocop', '~> 1.22', '>= 1.22.1'
