@@ -5,7 +5,10 @@
         </v-row>
         <v-row justify="center">
             <h3 class="white--text">
-                Sycall は K-POP アイドル曲のコール練習を楽しくする。最高なコールを決めて推しを応援しよう！
+                Sycall は K-POP のコール練習を楽しくする。「最高」な「コール」を決めて推しを応援しよう！
+            </h3>
+            <h3 class="white--text">
+                ユーザ登録不要で 1 クリックでスタート。今すぐ始めよう！
             </h3>
         </v-row>
         <v-row justify="center">
@@ -116,6 +119,9 @@
                     })
                 }, 90);
             },
+        },
+        mounted() {
+            document.title = "K-POPコール練習アプリ | Sycall"
         },
     }
 </script>

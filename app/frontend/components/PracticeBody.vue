@@ -38,5 +38,8 @@
                 this.lyricsLines = res.data
             })
         },
+        mounted() {
+            document.title = `練習中: ${this.selectedCallInfo.artist} - ${this.selectedCallInfo.title} | Sycall`
+        },
     }
 </script>

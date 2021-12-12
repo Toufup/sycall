@@ -139,6 +139,7 @@
             },
         },
         mounted() {
+            document.title = "コール選択 | Sycall"
             axios.get("/calls/get_lyrics_count")
             .then(res => {
                 this.callLyricsCount = res.data.lyrics.count
