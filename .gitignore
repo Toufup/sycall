@@ -41,3 +41,6 @@ yarn-debug.log*
 
 # OSX
 .DS_Store
+
+# Ignore Sitemap
+/public/sitemap.xml.gz
