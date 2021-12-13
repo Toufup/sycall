@@ -39,6 +39,10 @@
                 </v-col>
             </template>
         </List>
+        <v-pagination
+            circle color="maccha" :length="pageLength" v-model="pageNum"
+            @input="getArtists()" @next="getArtists()" @previous="getArtists()"
+        ></v-pagination>
     </v-container>
 </template>
 
@@ -58,10 +62,19 @@
                 addFormat: null,
                 editFormat: null,
                 artists: [],
+                pageLength: null,
+                pageNum: 1,
                 moduleName: "アーティスト",
             }
         },
         methods: {
+            getArtists(){
+                axios.get(this.apiPath, {params:{page_num: this.pageNum}})
+                .then(res => {
+                    this.artists = res.data.artists
+                    this.pageLength = res.data.pageLength
+                })
+            },
             getAddFormat(){
                 axios.get(`${this.apiPath}/new`)
                 .then((res) => {
@@ -90,10 +103,7 @@
             }
         },
         mounted() {
-            axios.get(this.apiPath)
-            .then(res => {
-                this.artists = res.data
-            })
+            this.getArtists()
         },
     }
 </script>

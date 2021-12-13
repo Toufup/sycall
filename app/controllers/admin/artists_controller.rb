@@ -5,7 +5,9 @@ class Admin::ArtistsController < ApplicationController
     def new; end
     
     def index
-        @artists = Artist.all
+        per_page = 5
+        @page_length = (Artist.all.count/per_page.to_f).ceil
+        @artists = Artist.order(created_at: :desc).page(params[:page_num]).per(per_page)
     end
 
     def search_artists
