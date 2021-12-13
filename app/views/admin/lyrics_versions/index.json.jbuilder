@@ -1,4 +1,4 @@
-json.array! @lyrics_versions do |lyrics_version|
+json.lyricsVersions @lyrics_versions do |lyrics_version|
     json.id lyrics_version.id
     json.song do
         json.title lyrics_version.song.title
@@ -13,3 +13,4 @@ json.array! @lyrics_versions do |lyrics_version|
         json.name lyrics_version.language.name
     end
 end
+json.pageLength @page_length

@@ -5,7 +5,9 @@ class Admin::LyricsVersionsController < ApplicationController
     def new; end
     
     def index
-        @lyrics_versions = LyricsVersion.all.includes(:song, :language, song:[:artist])
+        per_page = 5
+        @page_length = (LyricsVersion.all.count/per_page.to_f).ceil
+        @lyrics_versions = LyricsVersion.includes(:song, :language, song:[:artist]).order(created_at: :desc).page(params[:page_num]).per(per_page)
     end
 
     def search_versions
