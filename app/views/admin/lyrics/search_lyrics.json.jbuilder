@@ -10,4 +10,3 @@ json.lyrics @lyrics do |lyric|
         end
     end
 end
-json.pageLength @page_length

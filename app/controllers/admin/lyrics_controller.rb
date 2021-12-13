@@ -10,6 +10,10 @@ class Admin::LyricsController < ApplicationController
         @lyrics = Lyric.includes(:lyrics_version, lyrics_version:[:song, :language]).order(created_at: :desc).page(params[:page_num]).per(per_page)
     end
 
+    def search_lyrics
+        @lyrics = Lyric.order(created_at: :desc).search_lyrics(search_params[:keyword])
+    end
+
     def create
         lyrics_version = LyricsVersion.find_by(lyrics_version_params)
         lyric = lyrics_version.build_lyric(lyric_params)
@@ -38,6 +42,10 @@ class Admin::LyricsController < ApplicationController
     end
     
     private
+    def search_params
+        params.permit(:format, :keyword)
+    end
+
     def lyrics_version_params
         params.require(:lyrics_version).permit(:id)
     end
