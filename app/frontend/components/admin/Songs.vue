@@ -74,6 +74,10 @@
                 </v-col>
             </template>
         </List>
+        <v-pagination
+            circle color="maccha" :length="pageLength" v-model="pageNum"
+            @input="getSongs()" @next="getSongs()" @previous="getSongs()"
+        ></v-pagination>
     </v-container>
 </template>
 
@@ -89,6 +93,8 @@
                 addFormat: null,
                 editFormat: null,
                 songs: [],
+                pageLength: null,
+                pageNum: 1,
                 keyword: "",
                 isAdding: false,
                 isEditing: false,
@@ -116,6 +122,13 @@
             },
         },
         methods: {
+            getSongs(){
+                axios.get("/api/admin/songs", {params:{page_num: this.pageNum}})
+                .then(res => {
+                    this.songs = res.data.songs
+                    this.pageLength = res.data.pageLength
+                })
+            },
             getAddFormat(){
                 this.isAdding = true
                 axios.get(`${this.apiPath}/new`)
@@ -148,10 +161,7 @@
             }
         },
         mounted() {
-            axios.get("/api/admin/songs")
-            .then(res => {
-                this.songs = res.data
-            })
+            this.getSongs()
         },
     }
 </script>

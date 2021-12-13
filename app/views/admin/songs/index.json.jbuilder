@@ -1,4 +1,4 @@
-json.array! @songs do |song|
+json.songs @songs do |song|
     json.id song.id
     json.song do
         json.title song.title
@@ -8,3 +8,4 @@ json.array! @songs do |song|
         json.name song.artist.name
     end
 end
+json.pageLength @page_length

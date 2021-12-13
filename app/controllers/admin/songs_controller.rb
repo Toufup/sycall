@@ -5,7 +5,9 @@ class Admin::SongsController < ApplicationController
     def new; end
     
     def index
-        @songs = Song.all.includes(:artist)
+        per_page = 5
+        @page_length = (Song.all.count/per_page.to_f).ceil
+        @songs = Song.includes(:artist).order(created_at: :desc).page(params[:page_num]).per(per_page)
     end
 
     def search_songs

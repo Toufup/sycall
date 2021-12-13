@@ -35,6 +35,7 @@
     }
     .v-pagination__item, .v-pagination__navigation{
         box-shadow: none;
+        border: 1px solid gray;
     }
     a{
         text-decoration: none;
