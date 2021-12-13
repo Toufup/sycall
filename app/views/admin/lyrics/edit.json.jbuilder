@@ -1,3 +1,4 @@
+json.body @lyric.body
 json.lyrics_version do
     json.id @lyric.lyrics_version.id
     json.song do
@@ -9,7 +10,4 @@ json.lyrics_version do
     json.language do
         json.name @lyric.lyrics_version.language.name
     end
-end
-json.lyric do 
-    json.body @lyric.body
 end

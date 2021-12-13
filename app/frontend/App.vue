@@ -33,6 +33,10 @@
     .v-dialog {
         border-radius: 24px !important;
     }
+    .v-pagination__item, .v-pagination__navigation{
+        box-shadow: none;
+        border: 1px solid gray;
+    }
     a{
         text-decoration: none;
     }
