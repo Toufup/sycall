@@ -11,7 +11,11 @@ class Admin::LyricsVersionsController < ApplicationController
     end
 
     def search_versions
-        @lyrics_versions = LyricsVersion.search_versions(search_params[:keyword]).not_has_lyrics
+        @lyrics_versions = LyricsVersion.order(created_at: :desc).search_versions(search_params[:keyword])
+    end
+
+    def search_versions_to_edit
+        @lyrics_versions = LyricsVersion.order(created_at: :desc).search_versions(search_params[:keyword]).not_has_lyrics
     end
 
     def create

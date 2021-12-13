@@ -36,6 +36,7 @@ Rails.application.routes.draw do
         resources :lyrics_versions, only: [:new, :index, :create, :destroy, :edit, :update] do
           collection do
             get "search_versions"
+            get "search_versions_to_edit"
           end
         end
         resources :lyrics, only: [:new, :index, :create, :destroy, :edit, :update]

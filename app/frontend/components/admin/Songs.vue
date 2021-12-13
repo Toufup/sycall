@@ -142,7 +142,7 @@
                 })
             },
             searchSongs(value){
-                axios.get("/api/admin/songs/search_songs", {params: {keyword: value}})
+                axios.get(`${this.apiPath}/search_songs`, {params: {keyword: value}})
                 .then(res => {
                     this.songs = res.data.songs;
                 })
