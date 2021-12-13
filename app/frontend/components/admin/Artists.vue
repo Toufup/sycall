@@ -21,9 +21,9 @@
             </v-col>
             <v-spacer/>
             <v-col cols="auto">
-                <v-text-field outlined class="rounded-xl" hide-details dense
+                <v-text-field outlined class="rounded-xl" hide-details dense clearable
                     append-icon="mdi-magnify" color="maccha" v-model="indexKeyword"
-                    @click:append="searchArtists(indexKeyword)"
+                    @keydown.enter="searchArtists(indexKeyword)"
                 ></v-text-field>
             </v-col>
         </v-row>

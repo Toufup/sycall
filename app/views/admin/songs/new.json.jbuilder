@@ -1,7 +1,5 @@
-json.song do
-    json.title ""
-    json.bpm ""
-end
+json.title ""
+json.bpm ""
 json.artist do
     json.id ""
 end

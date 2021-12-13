@@ -11,7 +11,7 @@ class Admin::SongsController < ApplicationController
     end
 
     def search_songs
-        @songs = Song.search_songs(search_params[:keyword])
+        @songs = Song.order(created_at: :desc).search_songs(search_params[:keyword])
     end
     
     def create
