@@ -5,7 +5,9 @@ class Admin::LyricsController < ApplicationController
     def new; end
     
     def index
-        @lyrics = Lyric.all.includes(:lyrics_version, lyrics_version:[:song, :language])
+        per_page = 5
+        @page_length = (Lyric.all.count/per_page.to_f).ceil
+        @lyrics = Lyric.includes(:lyrics_version, lyrics_version:[:song, :language]).order(created_at: :desc).page(params[:page_num]).per(per_page)
     end
 
     def create

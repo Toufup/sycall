@@ -1,4 +1,4 @@
-json.array! @lyrics do |lyric|
+json.lyrics @lyrics do |lyric|
     json.id lyric.id
     json.lyrics_version do
         json.song do
@@ -12,3 +12,4 @@ json.array! @lyrics do |lyric|
         json.body lyric.body[0, 50]
     end
 end
+json.pageLength @page_length
