@@ -42,7 +42,7 @@
             <v-col cols="auto">
                 <v-text-field outlined class="rounded-xl" hide-details dense clearable
                     append-icon="mdi-magnify" color="maccha" v-model="indexKeyword"
-                    @keydown.enter="searchLyrics(indexKeyword)"
+                    @keydown.enter="getLyrics(1, indexKeyword); pageNum = 1"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -85,7 +85,7 @@
         </List>
         <v-pagination
             circle color="maccha" :length="pageLength" v-model="pageNum"
-            @input="getLyrics()" @next="getLyrics()" @previous="getLyrics()"
+            @input="getLyrics(pageNum)" @next="getLyrics(pageNum)" @previous="getLyrics(pageNum)"
         ></v-pagination>
     </v-container>
 </template>
@@ -120,9 +120,8 @@
             keyword(value){
                 if (value && value.trim()) {
                     this.searchLoading = true;
-                    axios.get("/api/admin/lyrics_versions/search_versions_to_edit", {params: {keyword: value}})
+                    axios.get("/api/admin/lyrics_versions", {params: {keyword: value}})
                     .then(res => {
-                        console.log(res.data);
                         this.lyricsVersionsList = res.data.lyrics_versions;
                         this.searchLoading = false;
                     })
@@ -132,17 +131,11 @@
             },
         },
         methods: {
-            getLyrics(){
-                axios.get(this.apiPath, {params:{page_num: this.pageNum}})
+            getLyrics(pageNum, indexKeyword){
+                axios.get(this.apiPath, {params:{page_num: pageNum, keyword: indexKeyword}})
                 .then(res => {
                     this.lyrics = res.data.lyrics
                     this.pageLength = res.data.pageLength
-                })
-            },
-            searchLyrics(value){
-                axios.get(`${this.apiPath}/search_lyrics`, {params: {keyword: value}})
-                .then(res => {
-                    this.lyrics = res.data.lyrics;
                 })
             },
             getAddFormat(){
@@ -155,7 +148,7 @@
             addToLyricsList(obj){
                 const addObj = obj
                 addObj.body = addObj.body.slice(0, 50)
-                this.lyrics.push(addObj)
+                this.lyrics.unshift(addObj)
                 this.addFormat = null;
             },
             destroyFromLyricsList(id){
@@ -169,14 +162,14 @@
                     this.editFormat = res.data
                 })
             },
-            updateLyricsList(id, obj){
-                Object.assign(this.lyrics.find((e) => e.id === id), obj)
+            updateLyricsList(obj){
+                Object.assign(this.lyrics.find((e) => e.id === obj.id), obj)
                 this.keyword = "";
                 this.editFormat = null;
             }
         },
         mounted() {
-            this.getLyrics()
+            this.getLyrics(1)
         },
     }
 </script>

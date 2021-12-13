@@ -60,7 +60,7 @@
             <v-col cols="auto">
                 <v-text-field outlined class="rounded-xl" hide-details dense clearable
                     append-icon="mdi-magnify" color="maccha" v-model="indexKeyword"
-                    @keydown.enter="searchLyricsVersions(indexKeyword)"
+                    @keydown.enter="getLyricsVersions(1); pageNum = 1"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -127,7 +127,7 @@
         </List>
         <v-pagination
             circle color="maccha" :length="pageLength" v-model="pageNum"
-            @input="getLyricsVersions()" @next="getLyricsVersions()" @previous="getLyricsVersions()"
+            @input="getLyricsVersions(pageNum)" @next="getLyricsVersions(pageNum)" @previous="getLyricsVersions(pageNum)"
         ></v-pagination>
     </v-container>
 </template>
@@ -169,7 +169,7 @@
             keyword(value){
                 if (value && value.trim()) {
                     this.searchLoading = true;
-                    axios.get("/api/admin/songs/search_songs", {params: {keyword: value}})
+                    axios.get("/api/admin/songs", {params: {keyword: value}})
                     .then(res => {
                         this.songsList = res.data.songs;
                         this.searchLoading = false;
@@ -180,17 +180,11 @@
             },
         },
         methods: {
-            getLyricsVersions(){
-                axios.get(this.apiPath, {params:{page_num: this.pageNum}})
+            getLyricsVersions(pageNum){
+                axios.get(this.apiPath, {params:{page_num: pageNum, keyword: this.indexKeyword}})
                 .then(res => {
-                    this.lyricsVersions = res.data.lyricsVersions
+                    this.lyricsVersions = res.data.lyrics_versions
                     this.pageLength = res.data.pageLength
-                })
-            },
-            searchLyricsVersions(value){
-                axios.get(`${this.apiPath}/search_versions`, {params: {keyword: value}})
-                .then(res => {
-                    this.lyricsVersions = res.data.lyrics_versions;
                 })
             },
             getAddFormat(){
@@ -225,7 +219,7 @@
             }
         },
         mounted() {
-            this.getLyricsVersions()
+            this.getLyricsVersions({pageNum : 1})
         },
     }
 </script>

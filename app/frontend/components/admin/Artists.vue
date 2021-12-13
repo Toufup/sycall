@@ -23,7 +23,7 @@
             <v-col cols="auto">
                 <v-text-field outlined class="rounded-xl" hide-details dense clearable
                     append-icon="mdi-magnify" color="maccha" v-model="indexKeyword"
-                    @keydown.enter="searchArtists(indexKeyword)"
+                    @keydown.enter="getArtists(1); pageNum = 1"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -52,7 +52,7 @@
         </List>
         <v-pagination
             circle color="maccha" :length="pageLength" v-model="pageNum"
-            @input="getArtists()" @next="getArtists()" @previous="getArtists()"
+            @input="getArtists(pageNum)" @next="getArtists(pageNum)" @previous="getArtists(pageNum)"
         ></v-pagination>
     </v-container>
 </template>
@@ -80,17 +80,11 @@
             }
         },
         methods: {
-            getArtists(){
-                axios.get(this.apiPath, {params:{page_num: this.pageNum}})
+            getArtists(pageNum){
+                axios.get(this.apiPath, {params:{page_num: pageNum, keyword: this.indexKeyword}})
                 .then(res => {
                     this.artists = res.data.artists
                     this.pageLength = res.data.pageLength
-                })
-            },
-            searchArtists(value){
-                axios.get(`${this.apiPath}/search_artists`, {params: {keyword: value}})
-                .then(res => {
-                    this.artists = res.data.artists;
                 })
             },
             getAddFormat(){
@@ -121,7 +115,7 @@
             }
         },
         mounted() {
-            this.getArtists()
+            this.getArtists({pageNum : 1})
         },
     }
 </script>

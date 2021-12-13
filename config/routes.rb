@@ -23,27 +23,10 @@ Rails.application.routes.draw do
 
     scope :api do
       namespace :admin do
-        resources :artists, only: [:new, :index, :create, :destroy, :edit, :update] do
-          collection do
-            get "search_artists"
-          end
-        end
-        resources :songs, only: [:new, :index, :create, :destroy, :edit, :update] do
-          collection do
-            get "search_songs"
-          end
-        end
-        resources :lyrics_versions, only: [:new, :index, :create, :destroy, :edit, :update] do
-          collection do
-            get "search_versions"
-            get "search_versions_to_edit"
-          end
-        end
-        resources :lyrics, only: [:new, :index, :create, :destroy, :edit, :update] do
-          collection do
-            get "search_lyrics"
-          end
-        end
+        resources :artists, only: [:new, :index, :create, :destroy, :edit, :update]
+        resources :songs, only: [:new, :index, :create, :destroy, :edit, :update]
+        resources :lyrics_versions, only: [:new, :index, :create, :destroy, :edit, :update]
+        resources :lyrics, only: [:new, :index, :create, :destroy, :edit, :update]
         resources :populars, only: [:new, :index, :create, :destroy, :edit, :update]
       end
     end

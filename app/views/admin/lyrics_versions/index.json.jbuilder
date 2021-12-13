@@ -1,4 +1,4 @@
-json.lyricsVersions @lyrics_versions do |lyrics_version|
+json.lyrics_versions @lyrics_versions do |lyrics_version|
     json.id lyrics_version.id
     json.source lyrics_version.source
     json.song do

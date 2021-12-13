@@ -1,6 +1,6 @@
 class CallsController < ApplicationController
     def search
-        @lyrics_versions = LyricsVersion.search_versions(call_params[:keyword]).has_lyrics
+        @lyrics_versions = LyricsVersion.search_lyrics_versions(call_params[:keyword])
     end
 
     def get_lyrics_count

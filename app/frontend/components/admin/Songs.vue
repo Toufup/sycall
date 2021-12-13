@@ -40,7 +40,7 @@
             <v-col cols="auto">
                 <v-text-field outlined class="rounded-xl" hide-details dense clearable
                     append-icon="mdi-magnify" color="maccha" v-model="indexKeyword"
-                    @keydown.enter="searchSongs(indexKeyword)"
+                    @keydown.enter="getSongs(1); pageNum = 1"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -87,7 +87,7 @@
         </List>
         <v-pagination
             circle color="maccha" :length="pageLength" v-model="pageNum"
-            @input="getSongs()" @next="getSongs()" @previous="getSongs()"
+            @input="getSongs(pageNum)" @next="getSongs(pageNum)" @previous="getSongs(pageNum)"
         ></v-pagination>
     </v-container>
 </template>
@@ -123,7 +123,7 @@
             keyword(value){
                 if (value && value.trim()) {
                     this.searchLoading = true;
-                    axios.get("/api/admin/artists/search_artists", {params: {keyword: value}})
+                    axios.get("/api/admin/artists", {params: {keyword: value}})
                     .then(res => {
                         this.artistsList = res.data.artists;
                         this.searchLoading = false;
@@ -134,17 +134,11 @@
             },
         },
         methods: {
-            getSongs(){
-                axios.get("/api/admin/songs", {params:{page_num: this.pageNum}})
+            getSongs(pageNum){
+                axios.get(this.apiPath, {params:{page_num: pageNum, keyword: this.indexKeyword}})
                 .then(res => {
                     this.songs = res.data.songs
                     this.pageLength = res.data.pageLength
-                })
-            },
-            searchSongs(value){
-                axios.get(`${this.apiPath}/search_songs`, {params: {keyword: value}})
-                .then(res => {
-                    this.songs = res.data.songs;
                 })
             },
             getAddFormat(){
@@ -179,7 +173,7 @@
             }
         },
         mounted() {
-            this.getSongs()
+            this.getSongs({pageNum : 1})
         },
     }
 </script>
