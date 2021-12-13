@@ -11,7 +11,7 @@ class Admin::ArtistsController < ApplicationController
     end
 
     def search_artists
-        @artists = Artist.search_artists(search_params[:keyword])
+        @artists = Artist.order(created_at: :desc).search_artists(search_params[:keyword])
     end
     
     def create

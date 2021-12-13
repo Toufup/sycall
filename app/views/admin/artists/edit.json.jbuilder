@@ -1,3 +1,1 @@
-json.artist do
-    json.name @artist.name
-end
+json.name @artist.name
