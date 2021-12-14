@@ -111,7 +111,7 @@
             }
         },
         methods: {
-            ...mapMutations(["showSuccessAlert"]),
+            ...mapMutations(["openSnackbar", "closeSnackbar"]),
             openDialog(id, dialogId){
                 this[dialogId] = id
             },
@@ -120,10 +120,12 @@
                 axios.delete(`${this.apiPath}/${id}`)
                 .then(() => {
                     this.$emit("destroyItem", id)
-                    this.showSuccessAlert({
-                        action: "削除",
-                        flag: true, 
-                        type: this.moduleName
+                    this.closeSnackbar()
+                    this.$nextTick(() => {
+                        this.openSnackbar({
+                            text: `${this.moduleName}を削除しました`,
+                            icon: "delete"
+                        })
                     })
                 })
             },
@@ -137,10 +139,12 @@
                 .then((res) => {
                     const obj = Object.assign(this.editFormat, res.data)
                     this.$emit("updateItem", obj)
-                    this.showSuccessAlert({
-                        action: "変更",
-                        flag: true, 
-                        type: this.moduleName
+                    this.closeSnackbar()
+                    this.$nextTick(() => {
+                        this.openSnackbar({
+                            text: `${this.moduleName}を変更しました`,
+                            icon: "pencil"
+                        })
                     })
                 })
             },

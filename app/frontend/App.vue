@@ -1,10 +1,11 @@
 <template>
     <v-app id="top-wrapper">
         <NavBar></NavBar>
-        <!-- TODO アラートメッセージの変更。次のブランチで修正 -->
-        <!-- <v-snackbar top rounded="xl" color="mainColor" elevation="1" content-class="black--text">
-            demo
-        </v-snackbar> -->
+        <v-snackbar top rounded="xl" color="primary" content-class="black--text"
+            :value="snackbar.flag" @input="closeSnackbar" :timeout="snackbar.timeout"
+        >
+            <v-icon left color="black">mdi-{{snackbar.icon}}</v-icon>{{snackbar.text}}
+        </v-snackbar>
         <v-main >
             <transition appear enter-active-class="animate__animated animate__fadeIn">
                 <keep-alive include="PreparationBody">
@@ -19,13 +20,20 @@
 <script>
     import "animate.css"
     import 'vue-swatches/dist/vue-swatches.css'
-    import NavBar from './components/NavBar.vue';
+    import NavBar from './components/NavBar.vue'
     import Footer from './components/Footer.vue'
+    import {mapGetters, mapMutations} from 'vuex'
     export default {
         name: "App",
         components: {
             NavBar,
             Footer
+        },
+        computed: {
+            ...mapGetters(["snackbar"]),
+        },
+        methods: {
+            ...mapMutations(["closeSnackbar"]),
         },
     }
 </script>
