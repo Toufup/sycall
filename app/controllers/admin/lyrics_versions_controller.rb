@@ -2,9 +2,12 @@ class Admin::LyricsVersionsController < Admin::BaseController
     before_action :set_lyrics_version, only: [:edit, :update, :destroy]
     before_action :search_lyrics_versions, only: [:index]
 
-    def new; end
+    def new
+        authorize(LyricsVersion)
+    end
     
     def index
+        authorize(LyricsVersion)
         per_page = 5
         if params[:page_num]
             # 一覧表示用
@@ -18,6 +21,7 @@ class Admin::LyricsVersionsController < Admin::BaseController
     end
 
     def create
+        authorize(LyricsVersion)
         song = Song.find_by(song_params)
         language = Language.find_by(language_params)
         lyrics_version = song.lyrics_versions.build(lyrics_version_params)
@@ -34,12 +38,16 @@ class Admin::LyricsVersionsController < Admin::BaseController
     end
     
     def destroy
+        authorize(LyricsVersion)
         @lyrics_version.destroy!
     end
     
-    def edit; end
+    def edit
+        authorize(LyricsVersion)
+    end
     
     def update
+        authorize(LyricsVersion)
         song = Song.find_by(song_params)
         language = Language.find_by(language_params)
         @lyrics_version.update!(lyrics_version_params.merge(song: song, language: language))

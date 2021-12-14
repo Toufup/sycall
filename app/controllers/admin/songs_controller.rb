@@ -2,9 +2,12 @@ class Admin::SongsController < Admin::BaseController
     before_action :set_song, only: [:edit, :update, :destroy]
     before_action :search_songs, only: [:index]
 
-    def new; end
+    def new
+        authorize(Song)
+    end
     
     def index
+        authorize(Song)
         per_page = 5
         if params[:page_num]
             @songs = @search_result.includes(:artist).page(params[:page_num]).per(per_page).order(created_at: :desc)
@@ -15,6 +18,7 @@ class Admin::SongsController < Admin::BaseController
     end
 
     def create
+        authorize(Song)
         artist = Artist.find_by(artist_params)
         song = artist.songs.build(song_params)
         song.save!
@@ -27,12 +31,16 @@ class Admin::SongsController < Admin::BaseController
     end
     
     def destroy
+        authorize(Song)
         @song.destroy!
     end
     
-    def edit; end
+    def edit
+        authorize(Song)
+    end
     
     def update
+        authorize(Song)
         artist = Artist.find_by(artist_params)
         @song.update!(song_params.merge(artist: artist))
         render json: {
