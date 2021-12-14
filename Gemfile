@@ -40,6 +40,7 @@ gem 'kaminari'
 
 # Security
 gem 'rails_same_site_cookie'
+gem "pundit"
 
 # SEO
 gem 'meta-tags'
