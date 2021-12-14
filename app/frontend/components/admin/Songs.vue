@@ -173,7 +173,7 @@
             }
         },
         mounted() {
-            this.getSongs({pageNum : 1})
+            this.getSongs(1)
         },
     }
 </script>

@@ -219,7 +219,7 @@
             }
         },
         mounted() {
-            this.getLyricsVersions({pageNum : 1})
+            this.getLyricsVersions(1)
         },
     }
 </script>

@@ -115,7 +115,7 @@
             }
         },
         mounted() {
-            this.getArtists({pageNum : 1})
+            this.getArtists(1)
         },
     }
 </script>
