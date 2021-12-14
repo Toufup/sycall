@@ -173,7 +173,8 @@
             }
         },
         mounted() {
-            this.getSongs({pageNum : 1})
+            document.title = "曲管理 | Sycall"
+            this.getSongs(1)
         },
     }
 </script>

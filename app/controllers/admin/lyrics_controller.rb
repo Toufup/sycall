@@ -1,11 +1,13 @@
-class Admin::LyricsController < ApplicationController
-    before_action :authenticate_user!
+class Admin::LyricsController < Admin::BaseController
     before_action :set_lyric, only: [:edit, :update, :destroy]
     before_action :search_lyrics, only: [:index]
 
-    def new; end
+    def new
+        authorize(Lyric)
+    end
     
     def index
+        authorize(Lyric)
         per_page = 5
         if params[:page_num]
             # 一覧表示用
@@ -19,6 +21,7 @@ class Admin::LyricsController < ApplicationController
     end
 
     def create
+        authorize(Lyric)
         lyrics_version = LyricsVersion.find_by(lyrics_version_params)
         lyric = lyrics_version.build_lyric(lyric_params)
         lyric.save!
@@ -36,12 +39,16 @@ class Admin::LyricsController < ApplicationController
     end
     
     def destroy
+        authorize(Lyric)
         @lyric.destroy!
     end
     
-    def edit; end
+    def edit
+        authorize(Lyric)
+    end
     
     def update
+        authorize(Lyric)
         @lyric.update!(lyric_params)
         render json: {
             id: @lyric.id,

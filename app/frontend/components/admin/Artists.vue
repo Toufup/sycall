@@ -115,7 +115,8 @@
             }
         },
         mounted() {
-            this.getArtists({pageNum : 1})
+            document.title = "アーティスト管理 | Sycall"
+            this.getArtists(1)
         },
     }
 </script>
