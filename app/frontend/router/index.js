@@ -14,6 +14,8 @@ import Populars from '../components/admin/Populars.vue'
 import Terms from '../components/Terms.vue'
 import Privacy from '../components/Privacy.vue'
 
+import NotFound404 from '../components/errors/NotFound404.vue'
+
 export default new VueRouter({
     mode: "history",
     routes: [
@@ -88,6 +90,11 @@ export default new VueRouter({
         {
             path: "/privacy",
             component: Privacy,
+        },
+        {
+            // ページが見つからないパスのエラーハンドリング。一番下に配置すべき
+            path: '*', 
+            component: NotFound404
         },
     ]
 })
