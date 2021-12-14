@@ -5,7 +5,7 @@ module ApplicationHelper
             title: "K-POPコール練習アプリ",
             reverse: true,
             charset: 'utf-8',
-            description: "Sycall は K-POP のコール練習を楽しくする。登録不要で 1 クリックでスタート!「最高」な「コール」を決めて推しを応援しよう!今すぐ始めてみよう!(PC推奨)",
+            description: "Sycall は K-POP のコール練習を楽しくする。登録不要で 2 ステップでスタート!「最高」な「コール」を決めて推しを応援しよう!今すぐ始めてみよう!(PC推奨)",
             keywords: ["kpop", "fanchant", "kpop groups", "kpop girl groups", "kpop アイドル", "kpop グループ", "bts", "blackpink", "twice"],
             canonical: "https://sycall.app/",
             separator: "|",
@@ -15,7 +15,7 @@ module ApplicationHelper
             ],
             og: {
                 site_name: "Sycall | K-POPコール練習アプリ",
-                title: "K-POPコール練習なら【Sycall】! 登録不要で 1 クリックでスタート!",
+                title: "K-POPコール練習なら【Sycall】! 登録不要で 2 ステップでスタート!(PC推奨)",
                 description: :description,
                 type: 'website',
                 url: "https://sycall.app/",
