@@ -30,6 +30,7 @@ const mutations = {
         state.videoId = url.match(urlReg)[4]
     },
     openSnackbar(state, payload){
+        if (payload.timeout) { state.snackbar.timeout = payload.timeout }
         state.snackbar.icon = payload.icon
         state.snackbar.flag = true;
         state.snackbar.text = payload.text;
