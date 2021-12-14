@@ -1,5 +1,4 @@
-class Admin::PopularsController < ApplicationController
-    before_action :authenticate_user!
+class Admin::PopularsController < Admin::BaseController
     before_action :set_popular, only: [:edit, :update, :destroy]
 
     def new; end

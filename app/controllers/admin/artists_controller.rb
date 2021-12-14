@@ -1,5 +1,4 @@
-class Admin::ArtistsController < ApplicationController
-    before_action :authenticate_user!
+class Admin::ArtistsController < Admin::BaseController
     before_action :set_artist, only: [:edit, :update, :destroy]
     before_action :search_artists, only: [:index]
 

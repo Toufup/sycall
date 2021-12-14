@@ -1,5 +1,4 @@
-class Admin::LyricsController < ApplicationController
-    before_action :authenticate_user!
+class Admin::LyricsController < Admin::BaseController
     before_action :set_lyric, only: [:edit, :update, :destroy]
     before_action :search_lyrics, only: [:index]
 

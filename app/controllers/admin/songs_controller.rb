@@ -1,5 +1,4 @@
-class Admin::SongsController < ApplicationController
-    before_action :authenticate_user!
+class Admin::SongsController < Admin::BaseController
     before_action :set_song, only: [:edit, :update, :destroy]
     before_action :search_songs, only: [:index]
 

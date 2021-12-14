@@ -1,5 +1,4 @@
-class Admin::LyricsVersionsController < ApplicationController
-    before_action :authenticate_user!
+class Admin::LyricsVersionsController < Admin::BaseController
     before_action :set_lyrics_version, only: [:edit, :update, :destroy]
     before_action :search_lyrics_versions, only: [:index]
 
