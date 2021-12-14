@@ -115,6 +115,7 @@
             }
         },
         mounted() {
+            document.title = "アーティスト管理 | Sycall"
             this.getArtists(1)
         },
     }

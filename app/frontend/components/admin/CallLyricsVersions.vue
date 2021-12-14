@@ -219,6 +219,7 @@
             }
         },
         mounted() {
+            document.title = "バージョン管理 | Sycall"
             this.getLyricsVersions(1)
         },
     }

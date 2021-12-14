@@ -90,6 +90,7 @@
             }
         },
         mounted() {
+            document.title = "人気キーワード管理 | Sycall"
             axios.get(this.apiPath)
             .then(res => {
                 this.populars = res.data

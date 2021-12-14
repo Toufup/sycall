@@ -169,6 +169,7 @@
             }
         },
         mounted() {
+            document.title = "歌詞管理 | Sycall"
             this.getLyrics(1)
         },
     }

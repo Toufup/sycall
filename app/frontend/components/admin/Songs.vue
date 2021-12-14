@@ -173,6 +173,7 @@
             }
         },
         mounted() {
+            document.title = "曲管理 | Sycall"
             this.getSongs(1)
         },
     }
