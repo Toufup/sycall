@@ -21,6 +21,9 @@ gem 'webpacker', '~> 4.0'
 # Authentication
 gem 'devise'
 
+# Error Handling
+gem 'rambulance'
+
 # UI/UX
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'

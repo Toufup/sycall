@@ -215,6 +215,10 @@ GEM
       thor (>= 0.20.3, < 2.0)
     rainbow (3.0.0)
     rake (13.0.6)
+    rambulance (2.0.0)
+      actionpack
+      activesupport
+      railties
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -359,6 +363,7 @@ DEPENDENCIES
   pundit
   rails (= 6.0.3.7)
   rails_same_site_cookie
+  rambulance
   rspec-rails (~> 5.0, >= 5.0.2)
   rubocop (~> 1.22, >= 1.22.1)
   rubocop-performance (~> 1.11, >= 1.11.5)
