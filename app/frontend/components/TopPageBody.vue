@@ -1,6 +1,7 @@
 <template>
-    <v-container px-16 py-10 id="top-page-body">
-        <v-row justify="center">
+    <v-container px-16 id="top-page-body">
+        <News></News>
+        <v-row justify="center" class="mt-8">
             <h1 class="mainColor--text">最高なコールを！</h1>
         </v-row>
         <v-row justify="center">
@@ -76,9 +77,13 @@
 </template>
 
 <script>
+    import News from './News.vue'
     import {hearts} from '../src/effects/hearts'
     export default {
         name: "TopPageBody",
+        components: {
+            News
+        },
         data() {
             return {
                 dialogGuide: false,
@@ -135,8 +140,5 @@
     }
     #guide-pics{
         width: 100%;
-    }
-    #top-page-body{
-        margin-top: 80px;
     }
 </style>
