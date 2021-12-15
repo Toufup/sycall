@@ -3,7 +3,7 @@ class CreateNews < ActiveRecord::Migration[6.0]
     create_table :news do |t|
       t.string :title
       t.text :body
-      t.integer :tag
+      t.integer :tag, default: 0
 
       t.timestamps
     end

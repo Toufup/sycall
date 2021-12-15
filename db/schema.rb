@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2021_12_15_074903) do
   create_table "news", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "title"
     t.text "body"
-    t.integer "tag"
+    t.integer "tag", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
