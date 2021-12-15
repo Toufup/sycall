@@ -1,6 +1,6 @@
 <template>
     <v-container px-16 id="top-page-body">
-        <News></News>
+        <Banner></Banner>
         <v-row justify="center" class="mt-8">
             <h1 class="mainColor--text">最高なコールを！</h1>
         </v-row>
@@ -77,12 +77,12 @@
 </template>
 
 <script>
-    import News from './News.vue'
+    import Banner from './Banner.vue'
     import {hearts} from '../src/effects/hearts'
     export default {
         name: "TopPageBody",
         components: {
-            News
+            Banner
         },
         data() {
             return {
