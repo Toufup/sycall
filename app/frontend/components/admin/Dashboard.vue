@@ -29,6 +29,7 @@
                     {icon: "file-document", name: "バージョン", route: "callLyricsVersions"},
                     {icon: "music-box", name: "歌詞", route: "callLyrics"},
                     {icon: "fire", name: "人気キーワード", route: "populars"},
+                    {icon: "information", name: "お知らせ", route: "news"},
                 ],
                 currentTab: "Artists",
             }
