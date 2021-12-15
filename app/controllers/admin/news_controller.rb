@@ -21,7 +21,10 @@ class Admin::NewsController < Admin::BaseController
         authorize(News)
         a_news = News.new(news_params)
         a_news.save!
-        render json: { id: a_news.id }
+        render json: { 
+            id: a_news.id,
+            createdAt: I18n.localize(a_news.created_at, format: "%Y/%m/%d")
+        }
     end
     
     def destroy

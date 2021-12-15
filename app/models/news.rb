@@ -3,5 +3,5 @@ class News < ApplicationRecord
         where("title LIKE ?", "%#{keyword}%")
     }
 
-    enum tag: { public: 0, archived: 1 }
+    enum tag: { published: 0, archived: 1 }
 end

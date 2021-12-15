@@ -36,7 +36,7 @@
         <List
             :moduleName="moduleName"
             :apiPath="apiPath"
-            :iconName="'account-information'"
+            :iconName="'information'"
             :items="news"
 
             @destroyItem="destroyFromNewsList"
@@ -46,8 +46,20 @@
         >
             <template v-slot:contentArea="{item}">
                 <v-list-item-title class="black--text">{{item.title}}</v-list-item-title>
+                <v-list-item-subtitle>公開日：{{item.createdAt}}</v-list-item-subtitle>
             </template>
             <template v-if="editFormat" v-slot:formEditArea>
+                <v-col cols="12">
+                    <v-card outlined class="rounded-xl">
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    公開日：{{editFormat.createdAt}}
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-card>
+                </v-col>
                 <v-col cols="12">
                     <v-text-field label="タイトル" required color="maccha"
                         clearable rounded outlined
