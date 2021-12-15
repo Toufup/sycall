@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     get "/calls/get_lyrics_count", to: "calls#get_lyrics_count"
     get "/calls/get_popular_words", to: "calls#get_popular_words"
     get "/calls/get_lyrics", to: "calls#get_lyrics"
+    get "/api/news/index", to: "news#index"
 
     scope :api do
       namespace :admin do
