@@ -1,5 +1,5 @@
 <template>
-    <v-container id="artists-group">
+    <v-container id="news-group">
         <v-row>
             <v-col cols="auto" align-self="center">
                 <AddButton
@@ -7,14 +7,20 @@
                     :apiPath="apiPath"
                     @startAdding="getAddFormat"
                     :addFormat="addFormat"
-                    @addItem="addToArtistsList"
+                    @addItem="addToNewsList"
                 >
                     <template v-if="addFormat" v-slot:formAddArea>
                         <v-col cols="12">
-                            <v-text-field label="名前" required color="maccha"
+                            <v-text-field label="タイトル" required color="maccha"
                                 clearable rounded outlined
-                                v-model="addFormat.name"
+                                v-model="addFormat.title"
                             ></v-text-field>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-textarea label="本文" required color="maccha"
+                                rounded outlined
+                                v-model="addFormat.body"
+                            ></v-textarea>
                         </v-col>
                     </template>
                 </AddButton>
@@ -23,36 +29,42 @@
             <v-col cols="auto">
                 <v-text-field outlined class="rounded-xl" hide-details dense clearable
                     append-icon="mdi-magnify" color="maccha" v-model="indexKeyword"
-                    @keydown.enter="getArtists(1); pageNum = 1"
+                    @keydown.enter="getNews(1); pageNum = 1"
                 ></v-text-field>
             </v-col>
         </v-row>
         <List
             :moduleName="moduleName"
             :apiPath="apiPath"
-            :iconName="'account-music'"
-            :items="artists"
+            :iconName="'account-information'"
+            :items="news"
 
-            @destroyItem="destroyFromArtistsList"
+            @destroyItem="destroyFromNewsList"
             @startEditing="getEditFormat"
             :editFormat="editFormat"
-            @updateItem="updateArtistsList"
+            @updateItem="updateNewsList"
         >
             <template v-slot:contentArea="{item}">
-                <v-list-item-title class="black--text">{{item.name}}</v-list-item-title>
+                <v-list-item-title class="black--text">{{item.title}}</v-list-item-title>
             </template>
             <template v-if="editFormat" v-slot:formEditArea>
                 <v-col cols="12">
-                    <v-text-field label="名前" required color="maccha"
+                    <v-text-field label="タイトル" required color="maccha"
                         clearable rounded outlined
-                        v-model="editFormat.name"
+                        v-model="editFormat.title"
                     ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-textarea label="本文" required color="maccha"
+                        rounded outlined
+                        v-model="editFormat.body"
+                    ></v-textarea>
                 </v-col>
             </template>
         </List>
         <v-pagination
             circle color="maccha" :length="pageLength" v-model="pageNum"
-            @input="getArtists(pageNum)" @next="getArtists(pageNum)" @previous="getArtists(pageNum)"
+            @input="getNews(pageNum)" @next="getNews(pageNum)" @previous="getNews(pageNum)"
         ></v-pagination>
     </v-container>
 </template>
@@ -62,28 +74,28 @@
     import List from './List.vue'
     import axios from 'axios'
     export default {
-        name: "Artists",
+        name: "News",
         components: {
             AddButton,
             List,
         },
         data() {
             return {
-                apiPath: "/api/admin/artists",
+                apiPath: "/api/admin/news",
                 addFormat: null,
                 editFormat: null,
-                artists: [],
+                news: [],
                 pageLength: null,
                 pageNum: 1,
-                moduleName: "アーティスト",
+                moduleName: "お知らせ",
                 indexKeyword: null,
             }
         },
         methods: {
-            getArtists(pageNum){
+            getNews(pageNum){
                 axios.get(this.apiPath, {params:{page_num: pageNum, keyword: this.indexKeyword}})
                 .then(res => {
-                    this.artists = res.data.artists
+                    this.news = res.data.news
                     this.pageLength = res.data.pageLength
                 })
             },
@@ -93,13 +105,13 @@
                     this.addFormat = res.data
                 })
             },
-            addToArtistsList(obj){
+            addToNewsList(obj){
                 const addObj = obj
-                this.artists.unshift(addObj)
+                this.news.unshift(addObj)
                 this.addFormat = null;
             },
-            destroyFromArtistsList(id){
-                this.artists = this.artists.filter((e) => {
+            destroyFromNewsList(id){
+                this.news = this.news.filter((e) => {
                     return e.id !== id;
                 });
             },
@@ -109,14 +121,14 @@
                     this.editFormat = res.data
                 })
             },
-            updateArtistsList(obj){
-                Object.assign(this.artists.find((e) => e.id === obj.id), obj)
+            updateNewsList(obj){
+                Object.assign(this.news.find((e) => e.id === obj.id), obj)
                 this.editFormat = null;
             }
         },
         mounted() {
-            document.title = "アーティスト管理 | Sycall"
-            this.getArtists(1)
+            document.title = "お知らせ管理 | Sycall"
+            this.getNews(1)
         },
     }
 </script>
