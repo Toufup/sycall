@@ -86,7 +86,7 @@
     import List from './List.vue'
     import axios from 'axios'
     export default {
-        name: "News",
+        name: "AdminNews",
         components: {
             AddButton,
             List,
