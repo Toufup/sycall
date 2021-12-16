@@ -52,7 +52,7 @@ class Admin::NewsController < Admin::BaseController
     end
 
     def news_params
-        params.require(:news).permit(:title, :body)
+        params.require(:news).permit(:title, :body, :tag)
     end
 
     def set_a_news

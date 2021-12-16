@@ -61,6 +61,13 @@
                     </v-card>
                 </v-col>
                 <v-col cols="12">
+                    <v-select label="タグ" required color="maccha" item-color="maccha"
+                        clearable rounded outlined
+                        :items="tags" item-text="text" item-value="value"
+                        v-model="editFormat.tag"
+                    ></v-select>
+                </v-col>
+                <v-col cols="12">
                     <v-text-field label="タイトル" required color="maccha"
                         clearable rounded outlined
                         v-model="editFormat.title"
@@ -99,6 +106,10 @@
                 news: [],
                 pageLength: null,
                 pageNum: 1,
+                tags: [
+                    {text: "公開", value: "published"},
+                    {text: "アーカイブ", value: "archived"},
+                ],
                 moduleName: "お知らせ",
                 indexKeyword: null,
             }
