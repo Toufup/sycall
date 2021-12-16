@@ -29,15 +29,15 @@ const mutations = {
         const urlReg = /^(https\:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)+([\S]{11})([\S]*$)/
         state.videoId = url.match(urlReg)[4]
     },
-    showSuccessAlert(state, props){
-        state.successAlert.action = props.action;
-        state.successAlert.flag = props.flag;
-        state.successAlert.type = props.type;
+    openSnackbar(state, payload){
+        if (payload.timeout) { state.snackbar.timeout = payload.timeout }
+        state.snackbar.icon = payload.icon
+        state.snackbar.flag = true;
+        state.snackbar.text = payload.text;
     },
-    closeSuccessAlert(state){
-        state.successAlert.action = null;
-        state.successAlert.flag = false;
-        state.successAlert.type = null;
+    closeSnackbar(state){
+        state.snackbar.flag = false;
+        state.snackbar.text = null;
     },
     setIsLogin(state,bool){
         state.isLogin = bool
@@ -57,10 +57,11 @@ const state = {
     time: 0,
     selectedCallInfo: null,
     videoId: null,
-    successAlert: {
-        action: null,
+    snackbar: {
         flag: false,
-        type: null,
+        timeout: 3000,
+        text: null,
+        icon: "check-circle"
     },
     isLogin: false,
     loginDate: null,
@@ -77,8 +78,8 @@ const getters = {
     videoId(state){
         return state.videoId
     },
-    successAlert(state){
-        return state.successAlert
+    snackbar(state){
+        return state.snackbar
     },
     isLogin(state){
         return state.isLogin

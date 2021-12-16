@@ -1,9 +1,5 @@
 <template>
     <v-container fluid id="admin-body">
-        <v-alert dismissible type="success" color="maccha" dense class="mx-16 rounded-xl" 
-            :value="successAlert.flag" @input="closeSuccessAlert" transition="scale-transition">
-            {{successAlert.type}}を{{successAlert.action}}しました！
-        </v-alert>
         <v-sheet class="mainColor rounded-xl mx-16">
             <v-container px-16 py-8>
                 <v-tabs vertical color="maccha"
@@ -23,7 +19,6 @@
 
 <script>
     import "animate.css"
-    import {mapGetters, mapMutations} from 'vuex'
     export default {
         name: "Dashboard",
         data() {
@@ -34,15 +29,10 @@
                     {icon: "file-document", name: "バージョン", route: "callLyricsVersions"},
                     {icon: "music-box", name: "歌詞", route: "callLyrics"},
                     {icon: "fire", name: "人気キーワード", route: "populars"},
+                    {icon: "information", name: "お知らせ", route: "news"},
                 ],
                 currentTab: "Artists",
             }
-        },
-        computed: {
-            ...mapGetters(["successAlert"]),
-        },
-        methods: {
-            ...mapMutations(["closeSuccessAlert"])
         },
     }
 </script>

@@ -63,17 +63,19 @@
             }
         },
         methods: {
-            ...mapMutations(["showSuccessAlert"]),
+            ...mapMutations(["openSnackbar", "closeSnackbar"]),
             add(){
                 this.dialogAdd = false;
                 axios.post(this.apiPath,this.addFormat)
                 .then((res) => {
                     const obj = Object.assign(this.addFormat, res.data)
                     this.$emit("addItem", obj)
-                    this.showSuccessAlert({
-                        action: "追加",
-                        flag: true, 
-                        type: this.moduleName
+                    this.closeSnackbar()
+                    this.$nextTick(() => {
+                        this.openSnackbar({
+                            text: `${this.moduleName}を追加しました`,
+                            icon: "plus-circle"
+                        })
                     })
                 })
             },

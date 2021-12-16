@@ -58,5 +58,8 @@
                 })
             }
         },
+        mounted() {
+            document.title = "ログイン | Sycall"
+        },
     }
 </script>

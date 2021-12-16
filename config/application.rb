@@ -41,5 +41,8 @@ module Sycall
     end
     # autoload lib files
     config.autoload_paths += %W(#{config.root}/lib)
+
+    #timezone
+    config.active_record.default_timezone = :local
   end
 end

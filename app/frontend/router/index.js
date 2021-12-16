@@ -1,19 +1,26 @@
 import VueRouter from 'vue-router'
 import store from '../store'
 
+// メイン
 import TopPageBody from '../components/TopPageBody.vue'
 import PreparationBody from '../components/PreparationBody.vue'
 import PracticeBody from '../components/PracticeBody.vue'
 import LoginBody from '../components/LoginBody.vue'
+import Terms from '../components/Terms.vue'
+import Privacy from '../components/Privacy.vue'
+import News from '../components/News.vue'
+import NewsDetail from '../components/NewsDetail.vue'
+
+// 管理画面
 import Dashboard from '../components/admin/Dashboard.vue'
 import Artists from '../components/admin/Artists.vue'
 import Songs from '../components/admin/Songs.vue'
 import CallLyricsVersions from '../components/admin/CallLyricsVersions.vue'
 import CallLyrics from '../components/admin/CallLyrics.vue'
 import Populars from '../components/admin/Populars.vue'
-import Terms from '../components/Terms.vue'
-import Privacy from '../components/Privacy.vue'
+import AdminNews from '../components/admin/AdminNews.vue'
 
+// エラーハンドリング
 import NotFound404 from '../components/errors/NotFound404.vue'
 
 export default new VueRouter({
@@ -81,6 +88,11 @@ export default new VueRouter({
                     name: "populars",
                     component: Populars,
                 },
+                {
+                    path: "news",
+                    name: "news",
+                    component: AdminNews,
+                },
             ]
         },
         {
@@ -90,6 +102,14 @@ export default new VueRouter({
         {
             path: "/privacy",
             component: Privacy,
+        },
+        {
+            path: "/news",
+            component: News,
+        },
+        {
+            path: "/news/:id",
+            component: NewsDetail,
         },
         {
             // ページが見つからないパスのエラーハンドリング。一番下に配置すべき

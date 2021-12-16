@@ -105,6 +105,7 @@
 </template>
 
 <script>
+    import {mapMutations} from 'vuex'
     import {hearts} from '../src/effects/hearts'
     import VSwatches from 'vue-swatches'
     import Pubsub from 'pubsub-js'
@@ -170,6 +171,7 @@
             },
         },
         methods: {
+            ...mapMutations(["openSnackbar", "closeSnackbar"]),
             like(event){
                 if (!this.isLiked) {
                     hearts(event.target);
@@ -179,10 +181,26 @@
             rewind(){
                 this.timeOffset -= 0.5
                 Pubsub.publish("catchTimeOffset", this.timeOffset)
+                this.closeSnackbar()
+                this.$nextTick(() => {
+                    this.openSnackbar({
+                        text: "0.5秒遅らせた",
+                        icon: "redo",
+                        timeout: 1000,
+                    })
+                })
             },
             forward(){
                 this.timeOffset += 0.5
                 Pubsub.publish("catchTimeOffset", this.timeOffset)
+                this.closeSnackbar()
+                this.$nextTick(() => {
+                    this.openSnackbar({
+                        text: "0.5秒早めた",
+                        icon: "undo",
+                        timeout: 1000,
+                    })
+                })
             },
             sendColor(){
                 Pubsub.publish("catchCallBackgroundColor", this.callBackgroundColor)
