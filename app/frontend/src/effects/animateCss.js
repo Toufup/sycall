@@ -1,4 +1,3 @@
-// TODO 公式ドキュで紹介されたPromiseの関数。後で理解する
 export const animateCss = (element, animation, prefix = 'animate__') =>
 // We create a Promise and return it
 new Promise((resolve, reject) => {
