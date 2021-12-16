@@ -10,11 +10,10 @@
                             class="d-flex align-center"
                         >
                             <v-icon left color="mainColor">mdi-information</v-icon>
-                            <a class="d-flex align-baseline">
+                            <a class="d-flex align-baseline" @click="viewDetail(news.id)">
                                 <p class="white--text">
                                     {{currentNews.title}} 
                                 </p>
-                                <v-icon small color="white">mdi-open-in-new</v-icon>
                             </a>
                         </div>
                     </template>
@@ -38,6 +37,11 @@
         computed: {
             currentNews(){
                 return this.newsList[this.newsIndex]
+            }
+        },
+        methods: {
+            viewDetail(id){
+                this.$router.push(`/news/${id}`)
             }
         },
         mounted() {

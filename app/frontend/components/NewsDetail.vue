@@ -43,7 +43,7 @@
         },
         methods: {
             pageBack(){
-                this.$router.push("/news");
+                this.$router.back();
             }
         },
         mounted() {
