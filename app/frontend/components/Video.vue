@@ -129,6 +129,7 @@
                 // ランダムな場所に星の爆けるエフェクト
                 const windowWidth = window.innerWidth;
                 const windowHeight = window.innerHeight;
+                clearInterval(this.partyLoopProcessId);
                 this.partyLoopProcessId = setInterval(() => {
                     party.sparkles(this.createMouseEvent(windowWidth, windowHeight),{
                         color: party.variation.gradientSample(
