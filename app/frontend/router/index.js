@@ -9,6 +9,7 @@ import LoginBody from '../components/LoginBody.vue'
 import Terms from '../components/Terms.vue'
 import Privacy from '../components/Privacy.vue'
 import News from '../components/News.vue'
+import NewsDetail from '../components/NewsDetail.vue'
 
 // 管理画面
 import Dashboard from '../components/admin/Dashboard.vue'
@@ -105,6 +106,10 @@ export default new VueRouter({
         {
             path: "/news",
             component: News,
+        },
+        {
+            path: "/news/:id",
+            component: NewsDetail,
         },
         {
             // ページが見つからないパスのエラーハンドリング。一番下に配置すべき

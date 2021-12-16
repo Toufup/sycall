@@ -12,7 +12,9 @@
                                 <div id="newsDigest" :key="news.id" class="d-flex ma-4">
                                     <span>{{news.createdAt}}</span>
                                     <v-divider vertical class="mx-4"></v-divider>
-                                    <p>{{news.title}}</p>
+                                    <router-link :to="`/news/${news.id}`" class="black--text">
+                                        <p>{{news.title}}</p>
+                                    </router-link>
                                 </div>
                             </template>
                         </v-card-text>
@@ -43,6 +45,10 @@
 </script>
 
 <style scoped>
+    a:hover {
+        color: #323232;
+        text-decoration: underline;
+    }
     p{
         margin: 0;
     }
