@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "/login", to: "home#index"
   get "/terms", to: "home#index"
   get "/privacy", to: "home#index"
+  get "/news", to: "home#index"
 
   get "/admin", to: "admin/dashboard#index"
   get "/admin/*path", to: "admin/dashboard#index"
