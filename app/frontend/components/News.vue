@@ -6,12 +6,16 @@
                     <h1>お知らせ</h1>
                 </v-col>
                 <v-col cols="12">
-                    <v-card outlined class="rounded-xl" color="white black--text">
-                        <v-card-title>
-                            <span>2021/12/12</span>
-                            <v-divider vertical class="mx-2"></v-divider>
-                            <p>第1条（適用）</p>
-                        </v-card-title>
+                    <v-card outlined class="rounded-xl" color="white">
+                        <v-card-text class="black--text">
+                            <template v-for="news in newsList">
+                                <div id="newsDigest" :key="news.id" class="d-flex ma-4">
+                                    <span>{{news.createdAt}}</span>
+                                    <v-divider vertical class="mx-4"></v-divider>
+                                    <p>{{news.title}}</p>
+                                </div>
+                            </template>
+                        </v-card-text>
                     </v-card>
                 </v-col>
             </v-container>
@@ -20,9 +24,19 @@
 </template>
 
 <script>
+    import axios from 'axios'
     export default {
         name: "News",
+        data() {
+            return {
+                newsList: []
+            }
+        },
         mounted() {
+            axios.get("/api/news/index")
+            .then(res => {
+                this.newsList = res.data
+            })
             document.title = "お知らせ | Sycall"
         },
     }
@@ -32,7 +46,7 @@
     p{
         margin: 0;
     }
-    h2{
-        margin-top: 10px;
+    #newsDigest{
+        font-size: 20px;
     }
 </style>
