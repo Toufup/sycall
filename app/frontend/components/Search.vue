@@ -127,6 +127,8 @@
             }
         },
         mounted() {
+            // 選択していたコールがあればクリアしておく
+            this.sendSelectedCallInfo(null);
             axios.get("/calls/get_popular_words")
             .then(res => {
                 this.popularWords = res.data
