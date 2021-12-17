@@ -8,9 +8,7 @@
         </v-snackbar>
         <v-main >
             <transition appear enter-active-class="animate__animated animate__fadeIn">
-                <keep-alive include="PreparationBody">
-                    <router-view></router-view>
-                </keep-alive>
+                <router-view></router-view>
             </transition>
         </v-main>
         <Footer ></Footer>
