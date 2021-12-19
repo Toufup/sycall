@@ -160,6 +160,7 @@
             },
             // 動画の最後に紙吹雪をランダムに出現させる
             ended(){
+                clearInterval(this.videoTimeProcessId);
                 clearInterval(this.partyLoopProcessId);
                 const windowWidth = window.innerWidth;
                 const windowHeight = window.innerHeight;
