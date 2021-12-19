@@ -94,7 +94,7 @@
                 return this.$refs.youtube.player
             },
             twitterText(){
-                return ` @SycallApp で ${this.artist} のコールを練習しています🎉 `
+                return ` Sycall で ${this.artist} のコールを練習しています🎉 `
             },
             twitterHashtags(){
                 return `sycall,サイコール,${this.artist},${this.title.replace(/\s+/g, "").toLowerCase()}`
